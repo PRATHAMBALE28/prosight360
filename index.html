@@ -1,0 +1,1635 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prosight — Real-Time Body Worn Camera Systems</title>
+    <meta name="description" content="Prosight builds enterprise-grade body worn camera systems with live streaming, GPS tracking, and cloud evidence management for law enforcement and security teams across India.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0A0A0A',
+                        navy: '#0B1629',
+                        blue: '#0066FF',
+                        teal: '#00C9A7',
+                        offwhite: '#FAFAFA',
+                        grey: { 100: '#F4F4F2', 200: '#E8E8E4', 400: '#ABABAB', 600: '#5A5A5A' },
+                    },
+                    fontFamily: {
+                        sora: ['Sora', 'system-ui', 'sans-serif'],
+                        mono: ['DM Mono', 'monospace'],
+                    },
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@200;300;400;500;600;700;800&family=DM+Mono:wght@300;400&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Sora', system-ui, sans-serif; }
+        body { background: #FAFAFA; color: #0A0A0A; }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: #F4F4F2; }
+        ::-webkit-scrollbar-thumb { background: #E8E8E4; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #ABABAB; }
+
+        /* Animations */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes pulse-ring {
+            0% { transform: scale(1); opacity: 0.6; }
+            100% { transform: scale(1.8); opacity: 0; }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+        .anim-fade-up { opacity: 0; animation: fadeUp 0.8s ease-out forwards; }
+        .anim-d1 { animation-delay: 0.1s; }
+        .anim-d2 { animation-delay: 0.2s; }
+        .anim-d3 { animation-delay: 0.3s; }
+        .anim-d4 { animation-delay: 0.4s; }
+        .anim-d5 { animation-delay: 0.5s; }
+
+        /* Scroll reveal */
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        /* Live indicator */
+        .live-dot { position: relative; width: 8px; height: 8px; background: #00C9A7; border-radius: 50%; }
+        .live-dot::before { content: ''; position: absolute; inset: 0; border-radius: 50%; background: #00C9A7; animation: pulse-ring 1.5s ease-out infinite; }
+
+        /* Hero video overlay */
+        .hero-overlay {
+            background: linear-gradient(180deg, rgba(250,250,250,0.6) 0%, rgba(250,250,250,0.85) 50%, #FAFAFA 100%);
+        }
+
+        /* Cards */
+        .card-hover { transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); border: 1px solid #E8E8E4; }
+        .card-hover:hover { transform: translateY(-4px); border-color: #0066FF; box-shadow: 0 20px 60px -15px rgba(0,102,255,0.1); }
+
+        /* Dashboard tabs */
+        .dash-tab { transition: all 0.3s ease; }
+        .dash-tab.active { background: #0066FF; color: #fff; }
+
+        /* Use case tabs */
+
+        /* Industry officer visual — vertical portrait card */
+        .officer-visual { aspect-ratio: 3 / 4; position: relative; overflow: hidden; border-radius: 1rem; }
+        .officer-visual .figure-silhouette { position: absolute; left: 50%; bottom: 0; transform: translateX(-50%); width: 85%; height: 88%; }
+        .officer-visual .bwc-badge { position: absolute; z-index: 3; top: 42%; left: 50%; transform: translate(-50%, -50%); width: 44%; filter: drop-shadow(0 14px 28px rgba(0,0,0,0.35)); }
+        .officer-visual .scanline { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 0%, transparent 49%, rgba(0,201,167,0.08) 50%, transparent 51%, transparent 100%); background-size: 100% 8px; pointer-events: none; }
+        .officer-visual .placeholder-note { position: absolute; bottom: 14px; left: 14px; right: 14px; background: rgba(0,0,0,0.45); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 10px 12px; color: rgba(255,255,255,0.7); font-size: 9.5px; font-family: 'DM Mono', monospace; text-transform: uppercase; letter-spacing: 0.08em; line-height: 1.4; }
+        .pain-card { background: #fff; border: 1px solid #E8E8E4; border-left: 3px solid #EF4444; border-radius: 10px; padding: 14px 16px; transition: all 0.25s ease; }
+        .pain-card:hover { border-left-color: #DC2626; transform: translateX(2px); }
+        .pain-stat { font-family: 'DM Mono', monospace; font-size: 20px; font-weight: 700; color: #DC2626; line-height: 1; margin-bottom: 4px; }
+        .solution-card { display: flex; gap: 14px; padding: 16px; border-radius: 12px; background: linear-gradient(135deg, rgba(0,102,255,0.03), rgba(0,201,167,0.03)); border: 1px solid rgba(0,102,255,0.08); transition: all 0.25s ease; }
+        .solution-card:hover { border-color: rgba(0,102,255,0.2); transform: translateY(-1px); }
+
+        /* Navbar */
+        .navbar { transition: all 0.3s ease; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+        .navbar.scrolled { background: rgba(250,250,250,0.92); border-bottom: 1px solid #E8E8E4; }
+
+        /* Spec table */
+        .spec-row { transition: background 0.2s ease; }
+        .spec-row:hover { background: #F4F4F2; }
+
+        /* Product sidebar */
+        .product-sidebar { scrollbar-width: none; }
+        .product-sidebar::-webkit-scrollbar { display: none; }
+
+        /* Mobile menu */
+        .mobile-overlay { transition: opacity 0.3s ease; }
+    </style>
+</head>
+<body class="antialiased overflow-x-hidden">
+
+    <!-- ==================== NAVBAR ==================== -->
+    <nav class="navbar fixed top-0 left-0 right-0 z-50 bg-transparent">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 lg:h-20">
+                <!-- Logo (from brand kit SVG) -->
+                <a href="#" class="flex items-center gap-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 80" width="140" height="35">
+                        <path d="M18 8 L42 8 Q50 8 50 16 L50 40 Q50 58 30 68 Q10 58 10 40 L10 16 Q10 8 18 8 Z" fill="none" stroke="#0A0A0A" stroke-width="2.8" stroke-linejoin="round"/>
+                        <path d="M17 38 Q30 24 43 38 Q30 52 17 38 Z" fill="none" stroke="#0A0A0A" stroke-width="2.2" stroke-linejoin="round"/>
+                        <circle cx="30" cy="38" r="6.5" fill="none" stroke="#0A0A0A" stroke-width="2.2"/>
+                        <circle cx="30" cy="38" r="2.8" fill="#0A0A0A"/>
+                        <text x="62" y="50" font-family="'Sora', sans-serif" font-weight="600" font-size="34" letter-spacing="-1" fill="#0A0A0A">Prosight</text>
+                    </svg>
+                </a>
+
+                <!-- Desktop Nav -->
+                <div class="hidden lg:flex items-center gap-8">
+                    <a href="#features" class="text-sm text-grey-600 hover:text-primary transition-colors">Features</a>
+                    <a href="#product" class="text-sm text-grey-600 hover:text-primary transition-colors">Products</a>
+                    <a href="#dashboard" class="text-sm text-grey-600 hover:text-primary transition-colors">Dashboard</a>
+                    <a href="who-we-serve/index.html" class="text-sm text-grey-600 hover:text-primary transition-colors">Who We Serve</a>
+                    <a href="#why-prosight" class="text-sm text-grey-600 hover:text-primary transition-colors">Why Prosight</a>
+                </div>
+
+                <!-- CTA -->
+                <div class="hidden lg:flex items-center gap-4">
+                    <a href="#contact" data-ps="contact" class="text-sm text-grey-600 hover:text-primary transition-colors">Contact Sales</a>
+                    <a href="#demo" data-ps="demo" class="bg-blue hover:bg-blue/90 text-white text-sm font-medium px-5 py-2.5 rounded-lg transition-all">Book Demo</a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <button id="mobileMenuBtn" class="lg:hidden text-primary p-2" aria-label="Toggle menu">
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                        <path id="menuIcon" stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="mobile-menu lg:hidden hidden bg-offwhite/95 backdrop-blur-xl border-t border-grey-200">
+            <div class="px-6 py-6 space-y-4">
+                <a href="#features" class="block text-sm text-grey-600 hover:text-primary transition-colors py-2">Features</a>
+                <a href="#product" class="block text-sm text-grey-600 hover:text-primary transition-colors py-2">Products</a>
+                <a href="#dashboard" class="block text-sm text-grey-600 hover:text-primary transition-colors py-2">Dashboard</a>
+                <a href="who-we-serve/index.html" class="block text-sm text-grey-600 hover:text-primary transition-colors py-2">Who We Serve</a>
+                <a href="#why-prosight" class="block text-sm text-grey-600 hover:text-primary transition-colors py-2">Why Prosight</a>
+                <div class="pt-4 border-t border-grey-200 space-y-3">
+                    <a href="#contact" data-ps="contact" class="block text-sm text-grey-600 hover:text-primary transition-colors py-2">Contact Sales</a>
+                    <a href="#demo" data-ps="demo" class="block bg-blue text-white text-sm font-medium px-5 py-2.5 rounded-lg text-center">Book Demo</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- ==================== HERO SECTION WITH BACKGROUND VIDEO ==================== -->
+    <section class="relative min-h-screen flex items-center overflow-hidden" id="hero">
+        <!-- Background Video -->
+        <div class="absolute inset-0 z-0">
+            <!--
+                Replace <img> below with a <video> tag when your background video is ready:
+                <video autoplay muted loop playsinline class="w-full h-full object-cover">
+                    <source src="your-video.mp4" type="video/mp4">
+                </video>
+            -->
+            <img src="images/hero-bg.jpg" alt="" class="w-full h-full object-cover">
+        </div>
+
+        <!-- Overlay gradient for readability -->
+        <div class="absolute inset-0 z-[1]" style="background: linear-gradient(180deg, rgba(250,250,250,0.82) 0%, rgba(250,250,250,0.88) 50%, #FAFAFA 100%);"></div>
+        <!-- Subtle grid -->
+        <div class="absolute inset-0 z-[1]" style="background-image: linear-gradient(rgba(0,102,255,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(0,102,255,0.025) 1px, transparent 1px); background-size: 60px 60px;"></div>
+
+        <div class="relative z-[2] max-w-7xl mx-auto px-6 lg:px-8 pt-28 pb-20 lg:pt-0 lg:pb-0">
+            <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                <!-- Left: Copy -->
+                <div>
+                    <div class="flex items-center gap-2.5 mb-8 anim-fade-up">
+                        <div class="live-dot"></div>
+                        <span class="text-teal text-xs font-medium tracking-widest uppercase">Live Monitoring Active</span>
+                    </div>
+
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-[1.08] tracking-tight mb-6 anim-fade-up anim-d1">
+                        Every Officer.<br>
+                        Every Moment.<br>
+                        <span class="text-blue">Fully Visible.</span>
+                    </h1>
+
+                    <p class="text-lg lg:text-xl text-grey-600 max-w-lg leading-relaxed mb-10 anim-fade-up anim-d2">
+                        Enterprise-grade body worn cameras with live streaming, GPS tracking, and secure cloud evidence management. Purpose-built for Indian law enforcement and security teams.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row gap-4 anim-fade-up anim-d3">
+                        <a href="#demo" class="bg-blue hover:bg-blue/90 text-white font-medium px-8 py-4 rounded-xl text-center transition-all hover:shadow-lg hover:shadow-blue/20">
+                            Book a Demo
+                        </a>
+                        <a href="#dashboard" class="bg-primary/5 hover:bg-primary/10 text-primary font-medium px-8 py-4 rounded-xl text-center transition-all border border-grey-200">
+                            View Dashboard
+                        </a>
+                    </div>
+
+                    <!-- Trust bar -->
+                    <div class="mt-14 pt-8 border-t border-grey-200 anim-fade-up anim-d4">
+                        <p class="text-xs text-grey-400 uppercase tracking-widest mb-4">Trusted by agencies across India</p>
+                        <div class="flex items-center gap-8">
+                            <div class="text-grey-400 text-sm font-medium">State Police Depts</div>
+                            <div class="w-px h-4 bg-grey-200"></div>
+                            <div class="text-grey-400 text-sm font-medium">Enterprise Security</div>
+                            <div class="w-px h-4 bg-grey-200 hidden sm:block"></div>
+                            <div class="text-grey-400 text-sm font-medium hidden sm:block">Border Control</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Product hero image -->
+                <div class="relative anim-fade-up anim-d3">
+                    <div class="relative max-w-md mx-auto" style="animation: float 6s ease-in-out infinite;">
+                        <div class="rounded-3xl bg-gradient-to-b from-grey-100 to-white border border-grey-200 shadow-2xl shadow-primary/5 overflow-hidden relative p-8 pt-10 pb-0">
+                            <!-- Product image -->
+                            <img src="images/prosight-one-hero.webp" alt="Prosight One Body Worn Camera" class="w-full max-w-[280px] mx-auto drop-shadow-2xl relative z-[1]">
+
+                            <!-- Specs preview overlay -->
+                            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-white via-white/95 to-transparent p-6 pt-16 z-[2]">
+                                <div class="flex items-center justify-between mb-3">
+                                    <span class="text-xs font-semibold text-primary">Prosight One</span>
+                                    <span class="text-[10px] text-teal font-mono font-medium">2K HD</span>
+                                </div>
+                                <div class="grid grid-cols-3 gap-2">
+                                    <div class="text-center bg-grey-100/80 backdrop-blur rounded-lg py-2 px-1">
+                                        <div class="text-xs font-bold text-primary">IP67</div>
+                                        <div class="text-[9px] text-grey-400">Waterproof</div>
+                                    </div>
+                                    <div class="text-center bg-grey-100/80 backdrop-blur rounded-lg py-2 px-1">
+                                        <div class="text-xs font-bold text-primary">10h+</div>
+                                        <div class="text-[9px] text-grey-400">Battery</div>
+                                    </div>
+                                    <div class="text-center bg-grey-100/80 backdrop-blur rounded-lg py-2 px-1">
+                                        <div class="text-xs font-bold text-primary">166g</div>
+                                        <div class="text-[9px] text-grey-400">Weight</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-[2] anim-fade-up anim-d5" style="opacity:0">
+            <span class="text-[10px] text-grey-400 uppercase tracking-widest">Scroll</span>
+            <div class="w-px h-8 bg-gradient-to-b from-grey-400/30 to-transparent"></div>
+        </div>
+    </section>
+
+
+    <!-- ==================== FEATURES SECTION ==================== -->
+    <section id="features" class="relative py-24 lg:py-32 bg-offwhite">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-16 lg:mb-20 reveal">
+                <p class="text-blue text-xs font-semibold uppercase tracking-widest mb-4">Core Capabilities</p>
+                <h2 class="text-3xl lg:text-5xl font-bold tracking-tight mb-5">Three pillars of<br>operational visibility</h2>
+                <p class="text-grey-600 text-lg max-w-2xl mx-auto">Every Prosight camera is a complete command unit — streaming, tracking, and securing evidence in real time.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6 lg:gap-8">
+                <!-- Live Streaming -->
+                <div class="card-hover rounded-2xl bg-white p-8 lg:p-10 reveal">
+                    <div class="w-14 h-14 rounded-xl bg-blue/10 flex items-center justify-center mb-6">
+                        <svg class="w-7 h-7 text-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z"/>
+                        </svg>
+                    </div>
+                    <div class="flex items-center gap-2 mb-3">
+                        <h3 class="text-xl font-semibold">Live Streaming</h3>
+                        <div class="live-dot" style="width:6px;height:6px"></div>
+                    </div>
+                    <p class="text-grey-600 leading-relaxed">HD video streams directly from every active camera to your command centre. Monitor operations as they unfold, not after.</p>
+                    <div class="mt-6 pt-6 border-t border-grey-200">
+                        <div class="flex items-center gap-3 text-sm text-grey-600"><span class="text-teal text-xs">&#9679;</span> 2K adaptive streaming</div>
+                        <div class="flex items-center gap-3 text-sm text-grey-600 mt-2"><span class="text-teal text-xs">&#9679;</span> Low-bandwidth optimised</div>
+                    </div>
+                </div>
+
+                <!-- GPS Tracking -->
+                <div class="card-hover rounded-2xl bg-white p-8 lg:p-10 reveal" style="transition-delay:0.1s">
+                    <div class="w-14 h-14 rounded-xl bg-blue/10 flex items-center justify-center mb-6">
+                        <svg class="w-7 h-7 text-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">GPS Tracking</h3>
+                    <p class="text-grey-600 leading-relaxed">Real-time location of every deployed officer on a unified map. GPS+AGPS+GLONASS for sub-metre accuracy in any terrain.</p>
+                    <div class="mt-6 pt-6 border-t border-grey-200">
+                        <div class="flex items-center gap-3 text-sm text-grey-600"><span class="text-teal text-xs">&#9679;</span> Multi-constellation positioning</div>
+                        <div class="flex items-center gap-3 text-sm text-grey-600 mt-2"><span class="text-teal text-xs">&#9679;</span> Geofence alerts</div>
+                    </div>
+                </div>
+
+                <!-- Evidence Management -->
+                <div class="card-hover rounded-2xl bg-white p-8 lg:p-10 reveal" style="transition-delay:0.2s">
+                    <div class="w-14 h-14 rounded-xl bg-blue/10 flex items-center justify-center mb-6">
+                        <svg class="w-7 h-7 text-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Evidence Management</h3>
+                    <p class="text-grey-600 leading-relaxed">AES-256 encrypted cloud storage with complete chain-of-custody. Footage is timestamped, watermarked, and court-admissible.</p>
+                    <div class="mt-6 pt-6 border-t border-grey-200">
+                        <div class="flex items-center gap-3 text-sm text-grey-600"><span class="text-teal text-xs">&#9679;</span> AES-256 encryption</div>
+                        <div class="flex items-center gap-3 text-sm text-grey-600 mt-2"><span class="text-teal text-xs">&#9679;</span> Automated chain-of-custody</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ==================== IN THE FIELD — FULL-BLEED AXON-STYLE SHOWCASE ==================== -->
+    <!-- Section 1: Large hero — real BWC-on-officer image, full-bleed, dark overlay -->
+    <section id="in-the-field" class="relative h-[85vh] min-h-[600px] overflow-hidden">
+        <img src="images/bwc-police-london.jpg" alt="Police officer wearing body-worn camera on chest, on patrol" class="absolute inset-0 w-full h-full object-cover object-center">
+        <div class="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/60 to-primary/20"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent"></div>
+        <div class="relative h-full max-w-7xl mx-auto px-6 lg:px-8 flex items-center">
+            <div class="max-w-2xl reveal">
+                <div class="flex items-center gap-2 mb-6">
+                    <div class="live-dot"></div>
+                    <span class="text-teal text-xs font-medium tracking-widest uppercase">Field Deployed</span>
+                </div>
+                <p class="text-teal text-xs font-semibold uppercase tracking-widest mb-4">Law Enforcement</p>
+                <h2 class="text-white text-4xl lg:text-6xl font-bold leading-[1.05] tracking-tight mb-6">Every patrol,<br>on the record.</h2>
+                <p class="text-white/80 text-lg max-w-lg leading-relaxed mb-8">From beat constables to rapid-response units — Prosight One captures 2K video, streams it live, and files it into tamper-proof evidence storage. No paperwork gaps. No he-said-she-said.</p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="who-we-serve/law-enforcement.html" class="inline-flex items-center gap-2 bg-white text-primary text-sm font-medium px-6 py-3.5 rounded-xl hover:bg-white/90 transition-all">Explore law enforcement<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg></a>
+                    <a href="#demo" class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white text-sm font-medium px-6 py-3.5 rounded-xl hover:bg-white/20 transition-all">Book a demo</a>
+                </div>
+            </div>
+        </div>
+        <!-- Attribution (small, bottom-right) -->
+        <div class="absolute bottom-3 right-4 text-[9px] text-white/40 font-mono z-10">Photo: Sanderflight · CC BY-SA 4.0</div>
+    </section>
+
+    <!-- Section 2: Secondary hero — Minneapolis BWC officer, imagery-right layout -->
+    <section class="relative bg-offwhite py-20 lg:py-28 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+                <div class="reveal order-2 lg:order-1">
+                    <p class="text-blue text-xs font-semibold uppercase tracking-widest mb-4">Enterprise & Border Security</p>
+                    <h2 class="text-3xl lg:text-5xl font-bold tracking-tight mb-6 leading-[1.1]">Deployed where reliability isn't optional.</h2>
+                    <p class="text-grey-600 text-lg mb-8 leading-relaxed">Guards and border officers operate in places where coverage fluctuates, equipment gets rough handling, and there's no IT team nearby. Prosight One is built for that reality — IP67 sealed, MIL-STD-810G rugged, with local buffering when the network drops.</p>
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-3"><div class="w-5 h-5 rounded-full bg-teal/20 flex items-center justify-center flex-shrink-0 mt-0.5"><svg class="w-2.5 h-2.5 text-teal" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg></div><p class="text-sm text-grey-600"><span class="font-semibold text-primary">Patrol verification</span> — GPS+GLONASS trails prove route compliance.</p></div>
+                        <div class="flex items-start gap-3"><div class="w-5 h-5 rounded-full bg-teal/20 flex items-center justify-center flex-shrink-0 mt-0.5"><svg class="w-2.5 h-2.5 text-teal" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg></div><p class="text-sm text-grey-600"><span class="font-semibold text-primary">Multi-band 4G LTE</span> — 12+ bands plus WiFi AP/Station fallback.</p></div>
+                        <div class="flex items-start gap-3"><div class="w-5 h-5 rounded-full bg-teal/20 flex items-center justify-center flex-shrink-0 mt-0.5"><svg class="w-2.5 h-2.5 text-teal" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg></div><p class="text-sm text-grey-600"><span class="font-semibold text-primary">256GB local buffer</span> — auto-sync when back in coverage.</p></div>
+                    </div>
+                </div>
+                <div class="reveal order-1 lg:order-2 relative">
+                    <div class="rounded-2xl overflow-hidden shadow-2xl shadow-primary/10 aspect-[4/5] lg:aspect-[3/4] relative">
+                        <img src="images/bwc-border-guards.jpg" alt="Patrol officers on duty with body-worn cameras" class="w-full h-full object-cover">
+                        <div class="absolute top-4 left-4 flex items-center gap-2 bg-black/60 backdrop-blur-sm rounded-full px-3 py-1.5">
+                            <div class="live-dot" style="width:6px;height:6px"></div>
+                            <span class="text-[10px] text-white font-medium uppercase tracking-widest">Active Patrol</span>
+                        </div>
+                        <div class="absolute bottom-4 right-4 bg-white/95 backdrop-blur rounded-lg px-3 py-2 shadow-lg">
+                            <div class="text-[9px] text-grey-400 font-mono uppercase">Device Watermark</div>
+                            <div class="text-[11px] font-semibold text-primary">CAM-002 · 09:42</div>
+                        </div>
+                        <div class="absolute bottom-3 left-3 text-[8px] text-white/60 font-mono">Photo: IDF · CC BY-SA 3.0</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: Full-bleed Minneapolis officer — third industry statement -->
+    <section class="relative h-[70vh] min-h-[500px] overflow-hidden">
+        <img src="images/bwc-police-minneapolis.jpg" alt="Police officer body-worn camera on uniform during call" class="absolute inset-0 w-full h-full object-cover object-center">
+        <div class="absolute inset-0 bg-gradient-to-l from-primary/90 via-primary/60 to-primary/20"></div>
+        <div class="relative h-full max-w-7xl mx-auto px-6 lg:px-8 flex items-center justify-end">
+            <div class="max-w-xl text-right reveal">
+                <p class="text-teal text-xs font-semibold uppercase tracking-widest mb-4">Evidence Grade</p>
+                <h2 class="text-white text-3xl lg:text-5xl font-bold leading-[1.1] tracking-tight mb-6">Court-admissible<br>from the first frame.</h2>
+                <p class="text-white/80 text-lg mb-8 leading-relaxed">AES-256 encryption at capture. GPS coordinates, device ID, and timestamps burned into every frame. Cryptographic chain-of-custody from body to cloud.</p>
+                <div class="flex flex-wrap gap-3 justify-end">
+                    <span class="bg-white/10 backdrop-blur border border-white/20 text-white text-xs font-medium px-3 py-1.5 rounded-lg">AES-256</span>
+                    <span class="bg-white/10 backdrop-blur border border-white/20 text-white text-xs font-medium px-3 py-1.5 rounded-lg">GPS Watermark</span>
+                    <span class="bg-white/10 backdrop-blur border border-white/20 text-white text-xs font-medium px-3 py-1.5 rounded-lg">Tamper-proof</span>
+                    <span class="bg-white/10 backdrop-blur border border-white/20 text-white text-xs font-medium px-3 py-1.5 rounded-lg">Chain-of-custody</span>
+                </div>
+            </div>
+        </div>
+        <div class="absolute bottom-3 left-4 text-[9px] text-white/40 font-mono z-10">Photo: Tony Webster · CC BY-SA 2.0</div>
+    </section>
+
+    <!-- Section 4: Stat strip on offwhite -->
+    <section class="relative bg-offwhite py-14 lg:py-16 border-t border-grey-200">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-10 reveal">
+                <div><div class="text-3xl lg:text-4xl font-bold text-primary mb-1">12h shift</div><p class="text-xs text-grey-400 uppercase tracking-widest">4500 mAh battery</p></div>
+                <div><div class="text-3xl lg:text-4xl font-bold text-primary mb-1">IP67</div><p class="text-xs text-grey-400 uppercase tracking-widest">Dust & water resistant</p></div>
+                <div><div class="text-3xl lg:text-4xl font-bold text-primary mb-1">2 m</div><p class="text-xs text-grey-400 uppercase tracking-widest">Drop resistance</p></div>
+                <div><div class="text-3xl lg:text-4xl font-bold text-primary mb-1">10 h+</div><p class="text-xs text-grey-400 uppercase tracking-widest">Continuous recording</p></div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ==================== PRODUCT SECTION — PROSIGHT ONE ==================== -->
+    <section id="product" class="relative py-24 lg:py-32 bg-white border-t border-grey-200">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <!-- Section header -->
+            <div class="text-center mb-16 reveal">
+                <p class="text-blue text-xs font-semibold uppercase tracking-widest mb-4">Our Products</p>
+                <h2 class="text-3xl lg:text-5xl font-bold tracking-tight mb-5">Purpose-Built Hardware</h2>
+                <p class="text-grey-600 text-lg max-w-2xl mx-auto">Engineered for the toughest conditions. Every Prosight camera is designed for reliability, durability, and operational excellence.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-12 gap-8 reveal">
+                <!-- Product Sidebar -->
+                <div class="lg:col-span-3 product-sidebar">
+                    <div class="lg:sticky lg:top-24 space-y-2">
+                        <p class="text-[10px] text-grey-400 uppercase tracking-widest font-semibold mb-4 px-3">Product Line</p>
+
+                        <!-- M530 - Active -->
+                        <button class="product-nav-btn w-full text-left px-4 py-3.5 rounded-xl bg-blue/5 border border-blue/20 transition-all" data-product="m530" onclick="switchProduct('m530')">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-lg bg-blue/10 flex items-center justify-center flex-shrink-0">
+                                    <svg class="w-5 h-5 text-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z"/></svg>
+                                </div>
+                                <div>
+                                    <div class="text-sm font-semibold text-primary">Prosight One</div>
+                                    <div class="text-[10px] text-blue font-medium uppercase tracking-wider">Hero Product</div>
+                                </div>
+                            </div>
+                        </button>
+
+                        <!-- Dock Station -->
+                        <button class="product-nav-btn w-full text-left px-4 py-3.5 rounded-xl bg-grey-100/50 border border-grey-200 hover:border-grey-400 transition-all" data-product="dock" onclick="switchProduct('dock')">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-lg bg-grey-100 flex items-center justify-center flex-shrink-0">
+                                    <svg class="w-5 h-5 text-grey-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5.25 14.25h13.5m-13.5 0a3 3 0 01-3-3m3 3a3 3 0 100 6h13.5a3 3 0 100-6m-16.5-3a3 3 0 013-3h13.5a3 3 0 013 3m-19.5 0a4.5 4.5 0 01.9-2.7L5.737 5.1a3.375 3.375 0 012.7-1.35h7.126c1.062 0 2.062.5 2.7 1.35l2.587 3.45a4.5 4.5 0 01.9 2.7m0 0a3 3 0 01-3 3m0 3h.008v.008h-.008v-.008zm0-6h.008v.008h-.008v-.008zm-3 6h.008v.008h-.008v-.008zm0-6h.008v.008h-.008v-.008z"/></svg>
+                                </div>
+                                <div>
+                                    <div class="text-sm font-medium text-primary">Charging Dock</div>
+                                    <div class="text-[10px] text-grey-400">Accessory</div>
+                                </div>
+                            </div>
+                        </button>
+
+                        <!-- Vehicle Mount -->
+                        <button class="product-nav-btn w-full text-left px-4 py-3.5 rounded-xl bg-grey-100/50 border border-grey-200 hover:border-grey-400 transition-all" data-product="mount" onclick="switchProduct('mount')">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-lg bg-grey-100 flex items-center justify-center flex-shrink-0">
+                                    <svg class="w-5 h-5 text-grey-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.07-.504 1.07-1.125V14.25M2.25 14.25h20.25"/></svg>
+                                </div>
+                                <div>
+                                    <div class="text-sm font-medium text-primary">Vehicle Bracket</div>
+                                    <div class="text-[10px] text-grey-400">Accessory</div>
+                                </div>
+                            </div>
+                        </button>
+
+                        <!-- CTA in sidebar -->
+                        <div class="mt-6 pt-6 border-t border-grey-200">
+                            <a href="#demo" class="block w-full bg-blue hover:bg-blue/90 text-white text-sm font-medium px-4 py-3 rounded-xl text-center transition-all">
+                                Request Quote
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Content -->
+                <div class="lg:col-span-9">
+                    <!-- M530 BWC -->
+                    <div id="product-m530" class="product-panel">
+                        <!-- Product hero -->
+                        <div class="bg-grey-100 rounded-2xl p-8 lg:p-12 mb-8 relative overflow-hidden">
+                            <div class="grid md:grid-cols-2 gap-8 items-center">
+                                <div>
+                                    <div class="inline-flex items-center gap-2 bg-blue/10 text-blue text-[10px] font-semibold uppercase tracking-widest px-3 py-1.5 rounded-full mb-4">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-blue"></span> 4G Body Camera
+                                    </div>
+                                    <h3 class="text-3xl lg:text-4xl font-bold tracking-tight mb-2">Prosight One</h3>
+                                    <p class="text-grey-600 text-sm mb-6 leading-relaxed">High-performance 4G body worn camera with 2K HD recording, dual replaceable batteries, face recognition, and group intercom. Powered by Android 12.</p>
+
+                                    <div class="flex flex-wrap gap-2 mb-6">
+                                        <span class="bg-white text-primary text-[11px] font-medium px-3 py-1.5 rounded-lg border border-grey-200">2K HD</span>
+                                        <span class="bg-white text-primary text-[11px] font-medium px-3 py-1.5 rounded-lg border border-grey-200">H.265</span>
+                                        <span class="bg-white text-primary text-[11px] font-medium px-3 py-1.5 rounded-lg border border-grey-200">IP67</span>
+                                        <span class="bg-white text-primary text-[11px] font-medium px-3 py-1.5 rounded-lg border border-grey-200">4G LTE</span>
+                                        <span class="bg-white text-primary text-[11px] font-medium px-3 py-1.5 rounded-lg border border-grey-200">AES-256</span>
+                                        <span class="bg-white text-primary text-[11px] font-medium px-3 py-1.5 rounded-lg border border-grey-200">MIL-STD-810G</span>
+                                        <span class="bg-white text-primary text-[11px] font-medium px-3 py-1.5 rounded-lg border border-grey-200">GPS+GLONASS</span>
+                                    </div>
+
+                                    <div class="grid grid-cols-4 gap-3">
+                                        <div class="text-center">
+                                            <div class="text-lg font-bold text-primary">10h+</div>
+                                            <div class="text-[10px] text-grey-400">Battery Life</div>
+                                        </div>
+                                        <div class="text-center">
+                                            <div class="text-lg font-bold text-primary">166g</div>
+                                            <div class="text-[10px] text-grey-400">Weight</div>
+                                        </div>
+                                        <div class="text-center">
+                                            <div class="text-lg font-bold text-primary">3.1"</div>
+                                            <div class="text-[10px] text-grey-400">Touchscreen</div>
+                                        </div>
+                                        <div class="text-center">
+                                            <div class="text-lg font-bold text-primary">2m</div>
+                                            <div class="text-[10px] text-grey-400">Drop Rated</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Product image gallery -->
+                                <div class="flex flex-col items-center gap-3">
+                                    <!-- Main display image -->
+                                    <div class="w-full rounded-2xl bg-grey-100 border border-grey-200 overflow-hidden flex items-center justify-center p-4" style="min-height:220px;">
+                                        <img id="product-main-img" src="images/prosight-one-front.webp" alt="Prosight One — Front View" class="h-48 w-auto object-contain drop-shadow-xl transition-all duration-300">
+                                    </div>
+                                    <!-- Thumbnails -->
+                                    <div class="flex gap-2 justify-center flex-wrap">
+                                        <button onclick="setProductImg(this,'images/prosight-one-front.webp','Front')" class="prod-thumb active-thumb w-14 h-14 rounded-xl bg-grey-100 border-2 border-blue overflow-hidden flex items-center justify-center p-1 transition-all hover:border-blue">
+                                            <img src="images/prosight-one-front.webp" alt="Front" class="h-full w-auto object-contain">
+                                        </button>
+                                        <button onclick="setProductImg(this,'images/prosight-one-hero.webp','Back')" class="prod-thumb w-14 h-14 rounded-xl bg-grey-100 border-2 border-grey-200 overflow-hidden flex items-center justify-center p-1 transition-all hover:border-blue">
+                                            <img src="images/prosight-one-hero.webp" alt="Back" class="h-full w-auto object-contain">
+                                        </button>
+                                        <button onclick="setProductImg(this,'images/prosight-one-back.webp','3/4 View')" class="prod-thumb w-14 h-14 rounded-xl bg-grey-100 border-2 border-grey-200 overflow-hidden flex items-center justify-center p-1 transition-all hover:border-blue">
+                                            <img src="images/prosight-one-back.webp" alt="3/4 View" class="h-full w-auto object-contain">
+                                        </button>
+                                        <button onclick="setProductImg(this,'images/prosight-one-angle.webp','Screen')" class="prod-thumb w-14 h-14 rounded-xl bg-grey-100 border-2 border-grey-200 overflow-hidden flex items-center justify-center p-1 transition-all hover:border-blue">
+                                            <img src="images/prosight-one-angle.webp" alt="Screen" class="h-full w-auto object-contain">
+                                        </button>
+                                        <button onclick="setProductImg(this,'images/prosight-one-alt.webp','Side')" class="prod-thumb w-14 h-14 rounded-xl bg-grey-100 border-2 border-grey-200 overflow-hidden flex items-center justify-center p-1 transition-all hover:border-blue">
+                                            <img src="images/prosight-one-alt.webp" alt="Side" class="h-full w-auto object-contain">
+                                        </button>
+                                        <button onclick="setProductImg(this,'images/prosight-one-specs.webp','Buttons')" class="prod-thumb w-14 h-14 rounded-xl bg-grey-100 border-2 border-grey-200 overflow-hidden flex items-center justify-center p-1 transition-all hover:border-blue">
+                                            <img src="images/prosight-one-specs.webp" alt="Buttons" class="h-full w-auto object-contain">
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Specs tabs -->
+                        <div class="flex gap-2 mb-6 overflow-x-auto pb-2">
+                            <button class="spec-tab dash-tab active rounded-lg px-4 py-2 text-sm font-medium bg-grey-100 text-grey-600 whitespace-nowrap" data-spec="overview" onclick="switchSpecTab(this,'overview')">Overview</button>
+                            <button class="spec-tab dash-tab rounded-lg px-4 py-2 text-sm font-medium bg-grey-100 text-grey-600 whitespace-nowrap" data-spec="camera" onclick="switchSpecTab(this,'camera')">Camera & Video</button>
+                            <button class="spec-tab dash-tab rounded-lg px-4 py-2 text-sm font-medium bg-grey-100 text-grey-600 whitespace-nowrap" data-spec="connectivity" onclick="switchSpecTab(this,'connectivity')">Connectivity</button>
+                            <button class="spec-tab dash-tab rounded-lg px-4 py-2 text-sm font-medium bg-grey-100 text-grey-600 whitespace-nowrap" data-spec="physical" onclick="switchSpecTab(this,'physical')">Physical</button>
+                            <button class="spec-tab dash-tab rounded-lg px-4 py-2 text-sm font-medium bg-grey-100 text-grey-600 whitespace-nowrap" data-spec="controls" onclick="switchSpecTab(this,'controls')">Controls & Features</button>
+                        </div>
+
+                        <!-- Spec: Overview -->
+                        <div id="spec-overview" class="spec-panel rounded-2xl border border-grey-200 overflow-hidden bg-white">
+                            <table class="w-full text-sm">
+                                <tbody>
+                                    <tr class="spec-row border-b border-grey-200"><td class="py-3.5 px-5 text-grey-400 font-medium w-44">Model</td><td class="py-3.5 px-5 font-medium">Prosight One (M530G4W)</td></tr>
+                                    <tr class="spec-row border-b border-grey-200"><td class="py-3.5 px-5 text-grey-400 font-medium">Operating System</td><td class="py-3.5 px-5">Android 12</td></tr>
+                                    <tr class="spec-row border-b border-grey-200"><td class="py-3.5 px-5 text-grey-400 font-medium">Processor</td><td class="py-3.5 px-5">MediaTek MTK6769</td></tr>
+                                    <tr class="spec-row border-b border-grey-200"><td class="py-3.5 px-5 text-grey-400 font-medium">System Memory</td><td class="py-3.5 px-5">32GB + 3GB RAM</td></tr>
+                                    <tr class="spec-row border-b border-grey-200"><td class="py-3.5 px-5 text-grey-400 font-medium">Expandable Storage</td><td class="py-3.5 px-5">TF Card 16GB — 256GB</td></tr>
+                                    <tr class="spec-row border-b border-grey-200"><td class="py-3.5 px-5 text-grey-400 font-medium">Display</td><td class="py-3.5 px-5">3.1" TFT Touchscreen</td></tr>
+                                    <tr class="spec-row border-b border-grey-200"><td class="py-3.5 px-5 text-grey-400 font-medium">Image Sensor</td><td class="py-3.5 px-5">Sony IMX335</td></tr>
+                                    <tr class="spec-row"><td class="py-3.5 px-5 text-grey-400 font-medium">Encryption</td><td class="py-3.5 px-5">AES-256</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Spec: Camera & Video -->
+                        <div id="spec-camera" class="spec-panel hidden rounded-2xl border border-grey-200 overflow-hidden bg-white">
+                            <table class="w-full text-sm">
+                                <tbody>
+                                    <tr class="spec-row border-b border-grey-200"><td class="py-3.5 px-5 text-grey-400 font-medium w-44">Front Camera</td><td class="py-3.5 px-5">5MP (Max 2560x1920)</td></tr>
+                                    <tr class="spec-row border-b border-grey-200"><td class="py-3.5 px-5 text-grey-400 font-medium">Rear Camera</td><td class="py-3.5 px-5">2MP</td></tr>
+                                    <tr class="spec-row border-b border-grey-200"><td class="py-3.5 px-5 text-grey-400 font-medium">Recording Resolution</td><td class="py-3.5 px-5">2560x1440, 2340x1296, 1920x1080, 1280x720, 720x480</td></tr>
+                                    <tr class="spec-row border-b border-grey-200"><td class="py-3.5 px-5 text-grey-400 font-medium">Video Coding</td><td class="py-3.5 px-5">H.265 / H.264</td></tr>
+                                    <tr class="spec-row border-b border-grey-200"><td class="py-3.5 px-5 text-grey-400 font-medium">Video Format</td><td class="py-3.5 px-5">MP4</td></tr>
+                                    <tr class="spec-row border-b border-grey-200"><td class="py-3.5 px-5 text-grey-400 font-medium">Photo Format</td><td class="py-3.5 px-5">JPEG</td></tr>
+                                    <tr class="spec-row border-b border-grey-200"><td class="py-3.5 px-5 text-grey-400 font-medium">Infrared Night Vision</td><td class="py-3.5 px-5">10m range, Auto/Manual switch</td></tr>
+                                    <tr class="spec-row border-b border-grey-200"><td class="py-3.5 px-5 text-grey-400 font-medium">Pre-Recording</td><td class="py-3.5 px-5">0 / 30 / 60 / 120 / 180 seconds</td></tr>
+                                    <tr class="spec-row border-b border-grey-200"><td class="py-3.5 px-5 text-grey-400 font-medium">Post-Recording</td><td class="py-3.5 px-5">0 — 180 seconds</td></tr>
+                                    <tr class="spec-row border-b border-grey-200"><td class="py-3.5 px-5 text-grey-400 font-medium">Video Segments</td><td class="py-3.5 px-5">1 / 5 / 10 / 15 / 20 / 25 / 30 min</td></tr>
+                                    <tr class="spec-row border-b border-grey-200"><td class="py-3.5 px-5 text-grey-400 font-medium">Watermark</td><td class="py-3.5 px-5">Device ID, GPS coordinates, time & date</td></tr>
+                                    <tr class="spec-row"><td class="py-3.5 px-5 text-grey-400 font-medium">Lights</td><td class="py-3.5 px-5">Infrared (x2), White light, Laser, Work light</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Spec: Connectivity -->
+                        <div id="spec-connectivity" class="spec-panel hidden rounded-2xl border border-grey-200 overflow-hidden bg-white">
+                            <table class="w-full text-sm">
+                                <tbody>
+                                    <tr class="spec-row border-b border-grey-200"><td class="py-3.5 px-5 text-grey-400 font-medium w-44">4G LTE</td><td class="py-3.5 px-5">FDD-LTE: B1/3/4/5/7/8/20/28 &middot; TDD: B38/39/40/41</td></tr>
+                                    <tr class="spec-row border-b border-grey-200"><td class="py-3.5 px-5 text-grey-400 font-medium">3G</td><td class="py-3.5 px-5">WCDMA: B1/4/5/8 &middot; TD: B34/39</td></tr>
+                                    <tr class="spec-row border-b border-grey-200"><td class="py-3.5 px-5 text-grey-400 font-medium">2G</td><td class="py-3.5 px-5">GSM: B3/5/8</td></tr>
+                                    <tr class="spec-row border-b border-grey-200"><td class="py-3.5 px-5 text-grey-400 font-medium">WiFi</td><td class="py-3.5 px-5">802.11 b/g/n/ac &middot; AP & Station mode</td></tr>
+                                    <tr class="spec-row border-b border-grey-200"><td class="py-3.5 px-5 text-grey-400 font-medium">GPS</td><td class="py-3.5 px-5">GPS + AGPS + GLONASS</td></tr>
+                                    <tr class="spec-row border-b border-grey-200"><td class="py-3.5 px-5 text-grey-400 font-medium">Bluetooth</td><td class="py-3.5 px-5">Bluetooth 4.0</td></tr>
+                                    <tr class="spec-row border-b border-grey-200"><td class="py-3.5 px-5 text-grey-400 font-medium">NFC</td><td class="py-3.5 px-5">Optional</td></tr>
+                                    <tr class="spec-row border-b border-grey-200"><td class="py-3.5 px-5 text-grey-400 font-medium">Data Interface</td><td class="py-3.5 px-5">USB Type-C (USB 2.0) + 4-Pin Dock</td></tr>
+                                    <tr class="spec-row"><td class="py-3.5 px-5 text-grey-400 font-medium">Protocols</td><td class="py-3.5 px-5">RTSP, FTP auto-upload</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Spec: Physical -->
+                        <div id="spec-physical" class="spec-panel hidden rounded-2xl border border-grey-200 overflow-hidden bg-white">
+                            <table class="w-full text-sm">
+                                <tbody>
+                                    <tr class="spec-row border-b border-grey-200"><td class="py-3.5 px-5 text-grey-400 font-medium w-44">Dimensions</td><td class="py-3.5 px-5">100mm x 60mm x 26mm</td></tr>
+                                    <tr class="spec-row border-b border-grey-200"><td class="py-3.5 px-5 text-grey-400 font-medium">Weight</td><td class="py-3.5 px-5">166g</td></tr>
+                                    <tr class="spec-row border-b border-grey-200"><td class="py-3.5 px-5 text-grey-400 font-medium">IP Rating</td><td class="py-3.5 px-5 font-medium">IP67 — Dust-tight & water-resistant · MIL-STD-810G</td></tr>
+                                    <tr class="spec-row border-b border-grey-200"><td class="py-3.5 px-5 text-grey-400 font-medium">Drop Resistance</td><td class="py-3.5 px-5">2 metres</td></tr>
+                                    <tr class="spec-row border-b border-grey-200"><td class="py-3.5 px-5 text-grey-400 font-medium">Battery</td><td class="py-3.5 px-5">2x 3200 mAh replaceable (hot-swap)</td></tr>
+                                    <tr class="spec-row border-b border-grey-200"><td class="py-3.5 px-5 text-grey-400 font-medium">Working Time</td><td class="py-3.5 px-5">&ge; 10 hours (recording on)</td></tr>
+                                    <tr class="spec-row border-b border-grey-200"><td class="py-3.5 px-5 text-grey-400 font-medium">Charging Time</td><td class="py-3.5 px-5">3 hours</td></tr>
+                                    <tr class="spec-row border-b border-grey-200"><td class="py-3.5 px-5 text-grey-400 font-medium">Operating Temp</td><td class="py-3.5 px-5">-20&deg;C to +60&deg;C</td></tr>
+                                    <tr class="spec-row border-b border-grey-200"><td class="py-3.5 px-5 text-grey-400 font-medium">Clip</td><td class="py-3.5 px-5">360&deg; rotatable metal clip</td></tr>
+                                    <tr class="spec-row"><td class="py-3.5 px-5 text-grey-400 font-medium">Accessories</td><td class="py-3.5 px-5">USB-C cable, charger, long/short clips, base</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Spec: Controls & Features -->
+                        <div id="spec-controls" class="spec-panel hidden rounded-2xl border border-grey-200 overflow-hidden bg-white">
+                            <div class="p-6 space-y-6">
+                                <div>
+                                    <h4 class="text-xs font-semibold text-grey-400 uppercase tracking-widest mb-4">Hardware Controls</h4>
+                                    <div class="grid sm:grid-cols-2 gap-3">
+                                        <div class="flex items-start gap-3 p-3 rounded-xl bg-grey-100 border border-grey-200">
+                                            <div class="w-8 h-8 rounded-lg bg-blue/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                                <svg class="w-4 h-4 text-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z"/></svg>
+                                            </div>
+                                            <div>
+                                                <p class="text-sm font-medium">PTT Button</p>
+                                                <p class="text-xs text-grey-400 mt-0.5">Push-to-talk for group intercom and voice dispatch to command client</p>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-start gap-3 p-3 rounded-xl bg-grey-100 border border-grey-200">
+                                            <div class="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                                <svg class="w-4 h-4 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"/></svg>
+                                            </div>
+                                            <div>
+                                                <p class="text-sm font-medium">SOS Button</p>
+                                                <p class="text-xs text-grey-400 mt-0.5">One-press emergency alarm with auto-recording and server alert notification</p>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-start gap-3 p-3 rounded-xl bg-grey-100 border border-grey-200">
+                                            <div class="w-8 h-8 rounded-lg bg-blue/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                                <svg class="w-4 h-4 text-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z"/></svg>
+                                            </div>
+                                            <div>
+                                                <p class="text-sm font-medium">Recording Button</p>
+                                                <p class="text-xs text-grey-400 mt-0.5">Single press start/stop. Supports boot auto-record and loop recording</p>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-start gap-3 p-3 rounded-xl bg-grey-100 border border-grey-200">
+                                            <div class="w-8 h-8 rounded-lg bg-blue/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                                <svg class="w-4 h-4 text-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/></svg>
+                                            </div>
+                                            <div>
+                                                <p class="text-sm font-medium">Key Mark Button</p>
+                                                <p class="text-xs text-grey-400 mt-0.5">Flag critical footage segments for priority review and evidence tagging</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <h4 class="text-xs font-semibold text-grey-400 uppercase tracking-widest mb-4">Software Features</h4>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="bg-grey-100 text-grey-600 text-[11px] font-medium px-3 py-1.5 rounded-lg border border-grey-200">30s Pre-record</span>
+                                        <span class="bg-grey-100 text-grey-600 text-[11px] font-medium px-3 py-1.5 rounded-lg border border-grey-200">Cluster Intercom</span>
+                                        <span class="bg-grey-100 text-grey-600 text-[11px] font-medium px-3 py-1.5 rounded-lg border border-grey-200">Boot Auto-Record</span>
+                                        <span class="bg-grey-100 text-grey-600 text-[11px] font-medium px-3 py-1.5 rounded-lg border border-grey-200">Loop Recording</span>
+                                        <span class="bg-grey-100 text-grey-600 text-[11px] font-medium px-3 py-1.5 rounded-lg border border-grey-200">Anti-Shake (EIS)</span>
+                                        <span class="bg-grey-100 text-grey-600 text-[11px] font-medium px-3 py-1.5 rounded-lg border border-grey-200">Drop Detection</span>
+                                        <span class="bg-grey-100 text-grey-600 text-[11px] font-medium px-3 py-1.5 rounded-lg border border-grey-200">USB Protection</span>
+                                        <span class="bg-grey-100 text-grey-600 text-[11px] font-medium px-3 py-1.5 rounded-lg border border-grey-200">Menu Password Lock</span>
+                                        <span class="bg-grey-100 text-grey-600 text-[11px] font-medium px-3 py-1.5 rounded-lg border border-grey-200">RTSP Streaming</span>
+                                        <span class="bg-grey-100 text-grey-600 text-[11px] font-medium px-3 py-1.5 rounded-lg border border-grey-200">FTP Auto-Upload</span>
+                                        <span class="bg-grey-100 text-grey-600 text-[11px] font-medium px-3 py-1.5 rounded-lg border border-grey-200">Custom Watermarks</span>
+                                        <span class="bg-grey-100 text-grey-600 text-[11px] font-medium px-3 py-1.5 rounded-lg border border-grey-200">Speed Dial (PTT+SOS)</span>
+                                        <span class="bg-grey-100 text-grey-600 text-[11px] font-medium px-3 py-1.5 rounded-lg border border-grey-200">Encrypted Transmission</span>
+                                        <span class="bg-grey-100 text-grey-600 text-[11px] font-medium px-3 py-1.5 rounded-lg border border-grey-200">Noise Reduction Mic</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dock Station -->
+                    <div id="product-dock" class="product-panel hidden">
+                        <div class="bg-grey-100 rounded-2xl p-8 lg:p-12 text-center">
+                            <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-white border border-grey-200 flex items-center justify-center">
+                                <svg class="w-8 h-8 text-grey-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1"><path stroke-linecap="round" stroke-linejoin="round" d="M5.25 14.25h13.5m-13.5 0a3 3 0 01-3-3m3 3a3 3 0 100 6h13.5a3 3 0 100-6m-16.5-3a3 3 0 013-3h13.5a3 3 0 013 3m-19.5 0a4.5 4.5 0 01.9-2.7L5.737 5.1a3.375 3.375 0 012.7-1.35h7.126c1.062 0 2.062.5 2.7 1.35l2.587 3.45a4.5 4.5 0 01.9 2.7m0 0a3 3 0 01-3 3m0 3h.008v.008h-.008v-.008zm0-6h.008v.008h-.008v-.008zm-3 6h.008v.008h-.008v-.008zm0-6h.008v.008h-.008v-.008z"/></svg>
+                            </div>
+                            <h3 class="text-2xl font-bold mb-2">Multi-Unit Charging Dock</h3>
+                            <p class="text-grey-600 text-sm max-w-md mx-auto mb-6">Charge and sync multiple Prosight One cameras simultaneously via the 4-pin dock interface. Automatic data transfer on connection.</p>
+                            <a href="#demo" class="inline-flex bg-blue hover:bg-blue/90 text-white text-sm font-medium px-6 py-3 rounded-xl transition-all">Contact for Details</a>
+                        </div>
+                    </div>
+
+                    <!-- Vehicle Mount -->
+                    <div id="product-mount" class="product-panel hidden">
+                        <div class="bg-grey-100 rounded-2xl p-8 lg:p-12 text-center">
+                            <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-white border border-grey-200 flex items-center justify-center">
+                                <svg class="w-8 h-8 text-grey-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.07-.504 1.07-1.125V14.25M2.25 14.25h20.25"/></svg>
+                            </div>
+                            <h3 class="text-2xl font-bold mb-2">Vehicle Bracket Mount</h3>
+                            <p class="text-grey-600 text-sm max-w-md mx-auto mb-6">Optional vehicle bracket for patrol car mounting. Secure, vibration-resistant design for in-vehicle recording during patrols.</p>
+                            <a href="#demo" class="inline-flex bg-blue hover:bg-blue/90 text-white text-sm font-medium px-6 py-3 rounded-xl transition-all">Contact for Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ==================== DASHBOARD PREVIEW — mirrors real product at /dashboard ==================== -->
+    <!-- Design tokens from dashboard/src/index.css + tailwind.config.ts
+         bg #FAFAF9 · card #FFFFFF · sidebar #1C2B3A · border #E5E2DC · blue #2563EB
+         text #1A1916 · text-2 #6B6860 · Fraunces display · DM Sans UI
+         sidebar 232px · topbar 52px · content padding 28px · radius 8px -->
+    <style>
+        .ps-app { font-family: 'DM Sans', sans-serif; color: #1A1916; background: #FAFAF9; }
+        .ps-app .f-display { font-family: 'Fraunces', serif; }
+        .ps-sidebar-link { display: flex; align-items: center; gap: 12px; padding: 8px 16px; margin: 0 8px; border-radius: 6px; font-size: 13.5px; color: rgba(255,255,255,0.65); cursor: pointer; transition: background 0.12s; }
+        .ps-sidebar-link:hover { background: #243549; }
+        .ps-sidebar-link.active { background: #2E4460; color: #FFFFFF; font-weight: 500; }
+        .ps-sidebar-link.active svg { color: #FFFFFF; }
+        .ps-sidebar-section { font-size: 10px; font-weight: 600; color: rgba(255,255,255,0.35); letter-spacing: 0.8px; text-transform: uppercase; padding: 0 24px; margin-bottom: 4px; }
+        .ps-pill { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 500; padding: 3px 9px; border-radius: 20px; font-family: 'DM Sans', sans-serif; }
+        .ps-pill::before { content: ''; width: 6px; height: 6px; border-radius: 50%; }
+        .ps-pill-online { background: #F0FDF4; color: #16A34A; }
+        .ps-pill-online::before { background: #16A34A; }
+        .ps-pill-idle { background: #FFFBEB; color: #D97706; }
+        .ps-pill-idle::before { background: #D97706; }
+        .ps-pill-offline { background: #FEF2F2; color: #DC2626; }
+        .ps-pill-offline::before { background: #DC2626; }
+        .ps-pill-force { background: #FEF2F2; color: #DC2626; border: 1px solid #FCA5A5; }
+        .ps-pill-force::before { background: #DC2626; }
+        .ps-pill-evidence { background: #FFFBEB; color: #D97706; border: 1px solid #FDE68A; }
+        .ps-pill-evidence::before { background: #D97706; }
+        .ps-pill-routine { background: #F1F0EE; color: #6B6860; }
+        .ps-pill-routine::before { background: #A8A49E; }
+        .ps-fchip { font-size: 12px; font-weight: 500; padding: 5px 13px; border-radius: 20px; border: 1px solid #D1CEC7; color: #6B6860; background: #FFFFFF; cursor: pointer; }
+        .ps-fchip.on { border-color: #2563EB; color: #2563EB; background: #EFF4FF; }
+        .ps-row { transition: background 0.1s; }
+        .ps-row:hover { background: #F5F4F2; }
+        .ps-batt-track { height: 3px; background: #E5E2DC; border-radius: 2px; margin-top: 4px; width: 100%; }
+        .ps-batt-fill { height: 100%; border-radius: 2px; }
+        .ps-tab { padding: 6px 14px; font-size: 12px; font-weight: 500; border-radius: 6px; cursor: pointer; color: #6B6860; background: transparent; border: 1px solid transparent; }
+        .ps-tab.active { background: #EFF4FF; color: #2563EB; border-color: #BFCFFF; }
+        .ps-tab:hover:not(.active) { background: #F5F4F2; color: #1A1916; }
+        .ps-fchip:hover { border-color: #2563EB; color: #2563EB; }
+        .ps-row { cursor: pointer; }
+        .ps-row.ps-hidden { display: none !important; }
+        .ps-view.hidden { display: none !important; }
+        /* Contain drawer inside the dashboard frame */
+        .ps-app { position: relative; }
+        .ps-drawer-backdrop { position: absolute; inset: 0; background: rgba(15,20,30,0.28); opacity: 0; pointer-events: none; transition: opacity 0.2s; z-index: 40; }
+        .ps-drawer-backdrop.open { opacity: 1; pointer-events: auto; }
+        .ps-drawer { position: absolute; top: 0; right: 0; bottom: 0; width: 380px; max-width: 92%; background: #FFFFFF; border-left: 1px solid #E5E2DC; box-shadow: -8px 0 24px rgba(0,0,0,0.08); transform: translateX(100%); transition: transform 0.22s ease; z-index: 50; display: flex; flex-direction: column; font-family: 'DM Sans', sans-serif; }
+        .ps-drawer.open { transform: translateX(0); }
+        .ps-spin { animation: psSpin 0.7s linear infinite; }
+        @keyframes psSpin { to { transform: rotate(360deg); } }
+        .ps-toast { position: absolute; top: 70px; right: 20px; background: #1A1916; color: #FFFFFF; font-size: 12px; padding: 8px 14px; border-radius: 6px; box-shadow: 0 6px 18px rgba(0,0,0,0.18); z-index: 60; opacity: 0; transform: translateY(-6px); transition: opacity 0.18s, transform 0.18s; pointer-events: none; font-family: 'DM Sans', sans-serif; }
+        .ps-toast.show { opacity: 1; transform: translateY(0); }
+    </style>
+    <section id="dashboard" class="relative py-24 lg:py-32 bg-offwhite overflow-hidden border-t border-grey-200">
+        <div class="relative max-w-[1400px] mx-auto px-4 lg:px-8">
+            <div class="text-center mb-10 lg:mb-14 reveal">
+                <p class="text-blue text-xs font-semibold uppercase tracking-widest mb-4">BWC Command Center</p>
+                <h2 class="text-3xl lg:text-5xl font-bold tracking-tight mb-5" style="font-family:'Fraunces',serif;color:#1A1916;">The dashboard your supervisors<br>will actually use.</h2>
+                <p class="text-grey-600 text-lg max-w-2xl mx-auto">Clean, focused, built on role-based access. No tactical-movie clutter — just devices, sessions, users, and a full audit trail. This is the real product.</p>
+            </div>
+
+            <!-- Dashboard frame — faithful mock of the real /dashboard product (light theme, Fraunces + DM Sans) -->
+            <div class="reveal">
+                <div class="ps-app overflow-hidden rounded-xl border shadow-2xl" style="border-color:#E5E2DC;background:#FAFAF9;">
+                    <!-- Browser chrome (context only) -->
+                    <div class="flex items-center gap-3 px-4 py-2.5 border-b" style="background:#F1F0EE;border-color:#E5E2DC;">
+                        <div class="flex gap-1.5">
+                            <div class="w-3 h-3 rounded-full" style="background:#FCA5A5;"></div>
+                            <div class="w-3 h-3 rounded-full" style="background:#FDE68A;"></div>
+                            <div class="w-3 h-3 rounded-full" style="background:#BBF7D0;"></div>
+                        </div>
+                        <div class="flex-1 flex justify-center">
+                            <div class="px-3 py-1 text-[11px] rounded-md border" style="background:#FFFFFF;border-color:#E5E2DC;color:#6B6860;font-family:'DM Sans',sans-serif;">command.prosight.in/devices</div>
+                        </div>
+                        <div class="w-14"></div>
+                    </div>
+
+                    <!-- App shell: fixed sidebar (232px) + main -->
+                    <div class="flex" style="min-height: 720px;">
+                        <!-- ===== SIDEBAR (real product) ===== -->
+                        <aside class="flex flex-col flex-shrink-0" style="width:232px;background:#1C2B3A;">
+                            <!-- Brand block -->
+                            <div class="flex items-center gap-[11px] px-5 py-[22px]" style="border-bottom:1px solid rgba(255,255,255,0.08);">
+                                <div class="flex items-center justify-center flex-shrink-0" style="width:32px;height:32px;background:#2563EB;border-radius:7px;">
+                                    <svg width="18" height="18" viewBox="0 0 20 20" fill="white"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"/></svg>
+                                </div>
+                                <div>
+                                    <div class="f-display" style="font-size:19px;color:#FFFFFF;font-weight:600;line-height:1.2;">Prosight</div>
+                                    <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:1px;">BWC Command Center</div>
+                                </div>
+                            </div>
+
+                            <!-- Nav -->
+                            <div class="flex-1 py-3">
+                                <div class="mb-1">
+                                    <div class="ps-sidebar-section">Overview</div>
+                                    <div class="ps-sidebar-link" data-nav="dashboard">
+                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/></svg>
+                                        <span>Dashboard</span>
+                                    </div>
+                                </div>
+                                <div class="mt-4 mb-1">
+                                    <div class="ps-sidebar-section">Operations</div>
+                                    <div class="ps-sidebar-link active" data-nav="devices">
+                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7 2a2 2 0 00-2 2v12a2 2 0 002 2h6a2 2 0 002-2V4a2 2 0 00-2-2H7zm3 14a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"/></svg>
+                                        <span>Devices</span>
+                                    </div>
+                                    <div class="ps-sidebar-link" data-nav="sessions">
+                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"/></svg>
+                                        <span>Sessions</span>
+                                    </div>
+                                </div>
+                                <div class="mt-4 mb-1">
+                                    <div class="ps-sidebar-section">Admin</div>
+                                    <div class="ps-sidebar-link" data-nav="users">
+                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/></svg>
+                                        <span>Users</span>
+                                    </div>
+                                    <div class="ps-sidebar-link" data-nav="audit">
+                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm2 10a1 1 0 10-2 0v3a1 1 0 102 0v-3zm2-3a1 1 0 011 1v5a1 1 0 11-2 0v-5a1 1 0 011-1zm4-1a1 1 0 10-2 0v6a1 1 0 102 0V8z" clip-rule="evenodd"/></svg>
+                                        <span>Audit Log</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- User pill -->
+                            <div class="px-4 py-4" style="border-top:1px solid rgba(255,255,255,0.08);">
+                                <div class="flex items-center gap-3">
+                                    <div class="flex items-center justify-center flex-shrink-0" style="width:32px;height:32px;background:#2E4460;border-radius:50%;color:rgba(255,255,255,0.9);font-size:12px;font-weight:600;">VK</div>
+                                    <div class="min-w-0">
+                                        <div style="color:#FFFFFF;font-size:13px;font-weight:500;line-height:1.2;">V. Kapoor</div>
+                                        <div style="color:rgba(255,255,255,0.45);font-size:11px;">Supervisor</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </aside>
+
+                        <!-- ===== MAIN ===== -->
+                        <div class="flex-1 flex flex-col min-w-0" style="background:#FAFAF9;">
+                            <!-- Topbar (52px) -->
+                            <header class="flex items-center justify-between px-6 flex-shrink-0" style="height:52px;background:#FFFFFF;border-bottom:1px solid #E5E2DC;">
+                                <h1 id="ps-topbar-title" class="f-display" style="font-size:20px;font-weight:600;color:#1A1916;">Device Management</h1>
+                                <div class="flex items-center gap-3">
+                                    <div class="hidden md:flex items-center gap-2 text-[12px]" style="color:#6B6860;"><span>Delhi Police · DL-01</span><span style="color:#A8A49E;">·</span><span>Shift A</span></div>
+                                    <button class="text-[13px] font-medium transition-colors" style="color:#6B6860;background:transparent;border:1px solid #D1CEC7;border-radius:5px;padding:6px 14px;">Sign out</button>
+                                </div>
+                            </header>
+
+                            <!-- Page content (28px padding) -->
+                            <div style="padding:28px;">
+                              <!-- ===== VIEW: DEVICES (default) ===== -->
+                              <div class="ps-view" data-view="devices">
+                                <!-- Page header -->
+                                <div class="flex items-start justify-between mb-6 flex-wrap gap-3">
+                                    <div>
+                                        <h2 class="f-display" style="font-size:24px;font-weight:600;color:#1A1916;line-height:1.2;margin-bottom:4px;">Devices</h2>
+                                        <p style="font-size:13px;color:#6B6860;" id="ps-devices-sub">247 devices · 198 online · 3 flagged for attention</p>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <button id="ps-refresh-btn" class="flex items-center gap-1.5 text-[13px]" style="color:#6B6860;border:1px solid #E5E2DC;background:#FFFFFF;border-radius:5px;padding:6px 12px;">
+                                            <svg id="ps-refresh-ico" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M20.49 9A9 9 0 005.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 013.51 15"/></svg>
+                                            Refresh
+                                        </button>
+                                        <button class="flex items-center gap-1.5 text-[13px] font-medium" style="color:#FFFFFF;background:#2563EB;border-radius:5px;padding:6px 14px;">
+                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                                            Register device
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Filter bar -->
+                                <div class="flex items-center gap-3 mb-5 flex-wrap" style="background:#FFFFFF;border:1px solid #E5E2DC;border-radius:8px;padding:14px 18px;">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#A8A49E" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+                                    <span class="ps-fchip on" data-filter="all">All · 247</span>
+                                    <span class="ps-fchip" data-filter="online">Online · 198</span>
+                                    <span class="ps-fchip" data-filter="idle">Idle · 34</span>
+                                    <span class="ps-fchip" data-filter="offline">Offline · 15</span>
+                                    <div style="width:1px;height:20px;background:#E5E2DC;"></div>
+                                    <span class="ps-fchip" data-filter="assigned">Assigned</span>
+                                    <span class="ps-fchip" data-filter="unassigned">Unassigned</span>
+                                    <span class="ps-fchip" data-filter="lowbatt">Low battery</span>
+                                    <div class="ml-auto flex items-center gap-2 text-[12px]" style="color:#6B6860;">
+                                        <span>Sort:</span>
+                                        <span style="color:#1A1916;font-weight:500;">Last seen ↓</span>
+                                    </div>
+                                </div>
+
+                                <!-- Devices table -->
+                                <div style="background:#FFFFFF;border:1px solid #E5E2DC;border-radius:8px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.06),0 1px 2px rgba(0,0,0,0.04);">
+                                    <!-- Header row -->
+                                    <div class="grid items-center px-5 py-3 border-b" style="grid-template-columns: 1.5fr 1fr 0.9fr 1.4fr 1fr 0.8fr;border-color:#E5E2DC;background:#FAFAF9;font-size:11px;font-weight:600;color:#6B6860;text-transform:uppercase;letter-spacing:0.4px;">
+                                        <div>Device</div>
+                                        <div>Status</div>
+                                        <div>Battery</div>
+                                        <div>Assigned to</div>
+                                        <div>Last seen</div>
+                                        <div class="text-right">Actions</div>
+                                    </div>
+                                    <!-- Row 1 -->
+                                    <div class="ps-row grid items-center px-5 py-3.5 border-b" data-id="PS1-00247" data-status="online" data-assigned="1" data-lowbatt="0" style="grid-template-columns: 1.5fr 1fr 0.9fr 1.4fr 1fr 0.8fr;border-color:#E5E2DC;">
+                                        <div><div style="font-size:13.5px;font-weight:500;color:#1A1916;">Prosight One · PS1-00247</div><div style="font-size:11px;color:#A8A49E;font-family:'DM Sans',sans-serif;">SN 4G-DL-0247 · v4.2.1</div></div>
+                                        <div><span class="ps-pill ps-pill-online">Online</span></div>
+                                        <div><div class="flex items-center gap-2"><span style="color:#16A34A;font-size:13px;font-weight:500;">86%</span></div><div class="ps-batt-track"><div class="ps-batt-fill" style="width:86%;background:#16A34A;"></div></div></div>
+                                        <div><div style="font-size:13px;color:#1A1916;">R. Sharma</div><div style="font-size:11px;color:#6B6860;">Constable · Patrol 14</div></div>
+                                        <div style="font-size:12px;color:#6B6860;">2s ago</div>
+                                        <div class="text-right"><span style="color:#2563EB;font-size:12px;font-weight:500;cursor:pointer;">View →</span></div>
+                                    </div>
+                                    <!-- Row 2 -->
+                                    <div class="ps-row grid items-center px-5 py-3.5 border-b" data-id="PS1-00198" data-status="online" data-assigned="1" data-lowbatt="0" style="grid-template-columns: 1.5fr 1fr 0.9fr 1.4fr 1fr 0.8fr;border-color:#E5E2DC;">
+                                        <div><div style="font-size:13.5px;font-weight:500;color:#1A1916;">Prosight One · PS1-00198</div><div style="font-size:11px;color:#A8A49E;">SN 4G-DL-0198 · v4.2.1</div></div>
+                                        <div><span class="ps-pill ps-pill-online">Online</span></div>
+                                        <div><span style="color:#16A34A;font-size:13px;font-weight:500;">72%</span><div class="ps-batt-track"><div class="ps-batt-fill" style="width:72%;background:#16A34A;"></div></div></div>
+                                        <div><div style="font-size:13px;color:#1A1916;">K. Patel</div><div style="font-size:11px;color:#6B6860;">SI · Incident Response</div></div>
+                                        <div style="font-size:12px;color:#6B6860;">14s ago</div>
+                                        <div class="text-right"><span style="color:#2563EB;font-size:12px;font-weight:500;cursor:pointer;">View →</span></div>
+                                    </div>
+                                    <!-- Row 3 -->
+                                    <div class="ps-row grid items-center px-5 py-3.5 border-b" data-id="PS1-00163" data-status="force" data-assigned="1" data-lowbatt="1" style="grid-template-columns: 1.5fr 1fr 0.9fr 1.4fr 1fr 0.8fr;border-color:#E5E2DC;background:#FEF2F2;">
+                                        <div><div style="font-size:13.5px;font-weight:500;color:#1A1916;">Prosight One · PS1-00163</div><div style="font-size:11px;color:#A8A49E;">SN BSF-BH-0163 · v4.2.1</div></div>
+                                        <div><span class="ps-pill ps-pill-force">Force flag</span></div>
+                                        <div><span style="color:#D97706;font-size:13px;font-weight:500;">41%</span><div class="ps-batt-track"><div class="ps-batt-fill" style="width:41%;background:#D97706;"></div></div></div>
+                                        <div><div style="font-size:13px;color:#1A1916;">S. Das</div><div style="font-size:11px;color:#6B6860;">Inspector · Border Post 07</div></div>
+                                        <div style="font-size:12px;color:#DC2626;font-weight:500;">SOS · 14m ago</div>
+                                        <div class="text-right"><span style="color:#DC2626;font-size:12px;font-weight:600;cursor:pointer;">Review →</span></div>
+                                    </div>
+                                    <!-- Row 4 -->
+                                    <div class="ps-row grid items-center px-5 py-3.5 border-b" data-id="PS1-00089" data-status="idle" data-assigned="1" data-lowbatt="0" style="grid-template-columns: 1.5fr 1fr 0.9fr 1.4fr 1fr 0.8fr;border-color:#E5E2DC;">
+                                        <div><div style="font-size:13.5px;font-weight:500;color:#1A1916;">Prosight One · PS1-00089</div><div style="font-size:11px;color:#A8A49E;">SN DL-TR-0089 · v4.2.1</div></div>
+                                        <div><span class="ps-pill ps-pill-idle">Idle</span></div>
+                                        <div><span style="color:#D97706;font-size:13px;font-weight:500;">58%</span><div class="ps-batt-track"><div class="ps-batt-fill" style="width:58%;background:#D97706;"></div></div></div>
+                                        <div><div style="font-size:13px;color:#1A1916;">D. Reddy</div><div style="font-size:11px;color:#6B6860;">HC · Traffic Division</div></div>
+                                        <div style="font-size:12px;color:#6B6860;">3m ago</div>
+                                        <div class="text-right"><span style="color:#2563EB;font-size:12px;font-weight:500;cursor:pointer;">View →</span></div>
+                                    </div>
+                                    <!-- Row 5 -->
+                                    <div class="ps-row grid items-center px-5 py-3.5 border-b" data-id="PS1-00054" data-status="online" data-assigned="1" data-lowbatt="0" style="grid-template-columns: 1.5fr 1fr 0.9fr 1.4fr 1fr 0.8fr;border-color:#E5E2DC;">
+                                        <div><div style="font-size:13.5px;font-weight:500;color:#1A1916;">Prosight One · PS1-00054</div><div style="font-size:11px;color:#A8A49E;">SN GGN-PS-0054 · v4.2.1</div></div>
+                                        <div><span class="ps-pill ps-pill-online">Online</span></div>
+                                        <div><span style="color:#16A34A;font-size:13px;font-weight:500;">94%</span><div class="ps-batt-track"><div class="ps-batt-fill" style="width:94%;background:#16A34A;"></div></div></div>
+                                        <div><div style="font-size:13px;color:#1A1916;">P. Kumar</div><div style="font-size:11px;color:#6B6860;">Security Supervisor · Tower C</div></div>
+                                        <div style="font-size:12px;color:#6B6860;">1s ago</div>
+                                        <div class="text-right"><span style="color:#2563EB;font-size:12px;font-weight:500;cursor:pointer;">View →</span></div>
+                                    </div>
+                                    <!-- Row 6 -->
+                                    <div class="ps-row grid items-center px-5 py-3.5 border-b" data-id="PS1-00032" data-status="offline" data-assigned="0" data-lowbatt="1" style="grid-template-columns: 1.5fr 1fr 0.9fr 1.4fr 1fr 0.8fr;border-color:#E5E2DC;">
+                                        <div><div style="font-size:13.5px;font-weight:500;color:#1A1916;">Prosight One · PS1-00032</div><div style="font-size:11px;color:#A8A49E;">SN MUM-FD-0032 · v4.2.1</div></div>
+                                        <div><span class="ps-pill ps-pill-offline">Offline</span></div>
+                                        <div><span style="color:#A8A49E;font-size:13px;font-weight:500;">—</span><div class="ps-batt-track"><div class="ps-batt-fill" style="width:0%;background:#DC2626;"></div></div></div>
+                                        <div><div style="font-size:13px;color:#A8A49E;font-style:italic;">Unassigned</div><div style="font-size:11px;color:#A8A49E;">Returned to stores</div></div>
+                                        <div style="font-size:12px;color:#6B6860;">2h 14m ago</div>
+                                        <div class="text-right"><span style="color:#6B6860;font-size:12px;cursor:pointer;">Assign →</span></div>
+                                    </div>
+                                    <!-- Row 7 -->
+                                    <div class="ps-row grid items-center px-5 py-3.5" data-id="PS1-00018" data-status="online" data-assigned="1" data-lowbatt="0" style="grid-template-columns: 1.5fr 1fr 0.9fr 1.4fr 1fr 0.8fr;">
+                                        <div><div style="font-size:13.5px;font-weight:500;color:#1A1916;">Prosight One · PS1-00018</div><div style="font-size:11px;color:#A8A49E;">SN EMS-108-0018 · v4.2.1</div></div>
+                                        <div><span class="ps-pill ps-pill-online">Online</span></div>
+                                        <div><span style="color:#16A34A;font-size:13px;font-weight:500;">68%</span><div class="ps-batt-track"><div class="ps-batt-fill" style="width:68%;background:#16A34A;"></div></div></div>
+                                        <div><div style="font-size:13px;color:#1A1916;">N. Joshi</div><div style="font-size:11px;color:#6B6860;">Paramedic · 108 Response</div></div>
+                                        <div style="font-size:12px;color:#6B6860;">6s ago</div>
+                                        <div class="text-right"><span style="color:#2563EB;font-size:12px;font-weight:500;cursor:pointer;">View →</span></div>
+                                    </div>
+                                </div>
+
+                                <!-- Pagination -->
+                                <div class="flex items-center justify-between mt-4 px-1">
+                                    <div id="ps-pagination-count" style="font-size:12px;color:#6B6860;">Showing 1–7 of 247</div>
+                                    <div class="flex items-center gap-1">
+                                        <button class="ps-tab">← Prev</button>
+                                        <button class="ps-tab active">1</button>
+                                        <button class="ps-tab">2</button>
+                                        <button class="ps-tab">3</button>
+                                        <span style="color:#A8A49E;font-size:12px;padding:0 4px;">…</span>
+                                        <button class="ps-tab">36</button>
+                                        <button class="ps-tab">Next →</button>
+                                    </div>
+                                </div>
+                              </div>
+
+                              <!-- ===== VIEW: DASHBOARD (overview) ===== -->
+                              <div class="ps-view hidden" data-view="dashboard">
+                                <div class="mb-6">
+                                    <h2 class="f-display" style="font-size:24px;font-weight:600;color:#1A1916;line-height:1.2;margin-bottom:4px;">Good evening, Vikram</h2>
+                                    <p style="font-size:13px;color:#6B6860;">Shift A · Delhi Police DL-01 · 247 devices deployed · 3 need your attention</p>
+                                </div>
+                                <!-- KPI cards -->
+                                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                                    <div style="background:#FFFFFF;border:1px solid #E5E2DC;border-radius:8px;padding:18px;">
+                                        <div style="font-size:11px;font-weight:600;color:#6B6860;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:8px;">Devices online</div>
+                                        <div class="f-display" style="font-size:28px;font-weight:600;color:#1A1916;line-height:1;">198<span style="font-size:14px;color:#A8A49E;font-weight:400;"> / 247</span></div>
+                                        <div style="font-size:11px;color:#16A34A;margin-top:6px;">▲ 4 from last shift</div>
+                                    </div>
+                                    <div style="background:#FFFFFF;border:1px solid #E5E2DC;border-radius:8px;padding:18px;">
+                                        <div style="font-size:11px;font-weight:600;color:#6B6860;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:8px;">Active sessions</div>
+                                        <div class="f-display" style="font-size:28px;font-weight:600;color:#1A1916;line-height:1;">163</div>
+                                        <div style="font-size:11px;color:#6B6860;margin-top:6px;">11 across BSF posts</div>
+                                    </div>
+                                    <div style="background:#FFFFFF;border:1px solid #E5E2DC;border-radius:8px;padding:18px;">
+                                        <div style="font-size:11px;font-weight:600;color:#6B6860;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:8px;">Force flags · 24h</div>
+                                        <div class="f-display" style="font-size:28px;font-weight:600;color:#DC2626;line-height:1;">3</div>
+                                        <div style="font-size:11px;color:#DC2626;margin-top:6px;">1 unreviewed · Border Post 07</div>
+                                    </div>
+                                    <div style="background:#FFFFFF;border:1px solid #E5E2DC;border-radius:8px;padding:18px;">
+                                        <div style="font-size:11px;font-weight:600;color:#6B6860;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:8px;">Storage · evidence vault</div>
+                                        <div class="f-display" style="font-size:28px;font-weight:600;color:#1A1916;line-height:1;">14.2<span style="font-size:14px;color:#A8A49E;font-weight:400;"> TB</span></div>
+                                        <div style="font-size:11px;color:#6B6860;margin-top:6px;">71% of 20 TB quota</div>
+                                    </div>
+                                </div>
+                                <!-- Two-column: attention + recent -->
+                                <div class="grid lg:grid-cols-2 gap-5">
+                                    <div style="background:#FFFFFF;border:1px solid #E5E2DC;border-radius:8px;overflow:hidden;">
+                                        <div class="px-5 py-3 border-b flex items-center justify-between" style="border-color:#E5E2DC;background:#FAFAF9;">
+                                            <span style="font-size:13px;font-weight:600;color:#1A1916;">Needs your attention</span>
+                                            <span style="font-size:11px;color:#DC2626;font-weight:500;">3 items</span>
+                                        </div>
+                                        <div class="px-5 py-3.5 border-b flex items-start gap-3" style="border-color:#E5E2DC;">
+                                            <span class="ps-pill ps-pill-force" style="margin-top:2px;">Force flag</span>
+                                            <div class="flex-1"><div style="font-size:13px;color:#1A1916;font-weight:500;">PS1-00163 · Insp. S. Das</div><div style="font-size:11px;color:#6B6860;">SOS triggered · Border Post 07 · 14m ago</div></div>
+                                            <span style="color:#2563EB;font-size:12px;font-weight:500;cursor:pointer;">Review →</span>
+                                        </div>
+                                        <div class="px-5 py-3.5 border-b flex items-start gap-3" style="border-color:#E5E2DC;">
+                                            <span class="ps-pill ps-pill-offline" style="margin-top:2px;">Offline</span>
+                                            <div class="flex-1"><div style="font-size:13px;color:#1A1916;font-weight:500;">PS1-00032 · Unassigned</div><div style="font-size:11px;color:#6B6860;">Stores · last seen 2h 14m ago</div></div>
+                                            <span style="color:#2563EB;font-size:12px;font-weight:500;cursor:pointer;">Assign →</span>
+                                        </div>
+                                        <div class="px-5 py-3.5 flex items-start gap-3">
+                                            <span class="ps-pill ps-pill-idle" style="margin-top:2px;">Low batt</span>
+                                            <div class="flex-1"><div style="font-size:13px;color:#1A1916;font-weight:500;">PS1-00089 · HC D. Reddy</div><div style="font-size:11px;color:#6B6860;">58% · traffic division · idle 3m</div></div>
+                                            <span style="color:#2563EB;font-size:12px;font-weight:500;cursor:pointer;">Ping →</span>
+                                        </div>
+                                    </div>
+                                    <div style="background:#FFFFFF;border:1px solid #E5E2DC;border-radius:8px;overflow:hidden;">
+                                        <div class="px-5 py-3 border-b flex items-center justify-between" style="border-color:#E5E2DC;background:#FAFAF9;">
+                                            <span style="font-size:13px;font-weight:600;color:#1A1916;">Recent sessions</span>
+                                            <span style="font-size:11px;color:#6B6860;">Live feed</span>
+                                        </div>
+                                        <div class="px-5 py-3.5 border-b" style="border-color:#E5E2DC;"><div style="font-size:13px;color:#1A1916;">R. Sharma · Patrol 14 · <span style="color:#16A34A;">recording</span></div><div style="font-size:11px;color:#6B6860;">Routine · 00:12:41 elapsed · 2K H.265</div></div>
+                                        <div class="px-5 py-3.5 border-b" style="border-color:#E5E2DC;"><div style="font-size:13px;color:#1A1916;">K. Patel · Incident response · <span style="color:#16A34A;">recording</span></div><div style="font-size:11px;color:#6B6860;">Evidence · 00:04:08 elapsed · live stream</div></div>
+                                        <div class="px-5 py-3.5 border-b" style="border-color:#E5E2DC;"><div style="font-size:13px;color:#1A1916;">N. Joshi · 108 Response · <span style="color:#16A34A;">recording</span></div><div style="font-size:11px;color:#6B6860;">Routine · 00:22:15 elapsed · consent-tagged</div></div>
+                                        <div class="px-5 py-3.5"><div style="font-size:13px;color:#1A1916;">S. Das · Border Post 07 · <span style="color:#DC2626;">flagged</span></div><div style="font-size:11px;color:#6B6860;">Force · 00:01:42 · awaiting supervisor review</div></div>
+                                    </div>
+                                </div>
+                              </div>
+
+                              <!-- ===== VIEW: SESSIONS ===== -->
+                              <div class="ps-view hidden" data-view="sessions">
+                                <div class="flex items-start justify-between mb-6 flex-wrap gap-3">
+                                    <div>
+                                        <h2 class="f-display" style="font-size:24px;font-weight:600;color:#1A1916;line-height:1.2;margin-bottom:4px;">Sessions</h2>
+                                        <p style="font-size:13px;color:#6B6860;">1,284 recordings this month · 163 active · retention 90 days</p>
+                                    </div>
+                                    <button class="flex items-center gap-1.5 text-[13px] font-medium" style="color:#FFFFFF;background:#2563EB;border-radius:5px;padding:6px 14px;">Export evidence</button>
+                                </div>
+                                <div style="background:#FFFFFF;border:1px solid #E5E2DC;border-radius:8px;overflow:hidden;">
+                                    <div class="grid items-center px-5 py-3 border-b" style="grid-template-columns:1.6fr 1fr 1fr 1fr 0.9fr 0.8fr;border-color:#E5E2DC;background:#FAFAF9;font-size:11px;font-weight:600;color:#6B6860;text-transform:uppercase;letter-spacing:0.4px;">
+                                        <div>Session</div><div>Officer</div><div>Type</div><div>Duration</div><div>Status</div><div class="text-right">Actions</div>
+                                    </div>
+                                    <div class="ps-row grid items-center px-5 py-3.5 border-b" style="grid-template-columns:1.6fr 1fr 1fr 1fr 0.9fr 0.8fr;border-color:#E5E2DC;">
+                                        <div><div style="font-size:13px;font-weight:500;color:#1A1916;">SES-2026-04-22-1147</div><div style="font-size:11px;color:#A8A49E;">Started 19:42 · Sector 14</div></div>
+                                        <div style="font-size:12px;color:#1A1916;">R. Sharma</div>
+                                        <div><span class="ps-pill ps-pill-routine">Routine</span></div>
+                                        <div style="font-size:12px;color:#6B6860;">00:12:41</div>
+                                        <div><span style="font-size:11px;color:#16A34A;font-weight:500;">● Recording</span></div>
+                                        <div class="text-right"><span style="color:#2563EB;font-size:12px;font-weight:500;cursor:pointer;">Watch →</span></div>
+                                    </div>
+                                    <div class="ps-row grid items-center px-5 py-3.5 border-b" style="grid-template-columns:1.6fr 1fr 1fr 1fr 0.9fr 0.8fr;border-color:#E5E2DC;">
+                                        <div><div style="font-size:13px;font-weight:500;color:#1A1916;">SES-2026-04-22-1146</div><div style="font-size:11px;color:#A8A49E;">Started 19:40 · CP Complex</div></div>
+                                        <div style="font-size:12px;color:#1A1916;">K. Patel</div>
+                                        <div><span class="ps-pill ps-pill-evidence">Evidence</span></div>
+                                        <div style="font-size:12px;color:#6B6860;">00:04:08</div>
+                                        <div><span style="font-size:11px;color:#16A34A;font-weight:500;">● Recording</span></div>
+                                        <div class="text-right"><span style="color:#2563EB;font-size:12px;font-weight:500;cursor:pointer;">Watch →</span></div>
+                                    </div>
+                                    <div class="ps-row grid items-center px-5 py-3.5 border-b" style="grid-template-columns:1.6fr 1fr 1fr 1fr 0.9fr 0.8fr;border-color:#E5E2DC;background:#FEF2F2;">
+                                        <div><div style="font-size:13px;font-weight:500;color:#1A1916;">SES-2026-04-22-1142</div><div style="font-size:11px;color:#A8A49E;">Started 19:28 · Border Post 07</div></div>
+                                        <div style="font-size:12px;color:#1A1916;">S. Das</div>
+                                        <div><span class="ps-pill ps-pill-force">Force</span></div>
+                                        <div style="font-size:12px;color:#6B6860;">00:01:42</div>
+                                        <div><span style="font-size:11px;color:#DC2626;font-weight:600;">● Flagged</span></div>
+                                        <div class="text-right"><span style="color:#DC2626;font-size:12px;font-weight:600;cursor:pointer;">Review →</span></div>
+                                    </div>
+                                    <div class="ps-row grid items-center px-5 py-3.5 border-b" style="grid-template-columns:1.6fr 1fr 1fr 1fr 0.9fr 0.8fr;border-color:#E5E2DC;">
+                                        <div><div style="font-size:13px;font-weight:500;color:#1A1916;">SES-2026-04-22-1139</div><div style="font-size:11px;color:#A8A49E;">Ended 19:11 · 108 EMS response</div></div>
+                                        <div style="font-size:12px;color:#1A1916;">N. Joshi</div>
+                                        <div><span class="ps-pill ps-pill-routine">Routine</span></div>
+                                        <div style="font-size:12px;color:#6B6860;">00:34:22</div>
+                                        <div><span style="font-size:11px;color:#6B6860;">Archived</span></div>
+                                        <div class="text-right"><span style="color:#2563EB;font-size:12px;font-weight:500;cursor:pointer;">Open →</span></div>
+                                    </div>
+                                    <div class="ps-row grid items-center px-5 py-3.5" style="grid-template-columns:1.6fr 1fr 1fr 1fr 0.9fr 0.8fr;">
+                                        <div><div style="font-size:13px;font-weight:500;color:#1A1916;">SES-2026-04-22-1128</div><div style="font-size:11px;color:#A8A49E;">Ended 18:02 · Training drill</div></div>
+                                        <div style="font-size:12px;color:#1A1916;">P. Kumar</div>
+                                        <div><span class="ps-pill ps-pill-training">Training</span></div>
+                                        <div style="font-size:12px;color:#6B6860;">00:48:10</div>
+                                        <div><span style="font-size:11px;color:#6B6860;">Archived</span></div>
+                                        <div class="text-right"><span style="color:#2563EB;font-size:12px;font-weight:500;cursor:pointer;">Open →</span></div>
+                                    </div>
+                                </div>
+                              </div>
+
+                              <!-- ===== VIEW: USERS ===== -->
+                              <div class="ps-view hidden" data-view="users">
+                                <div class="flex items-start justify-between mb-6 flex-wrap gap-3">
+                                    <div>
+                                        <h2 class="f-display" style="font-size:24px;font-weight:600;color:#1A1916;line-height:1.2;margin-bottom:4px;">Users</h2>
+                                        <p style="font-size:13px;color:#6B6860;">312 users across 4 roles · RBAC enforced · SSO enabled</p>
+                                    </div>
+                                    <button class="flex items-center gap-1.5 text-[13px] font-medium" style="color:#FFFFFF;background:#2563EB;border-radius:5px;padding:6px 14px;">+ Invite user</button>
+                                </div>
+                                <div style="background:#FFFFFF;border:1px solid #E5E2DC;border-radius:8px;overflow:hidden;">
+                                    <div class="grid items-center px-5 py-3 border-b" style="grid-template-columns:2fr 1fr 1fr 1fr 0.8fr;border-color:#E5E2DC;background:#FAFAF9;font-size:11px;font-weight:600;color:#6B6860;text-transform:uppercase;letter-spacing:0.4px;">
+                                        <div>User</div><div>Role</div><div>Unit</div><div>Last active</div><div class="text-right">Actions</div>
+                                    </div>
+                                    <div class="ps-row grid items-center px-5 py-3.5 border-b" style="grid-template-columns:2fr 1fr 1fr 1fr 0.8fr;border-color:#E5E2DC;">
+                                        <div class="flex items-center gap-3"><div class="flex items-center justify-center" style="width:32px;height:32px;background:#EFF4FF;color:#2563EB;border-radius:50%;font-size:11px;font-weight:600;">VK</div><div><div style="font-size:13px;font-weight:500;color:#1A1916;">V. Kapoor</div><div style="font-size:11px;color:#6B6860;">vikram.kapoor@delhipolice.gov.in</div></div></div>
+                                        <div><span class="ps-pill" style="background:#EFF4FF;color:#2563EB;">Supervisor</span></div>
+                                        <div style="font-size:12px;color:#6B6860;">DL-01 Control</div>
+                                        <div style="font-size:12px;color:#6B6860;">Now</div>
+                                        <div class="text-right"><span style="color:#2563EB;font-size:12px;font-weight:500;cursor:pointer;">Edit →</span></div>
+                                    </div>
+                                    <div class="ps-row grid items-center px-5 py-3.5 border-b" style="grid-template-columns:2fr 1fr 1fr 1fr 0.8fr;border-color:#E5E2DC;">
+                                        <div class="flex items-center gap-3"><div class="flex items-center justify-center" style="width:32px;height:32px;background:#F0FDF4;color:#16A34A;border-radius:50%;font-size:11px;font-weight:600;">RS</div><div><div style="font-size:13px;font-weight:500;color:#1A1916;">R. Sharma</div><div style="font-size:11px;color:#6B6860;">r.sharma@delhipolice.gov.in</div></div></div>
+                                        <div><span class="ps-pill" style="background:#F1F0EE;color:#6B6860;">Officer</span></div>
+                                        <div style="font-size:12px;color:#6B6860;">Patrol 14</div>
+                                        <div style="font-size:12px;color:#6B6860;">2s ago</div>
+                                        <div class="text-right"><span style="color:#2563EB;font-size:12px;font-weight:500;cursor:pointer;">Edit →</span></div>
+                                    </div>
+                                    <div class="ps-row grid items-center px-5 py-3.5 border-b" style="grid-template-columns:2fr 1fr 1fr 1fr 0.8fr;border-color:#E5E2DC;">
+                                        <div class="flex items-center gap-3"><div class="flex items-center justify-center" style="width:32px;height:32px;background:#FFFBEB;color:#D97706;border-radius:50%;font-size:11px;font-weight:600;">AS</div><div><div style="font-size:13px;font-weight:500;color:#1A1916;">A. Singh</div><div style="font-size:11px;color:#6B6860;">admin@delhipolice.gov.in</div></div></div>
+                                        <div><span class="ps-pill" style="background:#FFFBEB;color:#D97706;">Admin</span></div>
+                                        <div style="font-size:12px;color:#6B6860;">HQ</div>
+                                        <div style="font-size:12px;color:#6B6860;">4m ago</div>
+                                        <div class="text-right"><span style="color:#2563EB;font-size:12px;font-weight:500;cursor:pointer;">Edit →</span></div>
+                                    </div>
+                                    <div class="ps-row grid items-center px-5 py-3.5" style="grid-template-columns:2fr 1fr 1fr 1fr 0.8fr;">
+                                        <div class="flex items-center gap-3"><div class="flex items-center justify-center" style="width:32px;height:32px;background:#F1F0EE;color:#6B6860;border-radius:50%;font-size:11px;font-weight:600;">KP</div><div><div style="font-size:13px;font-weight:500;color:#1A1916;">K. Patel</div><div style="font-size:11px;color:#6B6860;">k.patel@delhipolice.gov.in</div></div></div>
+                                        <div><span class="ps-pill" style="background:#F1F0EE;color:#6B6860;">Officer</span></div>
+                                        <div style="font-size:12px;color:#6B6860;">Incident Resp.</div>
+                                        <div style="font-size:12px;color:#6B6860;">14s ago</div>
+                                        <div class="text-right"><span style="color:#2563EB;font-size:12px;font-weight:500;cursor:pointer;">Edit →</span></div>
+                                    </div>
+                                </div>
+                              </div>
+
+                              <!-- ===== VIEW: AUDIT LOG ===== -->
+                              <div class="ps-view hidden" data-view="audit">
+                                <div class="flex items-start justify-between mb-6 flex-wrap gap-3">
+                                    <div>
+                                        <h2 class="f-display" style="font-size:24px;font-weight:600;color:#1A1916;line-height:1.2;margin-bottom:4px;">Audit Log</h2>
+                                        <p style="font-size:13px;color:#6B6860;">Every action. Every viewer. SHA-256 chained · exportable · tamper-evident.</p>
+                                    </div>
+                                    <button class="text-[13px] font-medium" style="color:#6B6860;border:1px solid #D1CEC7;background:#FFFFFF;border-radius:5px;padding:6px 14px;">Export CSV</button>
+                                </div>
+                                <div style="background:#FFFFFF;border:1px solid #E5E2DC;border-radius:8px;overflow:hidden;">
+                                    <div class="grid items-center px-5 py-3 border-b" style="grid-template-columns:0.9fr 1fr 1.2fr 2fr 0.8fr;border-color:#E5E2DC;background:#FAFAF9;font-size:11px;font-weight:600;color:#6B6860;text-transform:uppercase;letter-spacing:0.4px;">
+                                        <div>Timestamp</div><div>Actor</div><div>Action</div><div>Target</div><div>IP</div>
+                                    </div>
+                                    <div class="grid items-center px-5 py-3 border-b" style="grid-template-columns:0.9fr 1fr 1.2fr 2fr 0.8fr;border-color:#E5E2DC;font-size:12px;">
+                                        <div style="color:#6B6860;font-family:'DM Sans',sans-serif;">19:43:07</div>
+                                        <div style="color:#1A1916;">V. Kapoor</div>
+                                        <div><span style="background:#EFF4FF;color:#2563EB;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:500;">evidence.view</span></div>
+                                        <div style="color:#1A1916;">SES-2026-04-22-1142 · Force flag</div>
+                                        <div style="color:#A8A49E;font-family:'DM Sans',sans-serif;">10.14.2.8</div>
+                                    </div>
+                                    <div class="grid items-center px-5 py-3 border-b" style="grid-template-columns:0.9fr 1fr 1.2fr 2fr 0.8fr;border-color:#E5E2DC;font-size:12px;">
+                                        <div style="color:#6B6860;">19:42:51</div>
+                                        <div style="color:#1A1916;">S. Das</div>
+                                        <div><span style="background:#FEF2F2;color:#DC2626;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:500;">sos.triggered</span></div>
+                                        <div style="color:#1A1916;">PS1-00163 · Border Post 07</div>
+                                        <div style="color:#A8A49E;">192.168.4.73</div>
+                                    </div>
+                                    <div class="grid items-center px-5 py-3 border-b" style="grid-template-columns:0.9fr 1fr 1.2fr 2fr 0.8fr;border-color:#E5E2DC;font-size:12px;">
+                                        <div style="color:#6B6860;">19:40:11</div>
+                                        <div style="color:#1A1916;">K. Patel</div>
+                                        <div><span style="background:#F0FDF4;color:#16A34A;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:500;">session.start</span></div>
+                                        <div style="color:#1A1916;">SES-2026-04-22-1146 · Evidence</div>
+                                        <div style="color:#A8A49E;">10.14.6.22</div>
+                                    </div>
+                                    <div class="grid items-center px-5 py-3 border-b" style="grid-template-columns:0.9fr 1fr 1.2fr 2fr 0.8fr;border-color:#E5E2DC;font-size:12px;">
+                                        <div style="color:#6B6860;">19:35:02</div>
+                                        <div style="color:#1A1916;">A. Singh</div>
+                                        <div><span style="background:#FFFBEB;color:#D97706;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:500;">user.role.changed</span></div>
+                                        <div style="color:#1A1916;">N. Joshi · Officer → Supervisor</div>
+                                        <div style="color:#A8A49E;">10.14.1.4</div>
+                                    </div>
+                                    <div class="grid items-center px-5 py-3 border-b" style="grid-template-columns:0.9fr 1fr 1.2fr 2fr 0.8fr;border-color:#E5E2DC;font-size:12px;">
+                                        <div style="color:#6B6860;">19:28:44</div>
+                                        <div style="color:#1A1916;">V. Kapoor</div>
+                                        <div><span style="background:#EFF4FF;color:#2563EB;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:500;">device.assigned</span></div>
+                                        <div style="color:#1A1916;">PS1-00247 → R. Sharma</div>
+                                        <div style="color:#A8A49E;">10.14.2.8</div>
+                                    </div>
+                                    <div class="grid items-center px-5 py-3" style="grid-template-columns:0.9fr 1fr 1.2fr 2fr 0.8fr;font-size:12px;">
+                                        <div style="color:#6B6860;">19:15:19</div>
+                                        <div style="color:#1A1916;">system</div>
+                                        <div><span style="background:#F1F0EE;color:#6B6860;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:500;">evidence.archived</span></div>
+                                        <div style="color:#1A1916;">42 sessions · SHA-256 verified</div>
+                                        <div style="color:#A8A49E;">—</div>
+                                    </div>
+                                </div>
+                              </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ===== DETAIL DRAWER (slides in from right) ===== -->
+                    <div id="ps-drawer-backdrop" class="ps-drawer-backdrop"></div>
+                    <div id="ps-drawer" class="ps-drawer">
+                        <div class="flex items-center justify-between px-5 py-4 border-b" style="border-color:#E5E2DC;">
+                            <div>
+                                <div id="ps-drawer-title" class="f-display" style="font-size:16px;font-weight:600;color:#1A1916;">Device detail</div>
+                                <div id="ps-drawer-sub" style="font-size:11px;color:#A8A49E;">PS1-00247 · Prosight One</div>
+                            </div>
+                            <button id="ps-drawer-close" style="width:28px;height:28px;border-radius:5px;background:#FAFAF9;color:#6B6860;font-size:16px;line-height:1;border:1px solid #E5E2DC;">×</button>
+                        </div>
+                        <div id="ps-drawer-body" class="p-5" style="overflow-y:auto;flex:1;"></div>
+                    </div>
+                    <div id="ps-toast" class="ps-toast">Ready</div>
+                </div>
+                <!-- Caption -->
+                <p class="text-center text-xs mt-5" style="color:#A8A49E;font-family:'DM Sans',sans-serif;">Interactive demo · click the sidebar, filter chips, or any row. Mirrors the real Prosight dashboard at <span style="color:#2563EB;">command.prosight.in</span> — sample data shown.</p>
+            </div>
+        </div>
+        <script>
+        (function(){
+            const app = document.querySelector('.ps-app');
+            if (!app) return;
+            const titleEl = app.querySelector('#ps-topbar-title');
+            const views = app.querySelectorAll('.ps-view');
+            const navs = app.querySelectorAll('.ps-sidebar-link');
+            const chips = app.querySelectorAll('.ps-fchip');
+            const rows = app.querySelectorAll('[data-view="devices"] .ps-row');
+            const drawer = app.querySelector('#ps-drawer');
+            const backdrop = app.querySelector('#ps-drawer-backdrop');
+            const dTitle = app.querySelector('#ps-drawer-title');
+            const dSub = app.querySelector('#ps-drawer-sub');
+            const dBody = app.querySelector('#ps-drawer-body');
+            const toast = app.querySelector('#ps-toast');
+            const NAV_TITLES = { dashboard:'Dashboard', devices:'Device Management', sessions:'Recording Sessions', users:'User Management', audit:'Audit Log' };
+
+            function showToast(msg){ toast.textContent = msg; toast.classList.add('show'); clearTimeout(showToast._t); showToast._t = setTimeout(()=>toast.classList.remove('show'), 1600); }
+
+            // ── Sidebar nav → switch view
+            navs.forEach(n => n.addEventListener('click', () => {
+                const v = n.getAttribute('data-nav');
+                navs.forEach(x => x.classList.remove('active'));
+                n.classList.add('active');
+                views.forEach(view => view.classList.toggle('hidden', view.getAttribute('data-view') !== v));
+                titleEl.textContent = NAV_TITLES[v] || 'Prosight';
+                closeDrawer();
+            }));
+
+            // ── Filter chips → filter device rows
+            chips.forEach(c => c.addEventListener('click', () => {
+                chips.forEach(x => x.classList.remove('on'));
+                c.classList.add('on');
+                const f = c.getAttribute('data-filter');
+                let shown = 0;
+                rows.forEach(r => {
+                    const s = r.getAttribute('data-status');
+                    const a = r.getAttribute('data-assigned');
+                    const lb = r.getAttribute('data-lowbatt');
+                    let match = false;
+                    if (f === 'all') match = true;
+                    else if (f === 'online') match = s === 'online';
+                    else if (f === 'idle') match = s === 'idle';
+                    else if (f === 'offline') match = s === 'offline' || s === 'force';
+                    else if (f === 'assigned') match = a === '1';
+                    else if (f === 'unassigned') match = a === '0';
+                    else if (f === 'lowbatt') match = lb === '1';
+                    r.classList.toggle('ps-hidden', !match);
+                    if (match) shown++;
+                });
+                const sub = app.querySelector('#ps-devices-sub');
+                const pag = app.querySelector('#ps-pagination-count');
+                if (sub) sub.textContent = `Showing ${shown} of 247 devices · filter: ${c.textContent.trim()}`;
+                if (pag) pag.textContent = `Showing 1–${shown} of 247`;
+            }));
+
+            // ── Row click → open detail drawer
+            const ROW_DETAIL = {
+                'PS1-00247': { title:'Prosight One · PS1-00247', sub:'R. Sharma · Constable · Patrol 14', status:'Online', batt:86, shift:'A · 19:30 – 07:30', fw:'v4.2.1', net:'4G · 62 Mbps', loc:'Sector 14 · 28.63°N 77.21°E', session:'SES-2026-04-22-1147 · Routine · 00:12:41' },
+                'PS1-00198': { title:'Prosight One · PS1-00198', sub:'K. Patel · SI · Incident Response', status:'Online', batt:72, shift:'A · 19:30 – 07:30', fw:'v4.2.1', net:'4G · 48 Mbps', loc:'CP Complex · 28.63°N 77.22°E', session:'SES-2026-04-22-1146 · Evidence · 00:04:08' },
+                'PS1-00163': { title:'Prosight One · PS1-00163', sub:'S. Das · Inspector · Border Post 07', status:'Force flag · SOS', batt:41, shift:'B · 15:00 – 23:00', fw:'v4.2.1', net:'4G · 12 Mbps (weak)', loc:'Border Post 07 · BSF sector', session:'SES-2026-04-22-1142 · Force · 00:01:42 — awaiting review' },
+                'PS1-00089': { title:'Prosight One · PS1-00089', sub:'D. Reddy · HC · Traffic Division', status:'Idle', batt:58, shift:'A · 19:30 – 07:30', fw:'v4.2.1', net:'4G · 34 Mbps', loc:'ITO Junction · 28.63°N 77.24°E', session:'No active session' },
+                'PS1-00054': { title:'Prosight One · PS1-00054', sub:'P. Kumar · Security Supervisor · Tower C', status:'Online', batt:94, shift:'A · 18:00 – 02:00', fw:'v4.2.1', net:'WiFi · 120 Mbps', loc:'Tower C · Gurugram', session:'SES-2026-04-22-1128 · Training · 00:48:10' },
+                'PS1-00032': { title:'Prosight One · PS1-00032', sub:'Unassigned · Returned to stores', status:'Offline', batt:0, shift:'—', fw:'v4.2.1', net:'—', loc:'Stores · Mumbai FD', session:'No session · last seen 2h 14m ago' },
+                'PS1-00018': { title:'Prosight One · PS1-00018', sub:'N. Joshi · Paramedic · 108 Response', status:'Online', batt:68, shift:'C · 23:00 – 07:00', fw:'v4.2.1', net:'4G · 28 Mbps', loc:'108 Response · AIIMS corridor', session:'SES-2026-04-22-1139 · Routine · 00:34:22' },
+            };
+            function openDrawer(id){
+                const d = ROW_DETAIL[id]; if (!d) return;
+                dTitle.textContent = d.title;
+                dSub.textContent = d.sub;
+                const battColor = d.batt >= 70 ? '#16A34A' : d.batt >= 40 ? '#D97706' : '#DC2626';
+                const statusColor = d.status.toLowerCase().includes('force') ? '#DC2626' : d.status === 'Online' ? '#16A34A' : d.status === 'Idle' ? '#D97706' : '#6B6860';
+                dBody.innerHTML = `
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">
+                        <div style="background:#FAFAF9;border:1px solid #E5E2DC;border-radius:6px;padding:10px 12px;">
+                            <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.4px;color:#6B6860;margin-bottom:4px;">Status</div>
+                            <div style="font-size:13px;font-weight:500;color:${statusColor};">${d.status}</div>
+                        </div>
+                        <div style="background:#FAFAF9;border:1px solid #E5E2DC;border-radius:6px;padding:10px 12px;">
+                            <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.4px;color:#6B6860;margin-bottom:4px;">Battery</div>
+                            <div style="font-size:13px;font-weight:500;color:${battColor};">${d.batt}%</div>
+                            <div style="height:3px;background:#E5E2DC;border-radius:2px;margin-top:6px;"><div style="height:100%;width:${d.batt}%;background:${battColor};border-radius:2px;"></div></div>
+                        </div>
+                    </div>
+                    <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:#6B6860;margin-bottom:6px;">Details</div>
+                    <dl style="display:grid;grid-template-columns:auto 1fr;row-gap:8px;column-gap:14px;font-size:12px;margin-bottom:16px;">
+                        <dt style="color:#6B6860;">Shift</dt><dd style="color:#1A1916;">${d.shift}</dd>
+                        <dt style="color:#6B6860;">Firmware</dt><dd style="color:#1A1916;">${d.fw}</dd>
+                        <dt style="color:#6B6860;">Network</dt><dd style="color:#1A1916;">${d.net}</dd>
+                        <dt style="color:#6B6860;">Location</dt><dd style="color:#1A1916;">${d.loc}</dd>
+                        <dt style="color:#6B6860;">Session</dt><dd style="color:#1A1916;">${d.session}</dd>
+                    </dl>
+                    <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:#6B6860;margin-bottom:6px;">Actions</div>
+                    <div style="display:flex;flex-wrap:wrap;gap:8px;">
+                        <button class="ps-drawer-act" data-act="stream" style="flex:1;min-width:120px;background:#2563EB;color:#FFFFFF;border-radius:5px;padding:8px 12px;font-size:12px;font-weight:500;">Open live stream</button>
+                        <button class="ps-drawer-act" data-act="ping" style="flex:1;min-width:120px;background:#FFFFFF;border:1px solid #D1CEC7;color:#1A1916;border-radius:5px;padding:8px 12px;font-size:12px;font-weight:500;">Ping officer</button>
+                        <button class="ps-drawer-act" data-act="evidence" style="flex:1;min-width:120px;background:#FFFFFF;border:1px solid #D1CEC7;color:#1A1916;border-radius:5px;padding:8px 12px;font-size:12px;font-weight:500;">View evidence</button>
+                    </div>
+                `;
+                dBody.querySelectorAll('.ps-drawer-act').forEach(b => b.addEventListener('click', () => {
+                    const a = b.getAttribute('data-act');
+                    const msgs = { stream:'Live stream opening…', ping:'Ping sent to officer', evidence:'Evidence vault query launched' };
+                    showToast(msgs[a] || 'Action');
+                }));
+                drawer.classList.add('open');
+                backdrop.classList.add('open');
+            }
+            function closeDrawer(){ drawer.classList.remove('open'); backdrop.classList.remove('open'); }
+            rows.forEach(r => r.addEventListener('click', () => openDrawer(r.getAttribute('data-id'))));
+            // Sessions / Users rows also get a soft toast
+            app.querySelectorAll('[data-view="sessions"] .ps-row, [data-view="users"] .ps-row').forEach(r => {
+                r.addEventListener('click', () => showToast('Opening record… (demo)'));
+            });
+            backdrop.addEventListener('click', closeDrawer);
+            app.querySelector('#ps-drawer-close').addEventListener('click', closeDrawer);
+            document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
+
+            // ── Refresh spinner
+            const refreshBtn = app.querySelector('#ps-refresh-btn');
+            const refreshIco = app.querySelector('#ps-refresh-ico');
+            refreshBtn && refreshBtn.addEventListener('click', () => {
+                refreshIco.classList.add('ps-spin');
+                showToast('Refreshed · 247 devices polled');
+                setTimeout(() => refreshIco.classList.remove('ps-spin'), 700);
+            });
+
+            // ── Pagination tabs just toggle active
+            app.querySelectorAll('.ps-tab').forEach(t => t.addEventListener('click', () => {
+                if (/prev|next/i.test(t.textContent)) { showToast('Pagination (demo)'); return; }
+                app.querySelectorAll('.ps-tab').forEach(x => x.classList.remove('active'));
+                t.classList.add('active');
+            }));
+
+            // ── Sign out button
+            const signOut = app.querySelector('header button');
+            signOut && signOut.addEventListener('click', (e) => { e.preventDefault(); showToast('Sign-out disabled in demo'); });
+        })();
+        </script>
+    </section>
+
+
+
+
+    <!-- ==================== INDIA CONTEXT ==================== -->
+    <section class="relative py-24 lg:py-32 bg-white border-t border-grey-200">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="reveal">
+                    <p class="text-blue text-xs font-semibold uppercase tracking-widest mb-4">India Context</p>
+                    <h2 class="text-3xl lg:text-4xl font-bold tracking-tight mb-6">Why real-time visibility<br>matters in India</h2>
+                    <p class="text-grey-600 leading-relaxed mb-8">India's scale demands a different approach to public safety. With diverse terrain, dense urban centres, and complex operational environments, static surveillance is not enough.</p>
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-4"><div class="w-10 h-10 rounded-xl bg-blue/10 flex items-center justify-center flex-shrink-0"><svg class="w-5 h-5 text-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"/></svg></div><div><h4 class="font-semibold mb-1">Dense Urban Environments</h4><p class="text-sm text-grey-600">Crowded cities and marketplaces require mobile, always-on monitoring that fixed CCTV cannot provide.</p></div></div>
+                        <div class="flex items-start gap-4"><div class="w-10 h-10 rounded-xl bg-blue/10 flex items-center justify-center flex-shrink-0"><svg class="w-5 h-5 text-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div><div><h4 class="font-semibold mb-1">Emergency Response Time</h4><p class="text-sm text-grey-600">Real-time video and GPS dramatically reduce coordination delays during critical incidents across large jurisdictions.</p></div></div>
+                        <div class="flex items-start gap-4"><div class="w-10 h-10 rounded-xl bg-blue/10 flex items-center justify-center flex-shrink-0"><svg class="w-5 h-5 text-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg></div><div><h4 class="font-semibold mb-1">Public Safety & Accountability</h4><p class="text-sm text-grey-600">Growing expectations for transparent governance create urgent demand for reliable, evidence-grade BWC systems.</p></div></div>
+                    </div>
+                </div>
+                <div class="reveal" style="transition-delay:0.15s">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-grey-100 rounded-2xl p-6 border border-grey-200 text-center"><div class="text-3xl lg:text-4xl font-bold text-blue mb-2">1.4B+</div><div class="text-xs text-grey-400">Population to protect</div></div>
+                        <div class="bg-grey-100 rounded-2xl p-6 border border-grey-200 text-center"><div class="text-3xl lg:text-4xl font-bold text-blue mb-2">28+</div><div class="text-xs text-grey-400">States & UTs served</div></div>
+                        <div class="bg-grey-100 rounded-2xl p-6 border border-grey-200 text-center"><div class="text-3xl lg:text-4xl font-bold text-blue mb-2">24/7</div><div class="text-xs text-grey-400">Continuous monitoring</div></div>
+                        <div class="bg-grey-100 rounded-2xl p-6 border border-grey-200 text-center"><div class="text-3xl lg:text-4xl font-bold text-blue mb-2">99.9%</div><div class="text-xs text-grey-400">Platform uptime</div></div>
+                    </div>
+                    <div class="mt-4 bg-grey-100 rounded-2xl p-6 border border-grey-200">
+                        <div class="flex items-center gap-3 mb-3"><div class="w-2 h-2 rounded-full bg-teal"></div><span class="text-xs text-teal font-medium">NETWORK STATUS</span></div>
+                        <p class="text-sm text-grey-600">The Prosight One's multi-band 4G LTE with WiFi AP/Station mode is engineered for India's diverse network conditions — from 5G metros to 2G rural zones. Local buffering ensures zero footage loss.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ==================== INCIDENT & ANALYTICS ==================== -->
+    <section id="analytics" class="relative py-24 lg:py-32 bg-offwhite border-t border-grey-200">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <p class="text-blue text-xs font-semibold uppercase tracking-widest mb-4">Incident Intelligence</p>
+                <h2 class="text-3xl lg:text-5xl font-bold tracking-tight mb-5">From incident to insight.<br>In minutes, not weeks.</h2>
+                <p class="text-grey-600 text-lg max-w-2xl mx-auto">Every recorded event becomes actionable intelligence — searchable, reviewable, and ready for decision-making.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-6 reveal">
+                <div class="card-hover rounded-2xl bg-white p-8"><div class="w-12 h-12 rounded-xl bg-blue/10 flex items-center justify-center mb-5"><svg class="w-6 h-6 text-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/></svg></div><h3 class="text-lg font-semibold mb-2">Incident Review</h3><p class="text-sm text-grey-600 leading-relaxed mb-4">Search and replay any incident by officer, location, date, or key-marked tag. Multi-angle footage from all nearby Prosight One cameras, synchronised to the second.</p><div class="h-px bg-grey-200 my-4"></div><div class="flex items-center gap-2 text-xs text-grey-600"><svg class="w-3.5 h-3.5 text-teal" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Multi-camera sync playback</div></div>
+                <div class="card-hover rounded-2xl bg-white p-8"><div class="w-12 h-12 rounded-xl bg-blue/10 flex items-center justify-center mb-5"><svg class="w-6 h-6 text-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg></div><h3 class="text-lg font-semibold mb-2">Evidence Tracking</h3><p class="text-sm text-grey-600 leading-relaxed mb-4">Complete digital chain-of-custody. AES-256 encryption, device watermarks with GPS coordinates, and cryptographic integrity verification.</p><div class="h-px bg-grey-200 my-4"></div><div class="flex items-center gap-2 text-xs text-grey-600"><svg class="w-3.5 h-3.5 text-teal" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Tamper-proof audit trail</div></div>
+                <div class="card-hover rounded-2xl bg-white p-8"><div class="w-12 h-12 rounded-xl bg-blue/10 flex items-center justify-center mb-5"><svg class="w-6 h-6 text-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z"/></svg></div><h3 class="text-lg font-semibold mb-2">Mission Playback</h3><p class="text-sm text-grey-600 leading-relaxed mb-4">Reconstruct entire operations on a timeline — 2K video, GPS movement, SOS events, and key-marked segments overlaid chronologically.</p><div class="h-px bg-grey-200 my-4"></div><div class="flex items-center gap-2 text-xs text-grey-600"><svg class="w-3.5 h-3.5 text-teal" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Full operational reconstruction</div></div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ==================== WHY PROSIGHT ==================== -->
+    <section id="why-prosight" class="relative py-24 lg:py-32 bg-white border-t border-grey-200">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <p class="text-blue text-xs font-semibold uppercase tracking-widest mb-4">The Prosight Advantage</p>
+                <h2 class="text-3xl lg:text-5xl font-bold tracking-tight mb-5">Why Prosight</h2>
+                <p class="text-grey-600 text-lg max-w-2xl mx-auto">Not another imported solution. Prosight is engineered from the ground up for Indian operational realities.</p>
+            </div>
+
+            <!-- India Context Image Strip -->
+            <div class="rounded-2xl overflow-hidden mb-12 relative reveal">
+                <img src="images/india-city.jpg" alt="India Urban Context" class="w-full h-64 object-cover object-center">
+                <div class="absolute inset-0 bg-gradient-to-r from-primary/70 via-primary/40 to-transparent flex items-center p-10">
+                    <div>
+                        <p class="text-teal text-xs font-semibold uppercase tracking-widest mb-2">Made for India</p>
+                        <h3 class="text-white text-2xl lg:text-3xl font-bold max-w-sm leading-snug">Engineered for Indian operational realities.</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 reveal">
+                <div class="card-hover rounded-2xl bg-offwhite p-7 text-center"><div class="w-14 h-14 rounded-xl bg-blue/10 flex items-center justify-center mx-auto mb-5"><svg class="w-7 h-7 text-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg></div><h3 class="font-semibold mb-2">Built for India</h3><p class="text-sm text-grey-600 leading-relaxed">IP67 sealed and MIL-STD-810G rated for Indian dust, heat and humidity.</p></div>
+                <div class="card-hover rounded-2xl bg-offwhite p-7 text-center"><div class="w-14 h-14 rounded-xl bg-blue/10 flex items-center justify-center mx-auto mb-5"><svg class="w-7 h-7 text-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/></svg></div><h3 class="font-semibold mb-2">Low Bandwidth</h3><p class="text-sm text-grey-600 leading-relaxed">H.265 encoding + multi-band 4G LTE. Buffers locally when connectivity drops.</p></div>
+                <div class="card-hover rounded-2xl bg-offwhite p-7 text-center"><div class="w-14 h-14 rounded-xl bg-blue/10 flex items-center justify-center mx-auto mb-5"><svg class="w-7 h-7 text-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg></div><h3 class="font-semibold mb-2">Secure Data</h3><p class="text-sm text-grey-600 leading-relaxed">AES-256 at rest and in transit. USB & menu password protection. Data sovereignty compliant.</p></div>
+                <div class="card-hover rounded-2xl bg-offwhite p-7 text-center"><div class="w-14 h-14 rounded-xl bg-blue/10 flex items-center justify-center mx-auto mb-5"><svg class="w-7 h-7 text-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5.25 14.25h13.5m-13.5 0a3 3 0 01-3-3m3 3a3 3 0 100 6h13.5a3 3 0 100-6m-16.5-3a3 3 0 013-3h13.5a3 3 0 013 3m-19.5 0a4.5 4.5 0 01.9-2.7L5.737 5.1a3.375 3.375 0 012.7-1.35h7.126c1.062 0 2.062.5 2.7 1.35l2.587 3.45a4.5 4.5 0 01.9 2.7m0 0a3 3 0 01-3 3m0 3h.008v.008h-.008v-.008zm0-6h.008v.008h-.008v-.008zm-3 6h.008v.008h-.008v-.008zm0-6h.008v.008h-.008v-.008z"/></svg></div><h3 class="font-semibold mb-2">Easy Deploy</h3><p class="text-sm text-grey-600 leading-relaxed">Issue cameras. Connect to dashboard. Boot auto-record. Minimal infrastructure requirements.</p></div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ==================== FINAL CTA ==================== -->
+    <section id="demo" class="relative py-24 lg:py-32 bg-navy overflow-hidden">
+        <div class="absolute inset-0" style="background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px); background-size: 60px 60px;"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-blue/5 rounded-full blur-[120px] pointer-events-none"></div>
+
+        <div class="relative max-w-4xl mx-auto px-6 lg:px-8 text-center reveal">
+            <div class="inline-flex items-center gap-2 bg-blue/10 rounded-full px-4 py-2 mb-8 border border-blue/20">
+                <div class="live-dot" style="width:6px;height:6px"></div>
+                <span class="text-xs text-blue font-medium">Live Demo Available</span>
+            </div>
+            <h2 class="text-4xl lg:text-6xl font-bold tracking-tight mb-6 text-white">See Prosight in Action</h2>
+            <p class="text-lg text-grey-400 max-w-2xl mx-auto mb-10 leading-relaxed">Schedule a live walkthrough of the Prosight platform. See the dashboard, test the Prosight One, and understand how real-time visibility transforms operations.</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#" class="bg-blue hover:bg-blue/90 text-white font-medium px-10 py-4 rounded-xl transition-all hover:shadow-lg hover:shadow-blue/25 text-lg">Book a Demo</a>
+                <a href="#" id="contact" class="bg-white/5 hover:bg-white/10 text-white font-medium px-10 py-4 rounded-xl transition-all border border-white/10 text-lg">Contact Sales</a>
+            </div>
+            <p class="text-xs text-grey-400 mt-8">No commitment required. See it before you decide.</p>
+        </div>
+    </section>
+
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="bg-primary border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 py-12 lg:py-16">
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+                <div class="sm:col-span-2 lg:col-span-1">
+                    <a href="#" class="flex items-center gap-0 mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 80" width="120" height="30">
+                            <path d="M18 8 L42 8 Q50 8 50 16 L50 40 Q50 58 30 68 Q10 58 10 40 L10 16 Q10 8 18 8 Z" fill="none" stroke="white" stroke-width="2.8" stroke-linejoin="round"/>
+                            <path d="M17 38 Q30 24 43 38 Q30 52 17 38 Z" fill="none" stroke="white" stroke-width="2.2" stroke-linejoin="round"/>
+                            <circle cx="30" cy="38" r="6.5" fill="none" stroke="white" stroke-width="2.2"/>
+                            <circle cx="30" cy="38" r="2.8" fill="white"/>
+                            <text x="62" y="50" font-family="'Sora', sans-serif" font-weight="600" font-size="34" letter-spacing="-1" fill="white">Prosight</text>
+                        </svg>
+                    </a>
+                    <p class="text-sm text-white/40 leading-relaxed">Enterprise-grade body worn camera systems for law enforcement and security teams across India.</p>
+                </div>
+                <div><h4 class="text-xs font-semibold uppercase tracking-widest text-white/30 mb-4">Product</h4><ul class="space-y-3"><li><a href="#features" class="text-sm text-white/40 hover:text-white transition-colors">Features</a></li><li><a href="#product" class="text-sm text-white/40 hover:text-white transition-colors">Prosight One</a></li><li><a href="#dashboard" class="text-sm text-white/40 hover:text-white transition-colors">Dashboard</a></li><li><a href="#analytics" class="text-sm text-white/40 hover:text-white transition-colors">Analytics</a></li></ul></div>
+                <div><h4 class="text-xs font-semibold uppercase tracking-widest text-white/30 mb-4">Industries</h4><ul class="space-y-3"><li><a href="#" class="text-sm text-white/40 hover:text-white transition-colors">Law Enforcement</a></li><li><a href="#" class="text-sm text-white/40 hover:text-white transition-colors">Enterprise Security</a></li><li><a href="#" class="text-sm text-white/40 hover:text-white transition-colors">Fire Services</a></li><li><a href="#" class="text-sm text-white/40 hover:text-white transition-colors">Healthcare</a></li><li><a href="#" class="text-sm text-white/40 hover:text-white transition-colors">Border Control</a></li></ul></div>
+                <div><h4 class="text-xs font-semibold uppercase tracking-widest text-white/30 mb-4">Company</h4><ul class="space-y-3"><li><a href="#" class="text-sm text-white/40 hover:text-white transition-colors">About</a></li><li><a href="#" class="text-sm text-white/40 hover:text-white transition-colors">Contact</a></li><li><a href="#" class="text-sm text-white/40 hover:text-white transition-colors">Privacy Policy</a></li><li><a href="#" class="text-sm text-white/40 hover:text-white transition-colors">Terms of Service</a></li></ul></div>
+            </div>
+            <div class="mt-12 pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <p class="text-xs text-white/20">&copy; 2026 Prosight Technologies Pvt. Ltd. All rights reserved.</p>
+                <p class="text-xs text-white/20">Made in India. For India.</p>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- ==================== JAVASCRIPT ==================== -->
+    <script>
+        // Navbar scroll
+        const navbar = document.querySelector('.navbar');
+        window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 50));
+
+        // Mobile menu
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        let menuOpen = false;
+        mobileMenuBtn.addEventListener('click', () => {
+            menuOpen = !menuOpen;
+            mobileMenu.classList.toggle('hidden', !menuOpen);
+            document.getElementById('menuIcon').setAttribute('d', menuOpen ? 'M6 18L18 6M6 6l12 12' : 'M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5');
+        });
+        mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+            menuOpen = false; mobileMenu.classList.add('hidden');
+            document.getElementById('menuIcon').setAttribute('d', 'M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5');
+        }));
+
+        // Dashboard tabs
+        function switchDashTab(btn, tab) {
+            document.querySelectorAll('.dash-tab:not(.spec-tab)').forEach(t => {
+                t.classList.remove('active', 'text-white', 'bg-white/10');
+                t.classList.add('text-white/50', 'bg-white/5');
+            });
+            btn.classList.add('active', 'text-white', 'bg-white/10');
+            btn.classList.remove('text-white/50', 'bg-white/5');
+            document.querySelectorAll('.dash-view').forEach(v => v.classList.add('hidden'));
+            const view = document.getElementById('dash-' + tab);
+            if (view) { view.classList.remove('hidden'); view.style.opacity = '0'; view.style.transform = 'translateY(10px)'; requestAnimationFrame(() => { view.style.transition = 'all 0.4s ease'; view.style.opacity = '1'; view.style.transform = 'translateY(0)'; }); }
+        }
+
+        // Live dashboard clock
+        (function() {
+            const el = document.getElementById('dash-clock');
+            if (!el) return;
+            const tick = () => {
+                const d = new Date();
+                const h = String(d.getHours()).padStart(2,'0');
+                const m = String(d.getMinutes()).padStart(2,'0');
+                const s = String(d.getSeconds()).padStart(2,'0');
+                el.textContent = `${h}:${m}:${s} IST`;
+            };
+            tick(); setInterval(tick, 1000);
+        })();
+
+        // Product sidebar
+        function switchProduct(product) {
+            document.querySelectorAll('.product-nav-btn').forEach(b => { b.classList.remove('bg-blue/5', 'border-blue/20'); b.classList.add('bg-grey-100/50', 'border-grey-200'); });
+            const btn = document.querySelector(`[data-product="${product}"]`);
+            btn.classList.add('bg-blue/5', 'border-blue/20'); btn.classList.remove('bg-grey-100/50', 'border-grey-200');
+            document.querySelectorAll('.product-panel').forEach(p => p.classList.add('hidden'));
+            const panel = document.getElementById('product-' + product);
+            if (panel) { panel.classList.remove('hidden'); panel.style.opacity = '0'; panel.style.transform = 'translateY(10px)'; requestAnimationFrame(() => { panel.style.transition = 'all 0.4s ease'; panel.style.opacity = '1'; panel.style.transform = 'translateY(0)'; }); }
+        }
+
+        // Spec tabs
+        function switchSpecTab(btn, spec) {
+            document.querySelectorAll('.spec-tab').forEach(t => { t.classList.remove('active'); });
+            btn.classList.add('active');
+            document.querySelectorAll('.spec-panel').forEach(p => p.classList.add('hidden'));
+            const panel = document.getElementById('spec-' + spec);
+            if (panel) { panel.classList.remove('hidden'); panel.style.opacity = '0'; requestAnimationFrame(() => { panel.style.transition = 'all 0.3s ease'; panel.style.opacity = '1'; }); }
+        }
+
+        // Scroll reveal
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+
+        // Product image gallery
+        function setProductImg(btn, src, label) {
+            document.getElementById('product-main-img').src = src;
+            document.getElementById('product-main-img').alt = 'Prosight One — ' + label;
+            document.querySelectorAll('.prod-thumb').forEach(t => {
+                t.classList.remove('active-thumb', 'border-blue');
+                t.classList.add('border-grey-200');
+            });
+            btn.classList.add('active-thumb', 'border-blue');
+            btn.classList.remove('border-grey-200');
+        }
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href === '#') return;
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+    </script>
+    <script src="who-we-serve/shared.js"></script>
+</body>
+</html>
