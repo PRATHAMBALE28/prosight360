@@ -6,6 +6,61 @@
 (function () {
   'use strict';
 
+  // Inject modal CSS once — ensures modals work on pages that don't load shared.css (e.g. homepage)
+  const MODAL_CSS = `
+    .ps-modal-backdrop { position: fixed; inset: 0; z-index: 200; background: rgba(10,14,20,0.55); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); display: none; align-items: flex-start; justify-content: center; padding: 60px 20px 40px; overflow-y: auto; font-family: 'Sora', system-ui, -apple-system, sans-serif; }
+    .ps-modal-backdrop.is-open { display: flex; animation: psModalFade .18s ease-out; }
+    @keyframes psModalFade { from { opacity: 0; } to { opacity: 1; } }
+    .ps-modal { position: relative; background: #fff; border-radius: 16px; width: 100%; max-width: 560px; padding: 36px 36px 32px; box-shadow: 0 30px 80px rgba(0,0,0,0.24); animation: psModalRise .22s cubic-bezier(.2,.9,.3,1.2); color: #0A0A0A; }
+    .ps-modal--demo { max-width: 640px; }
+    @keyframes psModalRise { from { transform: translateY(18px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    .ps-modal__close { position: absolute; top: 14px; right: 14px; width: 34px; height: 34px; border-radius: 50%; background: #F4F4F2; border: none; color: #5A5A5A; font-size: 22px; line-height: 1; cursor: pointer; transition: all .12s; }
+    .ps-modal__close:hover { background: #E8E8E4; color: #0A0A0A; }
+    .ps-modal__eyebrow { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: #0066FF; font-weight: 600; margin-bottom: 10px; }
+    .ps-modal__h { font-family: 'Fraunces', 'Times New Roman', serif; font-size: 26px; font-weight: 600; color: #0A0A0A; letter-spacing: -0.015em; line-height: 1.2; margin-bottom: 8px; }
+    .ps-modal__sub { font-size: 14px; color: #5A5A5A; line-height: 1.55; margin-bottom: 22px; }
+    .ps-modal__foot { margin-top: 18px; padding-top: 18px; border-top: 1px solid #E8E8E4; text-align: right; }
+    .ps-contact-grid { display: grid; gap: 14px; }
+    .ps-contact-row { display: flex; gap: 14px; align-items: flex-start; padding: 14px 16px; background: #FAFAF9; border: 1px solid #E8E8E4; border-radius: 10px; }
+    .ps-contact-ico { font-size: 18px; line-height: 1.3; flex-shrink: 0; }
+    .ps-contact-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: #A8A49E; font-weight: 600; margin-bottom: 3px; }
+    .ps-contact-val { font-size: 14.5px; color: #0A0A0A; font-weight: 500; }
+    a.ps-contact-val { color: #0066FF; text-decoration: none; }
+    a.ps-contact-val:hover { text-decoration: underline; }
+    .ps-form { display: grid; gap: 14px; }
+    .ps-form__row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .ps-field { display: flex; flex-direction: column; gap: 5px; }
+    .ps-field--full { grid-column: 1 / -1; }
+    .ps-field span { font-size: 12px; font-weight: 500; color: #5A5A5A; }
+    .ps-field input, .ps-field select, .ps-field textarea { font: inherit; font-size: 14px; padding: 10px 12px; background: #fff; color: #0A0A0A; border: 1px solid #E8E8E4; border-radius: 8px; outline: none; transition: border-color .12s, box-shadow .12s; width: 100%; }
+    .ps-field textarea { resize: vertical; min-height: 72px; font-family: inherit; }
+    .ps-field input:focus, .ps-field select:focus, .ps-field textarea:focus { border-color: #0066FF; box-shadow: 0 0 0 3px rgba(0,102,255,0.12); }
+    .ps-form__foot { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding-top: 8px; flex-wrap: wrap; }
+    .ps-form__tiny { font-size: 11.5px; color: #A8A49E; line-height: 1.45; max-width: 340px; }
+    .ps-btn { font-family: 'Sora', system-ui, sans-serif; font-size: 13.5px; font-weight: 500; padding: 10px 20px; border-radius: 8px; border: none; cursor: pointer; transition: all .12s; }
+    .ps-btn--primary { background: #0066FF; color: #fff; }
+    .ps-btn--primary:hover { background: #0055DD; transform: translateY(-1px); }
+    .ps-form__thanks { text-align: center; padding: 10px 0 6px; }
+    .ps-form__check { width: 56px; height: 56px; border-radius: 50%; background: #F0FDF4; color: #16A34A; font-size: 28px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; }
+    .ps-form__thanks h4 { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 600; color: #0A0A0A; margin-bottom: 6px; }
+    .ps-form__thanks p { font-size: 14px; color: #5A5A5A; line-height: 1.55; }
+    .ps-form__thanks a { color: #0066FF; font-weight: 500; text-decoration: none; }
+    @media (max-width: 640px) {
+      .ps-modal-backdrop { padding: 0; align-items: stretch; }
+      .ps-modal { max-width: none !important; border-radius: 0; padding: 28px 22px 40px; min-height: 100%; }
+      .ps-modal__h { font-size: 22px; }
+      .ps-form__row { grid-template-columns: 1fr; }
+      .ps-form__foot { flex-direction: column; align-items: stretch; }
+      .ps-form__foot .ps-btn { width: 100%; }
+      .ps-form__tiny { max-width: none; }
+    }`;
+  if (!document.getElementById('ps-modal-css')) {
+    const st = document.createElement('style');
+    st.id = 'ps-modal-css';
+    st.textContent = MODAL_CSS;
+    document.head.appendChild(st);
+  }
+
   const CONTACT_HTML = `
     <div class="ps-modal-backdrop" data-modal="contact">
       <div class="ps-modal ps-modal--contact" role="dialog" aria-label="Contact Sales">
