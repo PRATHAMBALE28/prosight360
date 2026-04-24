@@ -289,3 +289,133 @@ a.ps-contact-val:hover { text-decoration: underline; }
 .why__h { font-family: var(--f-display); font-size: 16.5px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
 .why__p { font-size: 13px; color: var(--text-2); line-height: 1.55; }
 .why__tag { display: inline-block; font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--blue); font-weight: 600; margin-bottom: 10px; }
+
+/* ==========================================================
+   MOBILE — hamburger + universal mobile fixes
+   ========================================================== */
+
+/* Hamburger button (injected by shared.js) */
+.topnav__burger {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 40px; height: 40px; border-radius: 8px;
+  background: transparent; border: none; cursor: pointer;
+  color: #0A0A0A; padding: 0;
+}
+.topnav__burger svg { width: 22px; height: 22px; }
+@media (min-width: 1024px) { .topnav__burger { display: none; } }
+
+/* Mobile menu drawer */
+.topnav__mobile {
+  position: fixed; top: 64px; left: 0; right: 0;
+  background: rgba(250,250,250,0.98);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 18px 24px 24px;
+  transform: translateY(-8px); opacity: 0; pointer-events: none;
+  transition: transform .2s, opacity .2s;
+  z-index: 49;
+  max-height: calc(100vh - 64px); overflow-y: auto;
+}
+.topnav__mobile.is-open { transform: translateY(0); opacity: 1; pointer-events: auto; }
+.topnav__mobile a { display: block; font-family: 'Sora', system-ui, sans-serif; font-size: 15px; color: #0A0A0A; padding: 14px 0; border-bottom: 1px solid var(--border); }
+.topnav__mobile a:last-of-type { border-bottom: none; }
+.topnav__mobile .book-demo { margin-top: 14px; background: #0066FF; color: #fff; text-align: center; padding: 14px 20px; border-radius: 10px; border-bottom: none; font-weight: 500; }
+
+/* ---------- Hero: drop 21/9 on small screens ---------- */
+@media (max-width: 768px) {
+  .hero { padding-bottom: 40px; }
+  .hero__media { aspect-ratio: auto; min-height: 420px; border-radius: 12px; }
+  .hero__overlay { background: linear-gradient(180deg, rgba(15,20,25,0.55) 0%, rgba(15,20,25,0.85) 70%); }
+  .hero__text { left: 20px; right: 20px; bottom: 24px; max-width: none; }
+  .hero__h1 { font-size: 28px; line-height: 1.1; margin-bottom: 12px; }
+  .hero__sub { font-size: 14.5px; margin-bottom: 18px; }
+  .hero__cta { gap: 8px; }
+  .hero__cta .btn-lg { padding: 11px 18px; font-size: 13.5px; flex: 1; justify-content: center; }
+}
+
+/* ---------- Section padding + typography ---------- */
+@media (max-width: 768px) {
+  .sec { padding: 48px 0; }
+  .sec-first { padding-top: 8px; }
+  .sec__h2 { font-size: 26px; }
+  .sec__lead { font-size: 15px; }
+  .wrap-xl, .wrap, .wrap-sm { padding: 0 18px; }
+  .crumbs { padding: 18px 0 4px; font-size: 12px; }
+}
+
+/* ---------- Pain / Pillar / Why cards ---------- */
+@media (max-width: 640px) {
+  .pains, .pillars, .why-grid { grid-template-columns: 1fr; gap: 14px; margin-top: 24px; }
+  .pain, .pillar, .why { padding: 20px; }
+  .pain__stat { font-size: 26px; }
+}
+
+/* ---------- Hub tiles ---------- */
+@media (max-width: 640px) {
+  .hub-grid { grid-template-columns: 1fr; gap: 14px; margin-top: 26px; }
+  .hub-tile { aspect-ratio: 4/3; }
+  .hub-tile__text { padding: 18px; }
+  .hub-tile__h { font-size: 20px; }
+}
+
+/* ---------- Ecosystem ---------- */
+@media (max-width: 720px) {
+  .ecosystem { grid-template-columns: 1fr; }
+  .eco__cell { padding: 22px 20px; }
+}
+
+/* ---------- Compliance band ---------- */
+@media (max-width: 640px) {
+  .compliance { padding: 28px 22px; border-radius: 12px; }
+  .compliance__h { font-size: 22px; }
+}
+.cbadges { display: flex; flex-direction: column; gap: 10px; }
+@media (max-width: 640px) { .cbadges { gap: 8px; } .cbadge { padding: 12px 14px; } }
+
+/* ---------- Case study ---------- */
+@media (max-width: 640px) {
+  .casestudy__body { padding: 24px 20px; }
+  .casestudy__quote { font-size: 18px; }
+  .casestudy__metrics { grid-template-columns: 1fr; gap: 16px; padding-top: 16px; }
+  .casestudy__metric .k { font-size: 24px; }
+}
+
+/* ---------- CTA band ---------- */
+@media (max-width: 640px) {
+  .ctaband { padding: 40px 22px; border-radius: 14px; }
+  .ctaband__h { font-size: 22px; }
+  .ctaband__p { font-size: 14px; }
+  .ctaband .btn-lg { padding: 12px 18px; font-size: 13.5px; width: 100%; justify-content: center; }
+  .ctaband__row { flex-direction: column; gap: 10px; }
+}
+
+/* ---------- Footer ---------- */
+@media (max-width: 640px) {
+  footer.site { padding: 44px 0 28px; }
+  .footer__grid { grid-template-columns: 1fr; gap: 24px; margin-bottom: 24px; }
+  .footer__bottom { flex-direction: column; gap: 8px; text-align: center; padding-top: 16px; font-size: 11.5px; }
+  .footer__credits { font-size: 10.5px; }
+}
+
+/* ---------- Split ---------- */
+@media (max-width: 640px) {
+  .split { gap: 22px; }
+  .split__media { aspect-ratio: 4/3; border-radius: 12px; }
+  .split__h { font-size: 22px; }
+}
+
+/* ---------- Modals on mobile ---------- */
+@media (max-width: 640px) {
+  .ps-modal-backdrop { padding: 0; align-items: stretch; }
+  .ps-modal { max-width: none; border-radius: 0; padding: 28px 22px 40px; min-height: 100%; }
+  .ps-modal--demo { max-width: none; }
+  .ps-modal__h { font-size: 22px; }
+  .ps-form__row { grid-template-columns: 1fr !important; }
+  .ps-form__foot { flex-direction: column; align-items: stretch; }
+  .ps-form__foot .ps-btn { width: 100%; }
+  .ps-form__tiny { max-width: none; }
+}
+
+/* Stop horizontal scroll everywhere */
+html, body { overflow-x: hidden; }
+img { height: auto; }

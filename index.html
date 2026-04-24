@@ -112,6 +112,59 @@
 
         /* Mobile menu */
         .mobile-overlay { transition: opacity 0.3s ease; }
+
+        /* ============================================================
+           MOBILE FIXES — keep the homepage usable on phones
+           ============================================================ */
+        @media (max-width: 767px) {
+          /* Global */
+          section { overflow-x: hidden; }
+          section.py-24, section.py-20 { padding-top: 48px !important; padding-bottom: 48px !important; }
+          section.py-14, section.py-16 { padding-top: 40px !important; padding-bottom: 40px !important; }
+          h2 { word-break: break-word; }
+
+          /* Nav height offset */
+          nav.fixed + section { padding-top: 72px; }
+
+          /* Hero */
+          #hero .rounded-3xl img, #hero img[src*="prosight-one"] { max-width: 180px !important; margin-left: auto; margin-right: auto; }
+          #hero h1, section[id="hero"] h1 { font-size: clamp(30px, 8vw, 44px) !important; line-height: 1.08; }
+
+          /* Stat tile rows — stack in 2 cols */
+          .grid.grid-cols-2.sm\:grid-cols-4 { grid-template-columns: repeat(2, 1fr) !important; gap: 18px; }
+          .grid.grid-cols-2.sm\:grid-cols-4 .text-3xl { font-size: 22px !important; }
+
+          /* Product section — sidebar stacks above product panel, both full width */
+          #product .grid.lg\:grid-cols-12 { gap: 18px !important; }
+          #product .product-sidebar { width: 100% !important; }
+          #product .product-sidebar .lg\:sticky { position: static !important; display: grid; grid-template-columns: 1fr; gap: 6px; }
+          #product .product-nav-btn { padding: 12px 14px !important; }
+          #product h3.text-3xl, #product h3.text-4xl { font-size: 24px !important; }
+          #product .flex.flex-wrap.gap-2 { gap: 6px !important; }
+          #product .flex.flex-wrap.gap-2 span { font-size: 10.5px !important; padding: 5px 9px !important; }
+          #product #product-main-img { max-height: 180px !important; }
+
+          /* Spec table — always scroll horizontally, never crush */
+          #product table, .spec-row, table.spec-table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; white-space: nowrap; width: 100%; }
+          #product table tbody, #product table tr { display: table; width: max-content; min-width: 100%; }
+
+          /* =======  DASHBOARD — hide desktop mock, show simple card ======= */
+          #dashboard .ps-app { display: none !important; }
+          #dashboard .reveal:has(.ps-app) { display: none !important; }
+          .ps-mobile-card { display: block !important; }
+
+          /* Any table-styled element gets a scroll wrapper treatment */
+          table { display: block !important; overflow-x: auto; white-space: nowrap; max-width: 100%; }
+
+          /* Footer: stack columns cleanly */
+          footer .grid.sm\:grid-cols-2.lg\:grid-cols-4 { grid-template-columns: 1fr !important; gap: 28px !important; }
+
+          /* Mobile menu polish */
+          #mobileMenu a { font-size: 15px; }
+        }
+
+        /* Hide the mobile dashboard card on desktop */
+        .ps-mobile-card { display: none; }
     </style>
 </head>
 <body class="antialiased overflow-x-hidden">
@@ -799,6 +852,46 @@
                 <p class="text-blue text-xs font-semibold uppercase tracking-widest mb-4">BWC Command Center</p>
                 <h2 class="text-3xl lg:text-5xl font-bold tracking-tight mb-5" style="font-family:'Fraunces',serif;color:#1A1916;">The dashboard your supervisors<br>will actually use.</h2>
                 <p class="text-grey-600 text-lg max-w-2xl mx-auto">Clean, focused, built on role-based access. No tactical-movie clutter — just devices, sessions, users, and a full audit trail. This is the real product.</p>
+            </div>
+
+            <!-- Mobile-only simplified dashboard card -->
+            <div class="ps-mobile-card" style="max-width:560px;margin:24px auto 0;padding:28px 22px;background:linear-gradient(180deg,#1C2B3A 0%,#0F1419 100%);color:#fff;border-radius:14px;box-shadow:0 20px 40px rgba(0,0,0,0.12);">
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+                    <div style="width:32px;height:32px;background:#2563EB;border-radius:7px;display:flex;align-items:center;justify-content:center;">
+                        <svg width="16" height="16" viewBox="0 0 20 20" fill="white"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"/></svg>
+                    </div>
+                    <div>
+                        <div style="font-family:'Fraunces',serif;font-size:16px;font-weight:600;">BWC Command Center</div>
+                        <div style="font-size:11px;color:rgba(255,255,255,0.5);">command.prosight.in</div>
+                    </div>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;">
+                    <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:14px;">
+                        <div style="font-family:'Fraunces',serif;font-size:24px;font-weight:600;color:#60A5FA;">247</div>
+                        <div style="font-size:11px;color:rgba(255,255,255,0.6);margin-top:2px;">Devices</div>
+                    </div>
+                    <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:14px;">
+                        <div style="font-family:'Fraunces',serif;font-size:24px;font-weight:600;color:#4ADE80;">198</div>
+                        <div style="font-size:11px;color:rgba(255,255,255,0.6);margin-top:2px;">Online now</div>
+                    </div>
+                    <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:14px;">
+                        <div style="font-family:'Fraunces',serif;font-size:24px;font-weight:600;color:#F59E0B;">3</div>
+                        <div style="font-size:11px;color:rgba(255,255,255,0.6);margin-top:2px;">Force-flagged</div>
+                    </div>
+                    <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:14px;">
+                        <div style="font-family:'Fraunces',serif;font-size:24px;font-weight:600;color:#fff;">12</div>
+                        <div style="font-size:11px;color:rgba(255,255,255,0.6);margin-top:2px;">Active sessions</div>
+                    </div>
+                </div>
+                <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:12px 14px;margin-bottom:14px;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+                        <div style="font-size:12px;font-weight:500;">PS1-00247 · R. Sharma</div>
+                        <div style="font-size:10px;color:#4ADE80;">● RECORDING</div>
+                    </div>
+                    <div style="font-size:10.5px;color:rgba(255,255,255,0.5);">Patrol 14 · Sector 14 · 00:12:41 · 2K H.265 · 86% batt</div>
+                </div>
+                <p style="font-size:12px;color:rgba(255,255,255,0.55);line-height:1.5;margin-bottom:14px;">Live device status, evidence vault, role-based access, and full audit trail. Open the full dashboard on a tablet or desktop.</p>
+                <a href="#demo" data-ps="demo" style="display:block;text-align:center;background:#2563EB;color:#fff;padding:12px 18px;border-radius:8px;font-size:13px;font-weight:500;text-decoration:none;">Book a walkthrough →</a>
             </div>
 
             <!-- Dashboard frame — faithful mock of the real /dashboard product (light theme, Fraunces + DM Sans) -->
@@ -1520,15 +1613,15 @@
                             <text x="62" y="50" font-family="'Sora', sans-serif" font-weight="600" font-size="34" letter-spacing="-1" fill="white">Prosight</text>
                         </svg>
                     </a>
-                    <p class="text-sm text-white/40 leading-relaxed">Enterprise-grade body worn camera systems for law enforcement and security teams across India.</p>
+                    <p class="text-sm text-white/40 leading-relaxed">Security, Not Surveillance. ProSight M530 body-worn cameras and Command Center — engineered in Pune for Indian law enforcement.</p>
                 </div>
-                <div><h4 class="text-xs font-semibold uppercase tracking-widest text-white/30 mb-4">Product</h4><ul class="space-y-3"><li><a href="#features" class="text-sm text-white/40 hover:text-white transition-colors">Features</a></li><li><a href="#product" class="text-sm text-white/40 hover:text-white transition-colors">Prosight One</a></li><li><a href="#dashboard" class="text-sm text-white/40 hover:text-white transition-colors">Dashboard</a></li><li><a href="#analytics" class="text-sm text-white/40 hover:text-white transition-colors">Analytics</a></li></ul></div>
-                <div><h4 class="text-xs font-semibold uppercase tracking-widest text-white/30 mb-4">Industries</h4><ul class="space-y-3"><li><a href="#" class="text-sm text-white/40 hover:text-white transition-colors">Law Enforcement</a></li><li><a href="#" class="text-sm text-white/40 hover:text-white transition-colors">Enterprise Security</a></li><li><a href="#" class="text-sm text-white/40 hover:text-white transition-colors">Fire Services</a></li><li><a href="#" class="text-sm text-white/40 hover:text-white transition-colors">Healthcare</a></li><li><a href="#" class="text-sm text-white/40 hover:text-white transition-colors">Border Control</a></li></ul></div>
-                <div><h4 class="text-xs font-semibold uppercase tracking-widest text-white/30 mb-4">Company</h4><ul class="space-y-3"><li><a href="#" class="text-sm text-white/40 hover:text-white transition-colors">About</a></li><li><a href="#" class="text-sm text-white/40 hover:text-white transition-colors">Contact</a></li><li><a href="#" class="text-sm text-white/40 hover:text-white transition-colors">Privacy Policy</a></li><li><a href="#" class="text-sm text-white/40 hover:text-white transition-colors">Terms of Service</a></li></ul></div>
+                <div><h4 class="text-xs font-semibold uppercase tracking-widest text-white/30 mb-4">Product</h4><ul class="space-y-3"><li><a href="#product" class="text-sm text-white/40 hover:text-white transition-colors">ProSight M530</a></li><li><a href="#dashboard" class="text-sm text-white/40 hover:text-white transition-colors">Command Center</a></li><li><a href="#features" class="text-sm text-white/40 hover:text-white transition-colors">Features</a></li></ul></div>
+                <div><h4 class="text-xs font-semibold uppercase tracking-widest text-white/30 mb-4">Who We Serve</h4><ul class="space-y-3"><li><a href="who-we-serve/law-enforcement.html" class="text-sm text-white/40 hover:text-white transition-colors">Law Enforcement</a></li><li><a href="who-we-serve/customs-border.html" class="text-sm text-white/40 hover:text-white transition-colors">Customs &amp; Border</a></li><li><a href="who-we-serve/enterprise-security.html" class="text-sm text-white/40 hover:text-white transition-colors">Enterprise Security</a></li><li><a href="who-we-serve/fire-ems.html" class="text-sm text-white/40 hover:text-white transition-colors">Fire &amp; Emergency</a></li><li><a href="who-we-serve/healthcare.html" class="text-sm text-white/40 hover:text-white transition-colors">Healthcare &amp; EMS</a></li></ul></div>
+                <div><h4 class="text-xs font-semibold uppercase tracking-widest text-white/30 mb-4">Company</h4><ul class="space-y-3"><li><a href="#contact" data-ps="contact" class="text-sm text-white/40 hover:text-white transition-colors">Contact Sales</a></li><li><a href="#demo" data-ps="demo" class="text-sm text-white/40 hover:text-white transition-colors">Book Demo</a></li></ul></div>
             </div>
-            <div class="mt-12 pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4">
-                <p class="text-xs text-white/20">&copy; 2026 Prosight Technologies Pvt. Ltd. All rights reserved.</p>
-                <p class="text-xs text-white/20">Made in India. For India.</p>
+            <div class="mt-12 pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+                <p class="text-xs text-white/20">&copy; 2026 Prosight Technologies · Pune, Maharashtra · India</p>
+                <p class="text-xs text-white/20">AES-256 · TLS 1.3 · AWS Mumbai · DPDP Act 2023</p>
             </div>
         </div>
     </footer>

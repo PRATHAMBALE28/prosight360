@@ -196,7 +196,42 @@
       if (href.endsWith('#demo') || href === '#demo') a.setAttribute('data-ps', 'demo');
     });
     ensureMounted();
+    mountMobileNav();
   });
+
+  // ── Mobile hamburger + drawer for subpages ────────────────────
+  function mountMobileNav() {
+    const nav = document.querySelector('.topnav');
+    const inner = nav && nav.querySelector('.topnav__inner');
+    if (!nav || !inner || nav.dataset.mobileReady === '1') return;
+    nav.dataset.mobileReady = '1';
+
+    const ICON_OPEN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>';
+    const ICON_CLOSE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+
+    const burger = document.createElement('button');
+    burger.className = 'topnav__burger';
+    burger.setAttribute('aria-label', 'Toggle menu');
+    burger.setAttribute('aria-expanded', 'false');
+    burger.innerHTML = ICON_OPEN;
+    inner.appendChild(burger);
+
+    const linksEl = nav.querySelector('.topnav__links');
+    const ctaEl   = nav.querySelector('.topnav__cta');
+    const drawer  = document.createElement('div');
+    drawer.className = 'topnav__mobile';
+    const frag = [];
+    if (linksEl) linksEl.querySelectorAll('a').forEach(a => frag.push(a.outerHTML));
+    if (ctaEl)   ctaEl.querySelectorAll('a').forEach(a => frag.push(a.outerHTML));
+    drawer.innerHTML = frag.join('');
+    nav.appendChild(drawer);
+
+    const close = () => { drawer.classList.remove('is-open'); burger.setAttribute('aria-expanded','false'); burger.innerHTML = ICON_OPEN; document.body.style.overflow = ''; };
+    const show  = () => { drawer.classList.add('is-open');    burger.setAttribute('aria-expanded','true');  burger.innerHTML = ICON_CLOSE; document.body.style.overflow = 'hidden'; };
+    burger.addEventListener('click', () => drawer.classList.contains('is-open') ? close() : show());
+    drawer.addEventListener('click', (e) => { if (e.target.closest('a')) close(); });
+    window.addEventListener('resize', () => { if (window.innerWidth >= 1024) close(); });
+  }
 
   window.Prosight = Object.assign(window.Prosight || {}, { openContact: () => open('contact'), openDemo: () => open('demo') });
 })();
