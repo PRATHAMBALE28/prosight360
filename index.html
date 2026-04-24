@@ -757,54 +757,219 @@
 
                     <!-- Dock Station -->
                     <div id="product-dock" class="product-panel hidden">
-                        <div class="bg-grey-100 rounded-2xl p-8 lg:p-12">
-                            <div class="flex flex-col lg:flex-row gap-10 items-start">
-                                <div class="flex-1">
-                                    <div class="inline-flex items-center gap-2 bg-blue/10 text-blue text-[10px] font-semibold uppercase tracking-widest px-3 py-1.5 rounded-full mb-4">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-blue"></span> Accessory
+                        <div class="bg-grey-100 rounded-2xl p-6 lg:p-10">
+
+                            <!-- Section header -->
+                            <div class="mb-8">
+                                <div class="inline-flex items-center gap-2 bg-blue/10 text-blue text-[10px] font-semibold uppercase tracking-widest px-3 py-1.5 rounded-full mb-3">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-blue"></span> Charging Dock · Accessory
+                                </div>
+                                <h3 class="text-2xl font-bold mb-2">Multi-Unit Charging Dock</h3>
+                                <p class="text-grey-600 text-sm max-w-2xl leading-relaxed">Charge and sync multiple M530 cameras simultaneously. USB 3.0 hub with ≥400 MB/min data transfer — footage auto-uploads to Command Center the moment each device docks.</p>
+                            </div>
+
+                            <!-- 3 model cards -->
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-6">
+
+                                <!-- DS-8P -->
+                                <div class="bg-white rounded-2xl border border-grey-200 overflow-hidden flex flex-col">
+                                    <!-- Illustration area -->
+                                    <div class="bg-grey-100 p-6 flex items-center justify-center" style="min-height:180px">
+                                        <svg viewBox="0 0 220 130" xmlns="http://www.w3.org/2000/svg" class="w-full max-w-[200px]">
+                                            <!-- Body shadow -->
+                                            <rect x="18" y="72" width="184" height="8" rx="4" fill="#D1CEC7" opacity="0.5"/>
+                                            <!-- Main body -->
+                                            <rect x="14" y="44" width="192" height="34" rx="5" fill="#1C1C1E"/>
+                                            <!-- Top face -->
+                                            <rect x="14" y="30" width="192" height="18" rx="5" fill="#2A2A2C"/>
+                                            <!-- 8 dock slots top (2×4) -->
+                                            <rect x="22" y="34" width="34" height="12" rx="3" fill="#111" stroke="#3A3A3C" stroke-width="0.8"/>
+                                            <rect x="62" y="34" width="34" height="12" rx="3" fill="#111" stroke="#3A3A3C" stroke-width="0.8"/>
+                                            <rect x="102" y="34" width="34" height="12" rx="3" fill="#111" stroke="#3A3A3C" stroke-width="0.8"/>
+                                            <rect x="142" y="34" width="34" height="12" rx="3" fill="#111" stroke="#3A3A3C" stroke-width="0.8"/>
+                                            <rect x="22" y="48" width="34" height="12" rx="3" fill="#111" stroke="#3A3A3C" stroke-width="0.8"/>
+                                            <rect x="62" y="48" width="34" height="12" rx="3" fill="#111" stroke="#3A3A3C" stroke-width="0.8"/>
+                                            <rect x="102" y="48" width="34" height="12" rx="3" fill="#111" stroke="#3A3A3C" stroke-width="0.8"/>
+                                            <rect x="142" y="48" width="34" height="12" rx="3" fill="#111" stroke="#3A3A3C" stroke-width="0.8"/>
+                                            <!-- Front face -->
+                                            <rect x="14" y="78" width="192" height="6" rx="2" fill="#222"/>
+                                            <!-- USB port front -->
+                                            <rect x="20" y="72" width="14" height="5" rx="1.5" fill="#3A3A3C"/>
+                                            <rect x="38" y="72" width="14" height="5" rx="1.5" fill="#3A3A3C"/>
+                                            <!-- LED indicators (green = charging) -->
+                                            <circle cx="186" cy="36" r="3" fill="#00C9A7" opacity="0.9"/>
+                                            <circle cx="196" cy="36" r="3" fill="#00C9A7" opacity="0.6"/>
+                                            <!-- Data cable connector back -->
+                                            <rect x="166" y="72" width="22" height="5" rx="1.5" fill="#0066FF" opacity="0.8"/>
+                                            <!-- Label -->
+                                            <text x="110" y="100" text-anchor="middle" font-family="'Sora',sans-serif" font-size="9" fill="#6B6860" letter-spacing="1">DS-8P</text>
+                                        </svg>
                                     </div>
-                                    <h3 class="text-2xl font-bold mb-3">Multi-Unit Charging Dock</h3>
-                                    <p class="text-grey-600 text-sm mb-6 leading-relaxed">Charge and sync multiple M530 cameras simultaneously. USB 3.0 hub with ≥400 MB/min data transfer — footage auto-uploads to Command Center the moment each device docks.</p>
-                                    <div class="grid grid-cols-2 gap-4 mb-6">
-                                        <div class="bg-white rounded-xl p-4 border border-grey-200">
-                                            <div class="text-xs text-grey-400 uppercase tracking-widest mb-1">8-Port</div>
-                                            <div class="font-semibold text-primary">DS-8P</div>
-                                            <div class="text-xs text-grey-600 mt-1">8 cameras · USB 3.0 · Data cable included</div>
+                                    <!-- Content -->
+                                    <div class="p-5 flex flex-col flex-1">
+                                        <div class="text-[10px] text-grey-400 font-semibold uppercase tracking-widest mb-1">8-Port Station</div>
+                                        <div class="text-lg font-bold text-primary mb-3">DS-8P</div>
+                                        <ul class="space-y-2 text-xs text-grey-600 flex-1">
+                                            <li class="flex items-start gap-2"><span class="w-1.5 h-1.5 rounded-full bg-teal mt-1.5 flex-shrink-0"></span>Docks 8 M530 cameras simultaneously</li>
+                                            <li class="flex items-start gap-2"><span class="w-1.5 h-1.5 rounded-full bg-teal mt-1.5 flex-shrink-0"></span>USB 3.0 hub · ≥400 MB/min transfer</li>
+                                            <li class="flex items-start gap-2"><span class="w-1.5 h-1.5 rounded-full bg-teal mt-1.5 flex-shrink-0"></span>1× data cable to PC included</li>
+                                            <li class="flex items-start gap-2"><span class="w-1.5 h-1.5 rounded-full bg-teal mt-1.5 flex-shrink-0"></span>1.8M power cord · standard outlet</li>
+                                            <li class="flex items-start gap-2"><span class="w-1.5 h-1.5 rounded-full bg-teal mt-1.5 flex-shrink-0"></span>Compact footprint — desk or rack</li>
+                                        </ul>
+                                        <div class="mt-4 pt-4 border-t border-grey-200">
+                                            <button data-ps="contact" class="w-full text-center text-xs font-semibold text-blue cursor-pointer bg-transparent border-0 py-1">Contact for pricing →</button>
                                         </div>
-                                        <div class="bg-white rounded-xl p-4 border border-grey-200">
-                                            <div class="text-xs text-grey-400 uppercase tracking-widest mb-1">10-Port</div>
-                                            <div class="font-semibold text-primary">DS-10P</div>
-                                            <div class="text-xs text-grey-600 mt-1">10 cameras · USB 3.0 · Data cable included</div>
-                                        </div>
-                                        <div class="bg-white rounded-xl p-4 border border-grey-200 col-span-2">
-                                            <div class="text-xs text-grey-400 uppercase tracking-widest mb-1">8-Port with Monitor &amp; Management</div>
-                                            <div class="font-semibold text-primary">DS-8PM</div>
-                                            <div class="text-xs text-grey-600 mt-1">7″ LCD touch screen · Management software · Up to 4TB storage</div>
-                                        </div>
-                                    </div>
-                                    <div class="flex gap-3 flex-wrap">
-                                        <button data-ps="demo" class="inline-flex bg-blue hover:bg-blue/90 text-white text-sm font-medium px-5 py-2.5 rounded-xl transition-all cursor-pointer border-0">Book a Demo</button>
-                                        <button data-ps="contact" class="inline-flex bg-white border border-grey-200 hover:border-grey-400 text-primary text-sm font-medium px-5 py-2.5 rounded-xl transition-all cursor-pointer">Contact Sales</button>
                                     </div>
                                 </div>
-                                <div class="w-full lg:w-56 flex flex-col gap-3 flex-shrink-0">
-                                    <div class="bg-white rounded-xl p-5 border border-grey-200 text-center">
-                                        <div class="text-xs text-grey-400 uppercase tracking-widest mb-1">Data Transfer</div>
-                                        <div class="text-xl font-bold text-primary">≥400 MB/min</div>
-                                        <div class="text-xs text-grey-400 mt-1">USB 3.0</div>
+
+                                <!-- DS-10P -->
+                                <div class="bg-white rounded-2xl border border-grey-200 overflow-hidden flex flex-col">
+                                    <div class="bg-grey-100 p-6 flex items-center justify-center" style="min-height:180px">
+                                        <svg viewBox="0 0 240 130" xmlns="http://www.w3.org/2000/svg" class="w-full max-w-[220px]">
+                                            <!-- Body shadow -->
+                                            <rect x="18" y="72" width="204" height="8" rx="4" fill="#D1CEC7" opacity="0.5"/>
+                                            <!-- Main body -->
+                                            <rect x="14" y="44" width="212" height="34" rx="5" fill="#1C1C1E"/>
+                                            <!-- Top face -->
+                                            <rect x="14" y="30" width="212" height="18" rx="5" fill="#2A2A2C"/>
+                                            <!-- 10 dock slots (2×5) -->
+                                            <rect x="20" y="34" width="30" height="12" rx="3" fill="#111" stroke="#3A3A3C" stroke-width="0.8"/>
+                                            <rect x="56" y="34" width="30" height="12" rx="3" fill="#111" stroke="#3A3A3C" stroke-width="0.8"/>
+                                            <rect x="92" y="34" width="30" height="12" rx="3" fill="#111" stroke="#3A3A3C" stroke-width="0.8"/>
+                                            <rect x="128" y="34" width="30" height="12" rx="3" fill="#111" stroke="#3A3A3C" stroke-width="0.8"/>
+                                            <rect x="164" y="34" width="30" height="12" rx="3" fill="#111" stroke="#3A3A3C" stroke-width="0.8"/>
+                                            <rect x="20" y="48" width="30" height="12" rx="3" fill="#111" stroke="#3A3A3C" stroke-width="0.8"/>
+                                            <rect x="56" y="48" width="30" height="12" rx="3" fill="#111" stroke="#3A3A3C" stroke-width="0.8"/>
+                                            <rect x="92" y="48" width="30" height="12" rx="3" fill="#111" stroke="#3A3A3C" stroke-width="0.8"/>
+                                            <rect x="128" y="48" width="30" height="12" rx="3" fill="#111" stroke="#3A3A3C" stroke-width="0.8"/>
+                                            <rect x="164" y="48" width="30" height="12" rx="3" fill="#111" stroke="#3A3A3C" stroke-width="0.8"/>
+                                            <!-- Front face -->
+                                            <rect x="14" y="78" width="212" height="6" rx="2" fill="#222"/>
+                                            <!-- USB ports -->
+                                            <rect x="20" y="72" width="14" height="5" rx="1.5" fill="#3A3A3C"/>
+                                            <rect x="38" y="72" width="14" height="5" rx="1.5" fill="#3A3A3C"/>
+                                            <!-- LEDs -->
+                                            <circle cx="204" cy="36" r="3" fill="#00C9A7" opacity="0.9"/>
+                                            <circle cx="214" cy="36" r="3" fill="#00C9A7" opacity="0.6"/>
+                                            <!-- Data cable connector -->
+                                            <rect x="182" y="72" width="26" height="5" rx="1.5" fill="#0066FF" opacity="0.8"/>
+                                            <text x="120" y="100" text-anchor="middle" font-family="'Sora',sans-serif" font-size="9" fill="#6B6860" letter-spacing="1">DS-10P</text>
+                                        </svg>
                                     </div>
-                                    <div class="bg-white rounded-xl p-5 border border-grey-200 text-center">
-                                        <div class="text-xs text-grey-400 uppercase tracking-widest mb-1">Capacity</div>
-                                        <div class="text-xl font-bold text-primary">8–10 units</div>
-                                        <div class="text-xs text-grey-400 mt-1">Per station</div>
+                                    <div class="p-5 flex flex-col flex-1">
+                                        <div class="text-[10px] text-grey-400 font-semibold uppercase tracking-widest mb-1">10-Port Station</div>
+                                        <div class="text-lg font-bold text-primary mb-3">DS-10P</div>
+                                        <ul class="space-y-2 text-xs text-grey-600 flex-1">
+                                            <li class="flex items-start gap-2"><span class="w-1.5 h-1.5 rounded-full bg-teal mt-1.5 flex-shrink-0"></span>Docks 10 M530 cameras simultaneously</li>
+                                            <li class="flex items-start gap-2"><span class="w-1.5 h-1.5 rounded-full bg-teal mt-1.5 flex-shrink-0"></span>USB 3.0 hub · ≥400 MB/min transfer</li>
+                                            <li class="flex items-start gap-2"><span class="w-1.5 h-1.5 rounded-full bg-teal mt-1.5 flex-shrink-0"></span>1× data cable to PC included</li>
+                                            <li class="flex items-start gap-2"><span class="w-1.5 h-1.5 rounded-full bg-teal mt-1.5 flex-shrink-0"></span>1.8M power cord · standard outlet</li>
+                                            <li class="flex items-start gap-2"><span class="w-1.5 h-1.5 rounded-full bg-teal mt-1.5 flex-shrink-0"></span>Ideal for squads of 10 officers per shift</li>
+                                        </ul>
+                                        <div class="mt-4 pt-4 border-t border-grey-200">
+                                            <button data-ps="contact" class="w-full text-center text-xs font-semibold text-blue cursor-pointer bg-transparent border-0 py-1">Contact for pricing →</button>
+                                        </div>
                                     </div>
-                                    <div class="bg-white rounded-xl p-5 border border-grey-200 text-center">
-                                        <div class="text-xs text-grey-400 uppercase tracking-widest mb-1">Storage (DS-8PM)</div>
-                                        <div class="text-xl font-bold text-primary">Up to 4TB</div>
-                                        <div class="text-xs text-grey-400 mt-1">On-station archive</div>
+                                </div>
+
+                                <!-- DS-8PM (with monitor) -->
+                                <div class="bg-white rounded-2xl border border-blue/30 overflow-hidden flex flex-col" style="box-shadow: 0 0 0 1px rgba(0,102,255,0.15), 0 4px 20px rgba(0,102,255,0.08)">
+                                    <!-- Recommended badge -->
+                                    <div class="bg-blue text-white text-[10px] font-semibold text-center py-1.5 tracking-widest uppercase">Recommended — Full Management</div>
+                                    <div class="bg-grey-100 p-6 flex items-center justify-center" style="min-height:180px">
+                                        <svg viewBox="0 0 160 180" xmlns="http://www.w3.org/2000/svg" class="w-full max-w-[130px]">
+                                            <!-- Unit body -->
+                                            <rect x="10" y="10" width="140" height="160" rx="8" fill="#1C1C1E"/>
+                                            <rect x="10" y="10" width="140" height="155" rx="8" fill="#222224"/>
+                                            <!-- LCD Screen -->
+                                            <rect x="18" y="18" width="124" height="78" rx="5" fill="#0A0A0A"/>
+                                            <rect x="20" y="20" width="120" height="74" rx="4" fill="#0B1629"/>
+                                            <!-- Screen content: live grid of 4 camera feeds -->
+                                            <rect x="22" y="22" width="56" height="34" rx="2" fill="#0F2040" stroke="#1D4ED8" stroke-width="0.5"/>
+                                            <rect x="82" y="22" width="56" height="34" rx="2" fill="#0F2040" stroke="#1D4ED8" stroke-width="0.5"/>
+                                            <rect x="22" y="58" width="56" height="34" rx="2" fill="#0F2040" stroke="#1D4ED8" stroke-width="0.5"/>
+                                            <rect x="82" y="58" width="56" height="34" rx="2" fill="#0F2040" stroke="#1D4ED8" stroke-width="0.5"/>
+                                            <!-- Screen labels -->
+                                            <text x="50" y="42" text-anchor="middle" font-family="'Sora',sans-serif" font-size="5" fill="#BFCFFF" opacity="0.7">PS1-001</text>
+                                            <text x="110" y="42" text-anchor="middle" font-family="'Sora',sans-serif" font-size="5" fill="#BFCFFF" opacity="0.7">PS1-002</text>
+                                            <text x="50" y="78" text-anchor="middle" font-family="'Sora',sans-serif" font-size="5" fill="#BFCFFF" opacity="0.7">PS1-003</text>
+                                            <text x="110" y="78" text-anchor="middle" font-family="'Sora',sans-serif" font-size="5" fill="#BFCFFF" opacity="0.7">PS1-004</text>
+                                            <!-- Camera live dot -->
+                                            <circle cx="70" cy="30" r="2" fill="#00C9A7"/>
+                                            <circle cx="130" cy="30" r="2" fill="#00C9A7"/>
+                                            <circle cx="70" cy="66" r="2" fill="#D97706"/>
+                                            <circle cx="130" cy="66" r="2" fill="#00C9A7"/>
+                                            <!-- Screen bottom bar -->
+                                            <rect x="20" y="88" width="120" height="4" rx="1" fill="#1D4ED8" opacity="0.4"/>
+                                            <!-- Touch screen bezel bottom -->
+                                            <rect x="60" y="96" width="40" height="4" rx="2" fill="#3A3A3C"/>
+                                            <!-- Divider -->
+                                            <rect x="18" y="104" width="124" height="1" fill="#333"/>
+                                            <!-- 8 dock slots below screen (2×4) -->
+                                            <rect x="18" y="110" width="28" height="14" rx="3" fill="#111" stroke="#3A3A3C" stroke-width="0.8"/>
+                                            <rect x="50" y="110" width="28" height="14" rx="3" fill="#111" stroke="#3A3A3C" stroke-width="0.8"/>
+                                            <rect x="82" y="110" width="28" height="14" rx="3" fill="#111" stroke="#3A3A3C" stroke-width="0.8"/>
+                                            <rect x="114" y="110" width="28" height="14" rx="3" fill="#111" stroke="#3A3A3C" stroke-width="0.8"/>
+                                            <rect x="18" y="128" width="28" height="14" rx="3" fill="#111" stroke="#3A3A3C" stroke-width="0.8"/>
+                                            <rect x="50" y="128" width="28" height="14" rx="3" fill="#111" stroke="#3A3A3C" stroke-width="0.8"/>
+                                            <rect x="82" y="128" width="28" height="14" rx="3" fill="#111" stroke="#3A3A3C" stroke-width="0.8"/>
+                                            <rect x="114" y="128" width="28" height="14" rx="3" fill="#111" stroke="#3A3A3C" stroke-width="0.8"/>
+                                            <!-- HDD bay indicator -->
+                                            <rect x="18" y="148" width="54" height="10" rx="3" fill="#2A2A2C" stroke="#3A3A3C" stroke-width="0.8"/>
+                                            <text x="45" y="155.5" text-anchor="middle" font-family="'Sora',sans-serif" font-size="5" fill="#A8A49E">HDD BAY</text>
+                                            <!-- Power LED -->
+                                            <circle cx="132" cy="153" r="3.5" fill="#00C9A7" opacity="0.9"/>
+                                            <!-- USB ports -->
+                                            <rect x="80" y="148" width="18" height="10" rx="2" fill="#2A2A2C" stroke="#3A3A3C" stroke-width="0.8"/>
+                                            <text x="89" y="155.5" text-anchor="middle" font-family="'Sora',sans-serif" font-size="5" fill="#A8A49E">USB</text>
+                                            <!-- Bottom shadow -->
+                                            <rect x="14" y="168" width="132" height="6" rx="3" fill="#D1CEC7" opacity="0.3"/>
+                                        </svg>
                                     </div>
+                                    <div class="p-5 flex flex-col flex-1">
+                                        <div class="text-[10px] text-grey-400 font-semibold uppercase tracking-widest mb-1">8-Port + Monitor + Management</div>
+                                        <div class="text-lg font-bold text-primary mb-3">DS-8PM</div>
+                                        <ul class="space-y-2 text-xs text-grey-600 flex-1">
+                                            <li class="flex items-start gap-2"><span class="w-1.5 h-1.5 rounded-full bg-blue mt-1.5 flex-shrink-0"></span>7″ LCD infrared touch screen</li>
+                                            <li class="flex items-start gap-2"><span class="w-1.5 h-1.5 rounded-full bg-blue mt-1.5 flex-shrink-0"></span>Management software pre-installed</li>
+                                            <li class="flex items-start gap-2"><span class="w-1.5 h-1.5 rounded-full bg-blue mt-1.5 flex-shrink-0"></span>2TB or 4TB on-station storage</li>
+                                            <li class="flex items-start gap-2"><span class="w-1.5 h-1.5 rounded-full bg-blue mt-1.5 flex-shrink-0"></span>Connects 8 M530 cameras directly</li>
+                                            <li class="flex items-start gap-2"><span class="w-1.5 h-1.5 rounded-full bg-blue mt-1.5 flex-shrink-0"></span>Removable hard disk bay included</li>
+                                            <li class="flex items-start gap-2"><span class="w-1.5 h-1.5 rounded-full bg-blue mt-1.5 flex-shrink-0"></span>Charge status &amp; recording output on screen</li>
+                                        </ul>
+                                        <div class="mt-4 pt-4 border-t border-grey-200 flex gap-2">
+                                            <button data-ps="demo" class="flex-1 text-center text-xs font-semibold text-white bg-blue rounded-lg py-2 cursor-pointer border-0">Book Demo</button>
+                                            <button data-ps="contact" class="flex-1 text-center text-xs font-semibold text-blue cursor-pointer bg-transparent border border-blue/30 rounded-lg py-2">Contact Sales</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div><!-- end 3 cards -->
+
+                            <!-- Shared specs bar -->
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                                <div class="bg-white rounded-xl p-4 border border-grey-200 text-center">
+                                    <div class="text-xs text-grey-400 uppercase tracking-widest mb-1">Transfer speed</div>
+                                    <div class="font-bold text-primary">≥400 MB/min</div>
+                                    <div class="text-[11px] text-grey-400 mt-0.5">USB 3.0</div>
+                                </div>
+                                <div class="bg-white rounded-xl p-4 border border-grey-200 text-center">
+                                    <div class="text-xs text-grey-400 uppercase tracking-widest mb-1">Warranty</div>
+                                    <div class="font-bold text-primary">1 Year</div>
+                                    <div class="text-[11px] text-grey-400 mt-0.5">All models</div>
+                                </div>
+                                <div class="bg-white rounded-xl p-4 border border-grey-200 text-center">
+                                    <div class="text-xs text-grey-400 uppercase tracking-widest mb-1">Max storage</div>
+                                    <div class="font-bold text-primary">Up to 4TB</div>
+                                    <div class="text-[11px] text-grey-400 mt-0.5">DS-8PM</div>
+                                </div>
+                                <div class="bg-white rounded-xl p-4 border border-grey-200 text-center">
+                                    <div class="text-xs text-grey-400 uppercase tracking-widest mb-1">Auto-sync</div>
+                                    <div class="font-bold text-primary">On dock</div>
+                                    <div class="text-[11px] text-grey-400 mt-0.5">Uploads to Command Center</div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
 
