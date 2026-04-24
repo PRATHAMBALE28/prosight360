@@ -80,7 +80,7 @@
             <span class="ps-contact-ico">✉️</span>
             <div>
               <div class="ps-contact-label">Email</div>
-              <a href="mailto:autonex360@gmail.com" class="ps-contact-val">autonex360@gmail.com</a>
+              <a href="mailto:admin@prosight360.in" class="ps-contact-val">admin@prosight360.in</a>
             </div>
           </div>
           <div class="ps-contact-row">
@@ -189,14 +189,31 @@
     if (name === 'demo') {
       const form = backdrop.querySelector('.ps-form');
       const thanks = backdrop.querySelector('.ps-form__thanks');
-      form.addEventListener('submit', (e) => {
+      form.addEventListener('submit', async (e) => {
         e.preventDefault();
         if (!form.checkValidity()) { form.reportValidity(); return; }
-        // Log payload; swap to fetch() to your CRM/Formspree later.
-        const data = Object.fromEntries(new FormData(form).entries());
-        console.log('[Prosight demo request]', data);
-        form.style.display = 'none';
-        thanks.hidden = false;
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = 'Sending…';
+        submitBtn.disabled = true;
+        try {
+          const fd = new FormData(form);
+          fd.append('_subject', 'New Prosight Demo Request');
+          fd.append('_captcha', 'false');
+          fd.append('_template', 'table');
+          const res = await fetch('https://formsubmit.co/admin@prosight360.in', {
+            method: 'POST',
+            body: fd,
+            headers: { 'Accept': 'application/json' }
+          });
+          if (!res.ok) throw new Error('Submit failed');
+          form.style.display = 'none';
+          thanks.hidden = false;
+        } catch (err) {
+          alert('Sorry, submission failed. Please email admin@prosight360.in directly or call +91 96071 67264.');
+          submitBtn.textContent = originalText;
+          submitBtn.disabled = false;
+        }
       });
     }
   }
