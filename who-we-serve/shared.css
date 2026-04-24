@@ -1,7 +1,7 @@
 /* ============================================================
    Prosight · Who We Serve — shared styles
    Design-system parity with root index.html
-   Fraunces (display) + DM Sans (UI), single-blue accent #2563EB
+   Sora (primary typeface per brand kit), single-blue accent #2563EB
    ============================================================ */
 
 :root {
@@ -24,8 +24,8 @@
   --amber-bg:#FFFBEB;
   --red:     #DC2626;
   --red-bg:  #FEF2F2;
-  --f-display: 'Fraunces', serif;
-  --f-ui:      'DM Sans', sans-serif;
+  --f-display: 'Sora', sans-serif;
+  --f-ui:      'Sora', sans-serif;
   --radius:    10px;
   --radius-sm: 6px;
   --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
@@ -244,7 +244,7 @@ footer.site a:hover { color: #fff; }
 }
 .ps-modal__close:hover { background: #E8E8E4; color: #0A0A0A; }
 .ps-modal__eyebrow { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: #0066FF; font-weight: 600; margin-bottom: 10px; }
-.ps-modal__h { font-family: 'Fraunces', serif; font-size: 26px; font-weight: 600; color: #0A0A0A; letter-spacing: -0.015em; line-height: 1.2; margin-bottom: 8px; }
+.ps-modal__h { font-family: 'Sora', sans-serif; font-size: 26px; font-weight: 600; color: #0A0A0A; letter-spacing: -0.015em; line-height: 1.2; margin-bottom: 8px; }
 .ps-modal__sub { font-size: 14px; color: #5A5A5A; line-height: 1.55; margin-bottom: 22px; }
 .ps-modal__foot { margin-top: 18px; padding-top: 18px; border-top: 1px solid #E8E8E4; text-align: right; }
 
@@ -279,7 +279,7 @@ a.ps-contact-val:hover { text-decoration: underline; }
 
 .ps-form__thanks { text-align: center; padding: 10px 0 6px; }
 .ps-form__check { width: 56px; height: 56px; border-radius: 50%; background: #F0FDF4; color: #16A34A; font-size: 28px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; }
-.ps-form__thanks h4 { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 600; color: #0A0A0A; margin-bottom: 6px; }
+.ps-form__thanks h4 { font-family: 'Sora', sans-serif; font-size: 22px; font-weight: 600; color: #0A0A0A; margin-bottom: 6px; }
 .ps-form__thanks p { font-size: 14px; color: #5A5A5A; line-height: 1.55; }
 .ps-form__thanks a { color: #0066FF; font-weight: 500; }
 

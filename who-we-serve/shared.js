@@ -17,7 +17,7 @@
     .ps-modal__close { position: absolute; top: 14px; right: 14px; width: 34px; height: 34px; border-radius: 50%; background: #F4F4F2; border: none; color: #5A5A5A; font-size: 22px; line-height: 1; cursor: pointer; transition: all .12s; }
     .ps-modal__close:hover { background: #E8E8E4; color: #0A0A0A; }
     .ps-modal__eyebrow { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: #0066FF; font-weight: 600; margin-bottom: 10px; }
-    .ps-modal__h { font-family: 'Fraunces', 'Times New Roman', serif; font-size: 26px; font-weight: 600; color: #0A0A0A; letter-spacing: -0.015em; line-height: 1.2; margin-bottom: 8px; }
+    .ps-modal__h { font-family: 'Sora', system-ui, sans-serif; font-size: 26px; font-weight: 600; color: #0A0A0A; letter-spacing: -0.015em; line-height: 1.2; margin-bottom: 8px; }
     .ps-modal__sub { font-size: 14px; color: #5A5A5A; line-height: 1.55; margin-bottom: 22px; }
     .ps-modal__foot { margin-top: 18px; padding-top: 18px; border-top: 1px solid #E8E8E4; text-align: right; }
     .ps-contact-grid { display: grid; gap: 14px; }
@@ -42,7 +42,7 @@
     .ps-btn--primary:hover { background: #0055DD; transform: translateY(-1px); }
     .ps-form__thanks { text-align: center; padding: 10px 0 6px; }
     .ps-form__check { width: 56px; height: 56px; border-radius: 50%; background: #F0FDF4; color: #16A34A; font-size: 28px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; }
-    .ps-form__thanks h4 { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 600; color: #0A0A0A; margin-bottom: 6px; }
+    .ps-form__thanks h4 { font-family: 'Sora', sans-serif; font-size: 22px; font-weight: 600; color: #0A0A0A; margin-bottom: 6px; }
     .ps-form__thanks p { font-size: 14px; color: #5A5A5A; line-height: 1.55; }
     .ps-form__thanks a { color: #0066FF; font-weight: 500; text-decoration: none; }
     @media (max-width: 640px) {
@@ -79,8 +79,15 @@
           <div class="ps-contact-row">
             <span class="ps-contact-ico">✉️</span>
             <div>
-              <div class="ps-contact-label">Email</div>
-              <a href="mailto:admin@prosight360.in" class="ps-contact-val">admin@prosight360.in</a>
+              <div class="ps-contact-label">Sales</div>
+              <a href="mailto:sales@prosight360.in" class="ps-contact-val">sales@prosight360.in</a>
+            </div>
+          </div>
+          <div class="ps-contact-row">
+            <span class="ps-contact-ico">🛠️</span>
+            <div>
+              <div class="ps-contact-label">Support</div>
+              <a href="mailto:support@prosight360.in" class="ps-contact-val">support@prosight360.in</a>
             </div>
           </div>
           <div class="ps-contact-row">
@@ -201,7 +208,7 @@
           fd.append('_subject', 'New Prosight Demo Request');
           fd.append('_captcha', 'false');
           fd.append('_template', 'table');
-          const res = await fetch('https://formsubmit.co/admin@prosight360.in', {
+          const res = await fetch('https://formsubmit.co/sales@prosight360.in', {
             method: 'POST',
             body: fd,
             headers: { 'Accept': 'application/json' }
@@ -210,7 +217,7 @@
           form.style.display = 'none';
           thanks.hidden = false;
         } catch (err) {
-          alert('Sorry, submission failed. Please email admin@prosight360.in directly or call +91 96071 67264.');
+          alert('Sorry, submission failed. Please email sales@prosight360.in directly or call +91 96071 67264.');
           submitBtn.textContent = originalText;
           submitBtn.disabled = false;
         }
