@@ -1,0 +1,1325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prosight Brand Kit · 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@200;300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --black:#0A0A0A;
+  --white:#FAFAFA;
+  --navy:#0B1629;
+  --blue:#0066FF;
+  --teal:#00C9A7;
+  --grey-1:#6B6860;
+  --grey-2:#E8E6E1;
+  --grey-3:#F4F3F0;
+  --red:#FF3B30;
+  --f-main:'Sora',system-ui,sans-serif;
+  --f-mono:'DM Mono','Courier New',monospace;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--f-main);background:var(--white);color:var(--black);line-height:1.6}
+
+/* ── Layout ── */
+.layout{display:grid;grid-template-columns:252px 1fr;min-height:100vh}
+
+/* ── Sidebar ── */
+.sidebar{
+  position:sticky;top:0;height:100vh;overflow-y:auto;
+  background:var(--navy);padding:40px 28px;
+  display:flex;flex-direction:column;
+}
+.sidebar__brand{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.sidebar__brand-name{font-size:15px;font-weight:600;color:white;letter-spacing:-0.02em}
+.sidebar__version{font-family:var(--f-mono);font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.25);margin-bottom:40px}
+.sidebar__section-label{font-family:var(--f-mono);font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.2);margin-bottom:10px;margin-top:24px;padding-left:10px}
+.nav__item{
+  display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:6px;
+  text-decoration:none;color:rgba(255,255,255,0.5);font-size:13px;font-weight:400;
+  transition:all 0.15s;margin-bottom:2px;
+}
+.nav__item:hover{background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.85)}
+.nav__item.active,.nav__item:focus{background:rgba(0,201,167,0.1);color:var(--teal);outline:none}
+.nav__num{font-family:var(--f-mono);font-size:10px;color:rgba(255,255,255,0.2);min-width:18px}
+.nav__item.active .nav__num{color:rgba(0,201,167,0.5)}
+.sidebar__footer{margin-top:auto;padding-top:28px;border-top:1px solid rgba(255,255,255,0.07)}
+.sidebar__footer p{font-size:11px;color:rgba(255,255,255,0.25);line-height:1.7}
+.sidebar__footer a{color:rgba(0,201,167,0.7);text-decoration:none}
+
+/* ── Content ── */
+.content{}
+.section{padding:80px 72px;border-bottom:1px solid var(--grey-2)}
+.section:last-child{border-bottom:none}
+.section--dark{background:var(--navy);color:var(--white)}
+.section--grey{background:var(--grey-3)}
+
+/* ── Section header ── */
+.sec-eyebrow{
+  font-family:var(--f-mono);font-size:10px;letter-spacing:0.16em;
+  text-transform:uppercase;color:var(--teal);margin-bottom:14px;
+  display:flex;align-items:center;gap:10px
+}
+.sec-eyebrow::before{content:'';display:block;width:18px;height:1px;background:var(--teal)}
+.sec-h{font-size:38px;font-weight:700;letter-spacing:-0.03em;line-height:1.08;margin-bottom:14px}
+.sec-sub{font-size:16px;color:var(--grey-1);line-height:1.65;max-width:560px;margin-bottom:56px;font-weight:300}
+.section--dark .sec-sub{color:rgba(255,255,255,0.45)}
+.section--dark .sec-h{color:var(--white)}
+
+/* ── HERO ── */
+.hero{
+  background:var(--navy);color:var(--white);
+  padding:72px 72px 64px;
+  border-bottom:1px solid rgba(255,255,255,0.07)
+}
+.hero__kicker{font-family:var(--f-mono);font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--teal);margin-bottom:20px}
+.hero__h{font-size:58px;font-weight:700;letter-spacing:-0.05em;line-height:1;margin-bottom:10px}
+.hero__sub{font-size:15px;color:rgba(255,255,255,0.4);font-weight:300;margin-bottom:52px;max-width:480px}
+.hero__meta{display:grid;grid-template-columns:repeat(4,auto);gap:40px;width:fit-content}
+.hero__meta-label{font-family:var(--f-mono);font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.25);margin-bottom:3px}
+.hero__meta-val{font-size:13px;color:rgba(255,255,255,0.65);font-weight:400}
+
+/* ── Index of contents ── */
+.toc{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:48px}
+.toc__item{
+  padding:20px 24px;background:rgba(255,255,255,0.03);
+  display:flex;align-items:center;gap:14px;
+  border:1px solid rgba(255,255,255,0.05);text-decoration:none;
+  transition:background 0.15s;color:rgba(255,255,255,0.6);font-size:13px
+}
+.toc__item:hover{background:rgba(255,255,255,0.06);color:white}
+.toc__num{font-family:var(--f-mono);font-size:10px;color:rgba(0,201,167,0.5);min-width:24px}
+.toc__arrow{margin-left:auto;color:rgba(255,255,255,0.2);font-size:11px}
+
+/* ── LOGO SECTION ── */
+.logo-showcase{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:48px}
+.logo-cell{
+  padding:52px 44px;display:flex;flex-direction:column;
+  align-items:flex-start;justify-content:space-between;min-height:160px
+}
+.logo-cell--fog{background:#F4F3F0}
+.logo-cell--white{background:white;border:1px solid var(--grey-2)}
+.logo-cell--navy{background:var(--navy)}
+.logo-cell--black{background:#0A0A0A}
+.logo-cell__label{font-family:var(--f-mono);font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--grey-1);margin-top:20px}
+.logo-cell--navy .logo-cell__label,.logo-cell--black .logo-cell__label{color:rgba(255,255,255,0.25)}
+
+.logo-variants{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;margin-bottom:48px}
+.logo-var{padding:36px 32px;background:var(--grey-3);display:flex;flex-direction:column;gap:16px;align-items:flex-start}
+.logo-var__h{font-weight:600;font-size:13px;margin-bottom:2px}
+.logo-var__note{font-size:12px;color:var(--grey-1);line-height:1.5;font-weight:300}
+.logo-var__badge{display:inline-block;padding:3px 10px;border-radius:100px;font-size:10px;font-weight:500;font-family:var(--f-mono)}
+.logo-var__badge--primary{background:rgba(0,102,255,0.1);color:#0052CC}
+.logo-var__badge--secondary{background:rgba(0,0,0,0.06);color:var(--grey-1)}
+
+/* Clear space */
+.clearspace-wrap{display:flex;gap:64px;align-items:flex-start;margin-bottom:48px;flex-wrap:wrap}
+.clearspace-box{position:relative;padding:48px;background:var(--grey-3)}
+.clearspace-inner{position:relative;z-index:1}
+.clearspace-frame{
+  position:absolute;top:16px;left:16px;right:16px;bottom:16px;
+  border:1.5px dashed rgba(0,102,255,0.35)
+}
+.clearspace-arrow{position:absolute;font-family:var(--f-mono);font-size:9px;color:var(--blue);letter-spacing:0.08em}
+.clearspace-arrow.top{top:0;left:50%;transform:translateX(-50%);text-align:center}
+.clearspace-arrow.left{left:-44px;top:50%;transform:translateY(-50%) rotate(-90deg)}
+.clearspace-rules{flex:1;min-width:260px}
+.clearspace-rules h4{font-size:15px;font-weight:600;margin-bottom:16px;letter-spacing:-0.02em}
+.rule-row{display:flex;gap:12px;padding:14px 0;border-bottom:1px solid var(--grey-2);align-items:flex-start}
+.rule-row:last-child{border-bottom:none}
+.rule-icon{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;flex-shrink:0;margin-top:1px}
+.rule-icon--green{background:rgba(0,201,167,0.12);color:#008C76}
+.rule-icon--red{background:rgba(255,59,48,0.1);color:#CC2B20}
+.rule-text{font-size:13px;color:var(--grey-1);line-height:1.5}
+
+/* Min sizes */
+.minsize-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:48px}
+.minsize-cell{padding:24px;background:var(--grey-3);display:flex;flex-direction:column;gap:12px;align-items:center;text-align:center}
+.minsize-label{font-family:var(--f-mono);font-size:10px;color:var(--grey-1);letter-spacing:0.1em;text-transform:uppercase}
+.minsize-spec{font-family:var(--f-mono);font-size:11px;color:var(--black);background:white;padding:4px 10px;border-radius:4px;border:1px solid var(--grey-2)}
+
+/* Download strip */
+.dl-strip{display:flex;gap:10px;flex-wrap:wrap;margin-top:32px}
+.dl-btn{
+  display:inline-flex;align-items:center;gap:7px;padding:10px 16px;
+  border:1.5px solid var(--grey-2);border-radius:6px;font-size:12px;font-weight:500;
+  color:var(--black);text-decoration:none;background:white;
+  transition:all 0.15s;font-family:var(--f-main);cursor:pointer
+}
+.dl-btn:hover{border-color:var(--black);background:var(--black);color:white}
+
+/* ── COLOR SECTION ── */
+.color-primary-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-bottom:40px}
+.color-card{border-radius:8px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.06)}
+.color-swatch{height:112px;cursor:pointer;transition:transform 0.1s;position:relative}
+.color-swatch:hover{transform:scale(1.01)}
+.color-swatch__copy{
+  position:absolute;bottom:10px;right:10px;
+  background:rgba(0,0,0,0.25);color:white;
+  font-size:9px;font-family:var(--f-mono);letter-spacing:0.08em;
+  padding:3px 8px;border-radius:3px;opacity:0;transition:opacity 0.2s
+}
+.color-swatch:hover .color-swatch__copy{opacity:1}
+.color-info{padding:14px 16px;background:white;border:1px solid var(--grey-2);border-top:none}
+.color-name{font-weight:600;font-size:13px;margin-bottom:3px}
+.color-role{font-size:11px;color:var(--grey-1);margin-bottom:10px;font-weight:300}
+.color-code{font-family:var(--f-mono);font-size:11px;color:var(--black);line-height:1.8}
+.color-code span{display:block}
+.color-tag{display:inline-block;padding:2px 8px;border-radius:3px;font-size:9px;font-family:var(--f-mono);letter-spacing:0.08em;margin-top:6px}
+.ct-primary{background:rgba(0,102,255,0.1);color:#0052CC}
+.ct-secondary{background:rgba(0,0,0,0.06);color:var(--grey-1)}
+.ct-accent{background:rgba(0,201,167,0.1);color:#008C76}
+.ct-neutral{background:rgba(107,104,96,0.1);color:var(--grey-1)}
+
+.color-secondary-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.color-secondary-grid .color-swatch{height:72px}
+
+.color-usage{margin-top:48px}
+.color-usage h4{font-size:16px;font-weight:600;margin-bottom:20px;letter-spacing:-0.02em}
+.usage-table{width:100%;border-collapse:collapse;font-size:13px}
+.usage-table th{text-align:left;padding:12px 16px;background:var(--grey-3);font-weight:600;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--grey-1)}
+.usage-table td{padding:14px 16px;border-bottom:1px solid var(--grey-2);line-height:1.5}
+.usage-table tr:last-child td{border-bottom:none}
+.color-dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:8px;vertical-align:middle}
+
+/* ── TYPOGRAPHY SECTION ── */
+.type-scale{border:1px solid var(--grey-2);border-radius:8px;overflow:hidden;margin-bottom:48px}
+.type-row{display:grid;grid-template-columns:136px 1fr 180px;align-items:center;padding:20px 28px;border-bottom:1px solid var(--grey-2);gap:20px}
+.type-row:last-child{border-bottom:none}
+.type-meta__role{font-family:var(--f-mono);font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--teal);margin-bottom:5px}
+.type-meta__spec{font-size:10px;color:var(--grey-1);font-family:var(--f-mono);line-height:1.7}
+.type-usage{font-size:12px;color:var(--grey-1);font-style:italic;line-height:1.5}
+
+.weight-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:48px}
+.weight-cell{padding:22px 18px;background:var(--grey-3);border-radius:6px;text-align:center}
+.weight-label{font-family:var(--f-mono);font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--grey-1);margin-bottom:10px}
+.weight-sample{font-size:30px;line-height:1;letter-spacing:-0.03em;margin-bottom:6px}
+.weight-num{font-size:10px;color:var(--grey-1);font-family:var(--f-mono)}
+
+.font-pair{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:48px}
+.fp-block{padding:36px;background:var(--grey-3)}
+.fp-block__label{font-family:var(--f-mono);font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--grey-1);margin-bottom:20px}
+.fp-large{font-size:44px;font-weight:700;letter-spacing:-0.04em;line-height:1.05;margin-bottom:10px}
+.fp-body{font-size:14px;line-height:1.7;font-weight:300;color:var(--grey-1)}
+.fp-mono{font-family:var(--f-mono);font-size:14px;color:var(--teal);background:rgba(0,201,167,0.06);padding:12px 16px;border-radius:4px;line-height:1.8;margin-top:12px}
+
+/* ── VOICE SECTION ── */
+.voice-pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:48px}
+.voice-pillar{padding:28px;border:1.5px solid var(--grey-2);border-radius:8px}
+.voice-pillar__num{font-family:var(--f-mono);font-size:10px;color:var(--teal);margin-bottom:14px;letter-spacing:0.08em}
+.voice-pillar__h{font-size:17px;font-weight:600;margin-bottom:8px;letter-spacing:-0.02em}
+.voice-pillar__p{font-size:13px;color:var(--grey-1);line-height:1.6;font-weight:300}
+
+.word-pairs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:48px}
+.word-pair{display:flex;border-radius:6px;overflow:hidden}
+.word-do{padding:14px 16px;background:rgba(0,201,167,0.07);border:1px solid rgba(0,201,167,0.2);flex:1}
+.word-dont{padding:14px 16px;background:rgba(255,59,48,0.04);border:1px solid rgba(255,59,48,0.15);flex:1;border-left:none}
+.wp-label{font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--grey-1);margin-bottom:4px;font-family:var(--f-mono)}
+.wp-word{font-size:14px;font-weight:500}
+.word-do .wp-word{color:#008C76}
+.word-dont .wp-word{color:#CC2B20;text-decoration:line-through;text-decoration-color:rgba(204,43,32,0.35)}
+
+.copy-examples{display:flex;flex-direction:column;gap:14px}
+.copy-ex{padding:22px 26px;border-radius:8px;background:var(--grey-3);position:relative}
+.copy-ex__badge{position:absolute;top:14px;right:14px;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;padding:3px 10px;border-radius:100px;font-family:var(--f-mono)}
+.copy-ex__badge.good{background:rgba(0,201,167,0.12);color:#008C76}
+.copy-ex__badge.bad{background:rgba(255,59,48,0.08);color:#CC2B20}
+.copy-ex__quote{font-size:15px;line-height:1.6;font-weight:400;padding-right:80px}
+.copy-ex__quote.bad{color:var(--grey-1);text-decoration:line-through;text-decoration-color:rgba(204,43,32,0.3)}
+.copy-ex__why{font-size:12px;color:var(--grey-1);margin-top:8px;font-weight:300;font-style:italic}
+
+/* ── SOCIAL SECTION ── */
+.social-block{margin-bottom:64px}
+.social-block:last-child{margin-bottom:0}
+.social-label{font-family:var(--f-mono);font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--grey-1);margin-bottom:8px}
+.social-spec{font-size:12px;color:var(--grey-1);margin-bottom:20px;font-family:var(--f-mono)}
+
+/* LinkedIn cover mockup */
+.li-cover-wrap{position:relative;max-width:740px;border-radius:8px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.14)}
+.li-cover{
+  width:100%;aspect-ratio:1584/396;
+  background:var(--navy);
+  display:flex;align-items:center;padding:0 52px;
+  position:relative;overflow:hidden
+}
+.li-cover__grid{
+  position:absolute;inset:0;opacity:0.03;
+  background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,white 40px),
+                   repeating-linear-gradient(90deg,transparent,transparent 39px,white 40px)
+}
+.li-cover__accent{position:absolute;right:-60px;top:50%;transform:translateY(-50%);width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(0,201,167,0.08) 0%,transparent 70%)}
+.li-cover__left{position:relative;z-index:1}
+.li-cover__kicker{font-family:var(--f-mono);font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--teal);margin-bottom:12px}
+.li-cover__headline{font-size:clamp(18px,3vw,28px);font-weight:700;color:white;letter-spacing:-0.03em;line-height:1.15;margin-bottom:10px}
+.li-cover__sub{font-size:clamp(11px,1.4vw,14px);color:rgba(255,255,255,0.4);font-weight:300}
+.li-cover__right{margin-left:auto;position:relative;z-index:1;flex-shrink:0}
+.li-cover__divider{width:1px;height:80px;background:rgba(255,255,255,0.1);margin:0 48px;flex-shrink:0}
+
+/* Profile icons grid */
+.profile-grid{display:flex;gap:32px;align-items:flex-end;flex-wrap:wrap;margin-bottom:24px}
+.profile-item{display:flex;flex-direction:column;align-items:center;gap:10px}
+.profile-icon-wrap{border-radius:50%;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.profile-item__label{font-family:var(--f-mono);font-size:9px;letter-spacing:0.1em;color:var(--grey-1);text-transform:uppercase}
+
+/* Twitter / X cover */
+.tw-cover{
+  width:100%;aspect-ratio:3/1;max-width:740px;
+  background:linear-gradient(135deg,var(--navy) 0%,#0D2240 100%);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 56px;border-radius:8px;overflow:hidden;
+  position:relative;box-shadow:0 4px 24px rgba(0,0,0,0.14)
+}
+.tw-cover__grid{position:absolute;inset:0;opacity:0.025;background-image:repeating-linear-gradient(0deg,transparent,transparent 29px,white 30px),repeating-linear-gradient(90deg,transparent,transparent 29px,white 30px)}
+.tw-cover__left{position:relative;z-index:1}
+.tw-cover__headline{font-size:clamp(20px,4vw,38px);font-weight:700;letter-spacing:-0.04em;color:white;line-height:1;margin-bottom:8px}
+.tw-cover__sub{font-size:clamp(11px,1.5vw,15px);color:rgba(255,255,255,0.4);font-weight:300}
+.tw-cover__right{position:relative;z-index:1;flex-shrink:0}
+.tw-cover__dot{width:80px;height:80px;border-radius:50%;background:rgba(0,201,167,0.08);border:1.5px solid rgba(0,201,167,0.2);display:flex;align-items:center;justify-content:center}
+
+/* ── EMAIL SIGNATURE SECTION ── */
+.sig-wrap{background:white;border:1px solid var(--grey-2);border-radius:10px;overflow:hidden;max-width:560px}
+.sig-header{padding:12px 20px;background:var(--grey-3);border-bottom:1px solid var(--grey-2);display:flex;align-items:center;gap:8px}
+.sig-header__dot{width:10px;height:10px;border-radius:50%}
+.sig-header__dots{display:flex;gap:6px}
+.sig-header__label{font-family:var(--f-mono);font-size:10px;color:var(--grey-1);letter-spacing:0.08em;margin-left:auto}
+.sig-preview{padding:28px 28px}
+.sig{font-family:'Arial',Helvetica,sans-serif;font-size:13px;line-height:1.5;color:#333}
+.sig__top{display:flex;gap:16px;align-items:flex-start}
+.sig__mark{flex-shrink:0;margin-top:2px}
+.sig__divider-v{width:1px;background:#00C9A7;align-self:stretch;margin:2px 4px;flex-shrink:0}
+.sig__info{}
+.sig__name{font-weight:700;font-size:15px;color:#0A0A0A;margin-bottom:2px}
+.sig__title{color:#888;font-size:12px;margin-bottom:10px}
+.sig__contacts{display:flex;flex-direction:column;gap:3px}
+.sig__c{font-size:12px;color:#888}
+.sig__c a{color:#0066FF;text-decoration:none}
+.sig__tagline{margin-top:12px;padding-top:10px;border-top:1px solid #EEE;font-size:11px;color:#999;font-style:italic}
+
+.sig-code-wrap{border-top:1px solid var(--grey-2)}
+.sig-code-header{padding:12px 20px;background:var(--grey-3);border-bottom:1px solid var(--grey-2);display:flex;align-items:center;justify-content:space-between}
+.sig-code-header span{font-family:var(--f-mono);font-size:10px;color:var(--grey-1);letter-spacing:0.1em}
+.copy-code-btn{font-family:var(--f-mono);font-size:10px;padding:4px 12px;border:1px solid var(--grey-2);border-radius:4px;background:white;cursor:pointer;color:var(--grey-1);transition:all 0.15s}
+.copy-code-btn:hover{background:var(--black);color:white;border-color:var(--black)}
+.sig-code{padding:20px;background:#0D0D0D;font-family:var(--f-mono);font-size:11px;line-height:1.8;color:#9CDCFE;overflow-x:auto;white-space:pre}
+.sig-code .c-tag{color:#4EC9B0}
+.sig-code .c-attr{color:#9CDCFE}
+.sig-code .c-val{color:#CE9178}
+.sig-code .c-txt{color:#D4D4D4}
+
+/* ── DONTS SECTION ── */
+.donts-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.dont-card{border-radius:8px;overflow:hidden;border:1px solid var(--grey-2)}
+.dont-visual{height:128px;display:flex;align-items:center;justify-content:center;background:var(--grey-3);position:relative}
+.dont-visual::after{
+  content:'✕';position:absolute;top:10px;right:10px;
+  width:22px;height:22px;background:#FF3B30;border-radius:50%;
+  color:white;font-size:10px;display:flex;align-items:center;justify-content:center;
+  font-weight:700;line-height:22px;text-align:center
+}
+.dont-body{padding:14px 16px;background:white}
+.dont-h{font-size:13px;font-weight:600;margin-bottom:4px}
+.dont-p{font-size:12px;color:var(--grey-1);line-height:1.5}
+
+/* Stretched logo */
+.logo-stretched{transform:scaleX(1.5);transform-origin:left}
+/* Recolored logo */
+.logo-recolored path,.logo-recolored circle{stroke:#FF6B35!important;fill:none!important}
+.logo-recolored circle:last-child{fill:#FF6B35!important;stroke:none!important}
+/* Rotated logo */
+.logo-rotated{transform:rotate(15deg)}
+/* Outline on color */
+.logo-on-color-bg{background:linear-gradient(135deg,#FF6B35,#FF3B30);padding:24px;width:100%;height:100%;display:flex;align-items:center;justify-content:center}
+/* Shadow */
+.logo-shadow{filter:drop-shadow(4px 4px 8px rgba(0,0,0,0.5))}
+/* Too small */
+.logo-tiny{transform:scale(0.3);transform-origin:left center}
+
+/* ── Utilities ── */
+.divider{height:1px;background:var(--grey-2);margin:48px 0}
+.tag{display:inline-block;padding:4px 12px;border-radius:100px;font-size:10px;font-weight:500;font-family:var(--f-mono);letter-spacing:0.06em}
+.tag--teal{background:rgba(0,201,167,0.1);color:#008C76}
+.tag--blue{background:rgba(0,102,255,0.1);color:#0052CC}
+.tag--grey{background:rgba(0,0,0,0.06);color:var(--grey-1)}
+
+.copied-toast{
+  position:fixed;bottom:32px;right:32px;
+  background:var(--black);color:white;padding:12px 20px;border-radius:8px;
+  font-size:13px;font-family:var(--f-mono);
+  transform:translateY(80px);opacity:0;transition:all 0.25s;pointer-events:none;
+  z-index:999
+}
+.copied-toast.show{transform:translateY(0);opacity:1}
+
+@media (max-width:900px){
+  .layout{grid-template-columns:1fr}
+  .sidebar{position:static;height:auto;flex-direction:row;flex-wrap:wrap;gap:8px;padding:20px}
+  .sidebar__footer,.sidebar__version,.sidebar__section-label{display:none}
+  .section{padding:48px 24px}
+  .hero{padding:48px 24px}
+  .color-primary-grid{grid-template-columns:repeat(3,1fr)}
+  .weight-grid{grid-template-columns:repeat(3,1fr)}
+  .donts-grid{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+
+<div class="layout">
+
+<!-- ══ SIDEBAR ══ -->
+<aside class="sidebar">
+  <div class="sidebar__brand">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 60" width="22" height="27">
+      <path d="M9 4 L39 4 Q45 4 45 10 L45 32 Q45 50 24 58 Q3 50 3 32 L3 10 Q3 4 9 4 Z" fill="none" stroke="#FAFAFA" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M8 30 Q24 16 40 30 Q24 44 8 30 Z" fill="none" stroke="#FAFAFA" stroke-width="2.4" stroke-linejoin="round"/>
+      <circle cx="24" cy="30" r="7" fill="none" stroke="#FAFAFA" stroke-width="2.4"/>
+      <circle cx="24" cy="30" r="3" fill="#FAFAFA"/>
+    </svg>
+    <span class="sidebar__brand-name">Prosight</span>
+  </div>
+  <div class="sidebar__version">Brand Kit · v1.0 · 2026</div>
+
+  <div class="sidebar__section-label">Identity</div>
+  <a href="#logo" class="nav__item active"><span class="nav__num">01</span>Logo Suite</a>
+  <a href="#colour" class="nav__item"><span class="nav__num">02</span>Colour</a>
+  <a href="#typography" class="nav__item"><span class="nav__num">03</span>Typography</a>
+
+  <div class="sidebar__section-label">Brand</div>
+  <a href="#voice" class="nav__item"><span class="nav__num">04</span>Voice &amp; Tone</a>
+  <a href="#social" class="nav__item"><span class="nav__num">05</span>Social Media</a>
+  <a href="#email" class="nav__item"><span class="nav__num">06</span>Email Signature</a>
+
+  <div class="sidebar__section-label">Rules</div>
+  <a href="#donts" class="nav__item"><span class="nav__num">07</span>Usage Rules</a>
+
+  <div class="sidebar__footer">
+    <p>Questions?<br><a href="mailto:sales@prosight360.in">sales@prosight360.in</a></p>
+  </div>
+</aside>
+
+<!-- ══ CONTENT ══ -->
+<main class="content">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero__kicker">Brand Identity System</div>
+    <div class="hero__h">Prosight<br>Brand Kit.</div>
+    <div class="hero__sub">Everything you need to represent the Prosight brand consistently — on screen, in print, and across every deployment.</div>
+    <div class="hero__meta">
+      <div>
+        <div class="hero__meta-label">Version</div>
+        <div class="hero__meta-val">1.0 · April 2026</div>
+      </div>
+      <div>
+        <div class="hero__meta-label">Primary font</div>
+        <div class="hero__meta-val">Sora</div>
+      </div>
+      <div>
+        <div class="hero__meta-label">Primary colour</div>
+        <div class="hero__meta-val">#0A0A0A Jet Black</div>
+      </div>
+      <div>
+        <div class="hero__meta-label">Domain</div>
+        <div class="hero__meta-val">prosight360.in</div>
+      </div>
+    </div>
+
+    <div class="toc">
+      <a href="#logo" class="toc__item"><span class="toc__num">01</span>Logo Suite — primary, icon, wordmark<span class="toc__arrow">↓</span></a>
+      <a href="#colour" class="toc__item"><span class="toc__num">02</span>Colour — 5 brand colours + codes<span class="toc__arrow">↓</span></a>
+      <a href="#typography" class="toc__item"><span class="toc__num">03</span>Typography — Sora scale + DM Mono<span class="toc__arrow">↓</span></a>
+      <a href="#voice" class="toc__item"><span class="toc__num">04</span>Voice &amp; Tone — 3 principles + copy<span class="toc__arrow">↓</span></a>
+      <a href="#social" class="toc__item"><span class="toc__num">05</span>Social — LinkedIn · Twitter · icon<span class="toc__arrow">↓</span></a>
+      <a href="#email" class="toc__item"><span class="toc__num">06</span>Email Signature — HTML template<span class="toc__arrow">↓</span></a>
+      <a href="#donts" class="toc__item"><span class="toc__num">07</span>Usage Rules — the Don'ts<span class="toc__arrow">↓</span></a>
+    </div>
+  </div>
+
+  <!-- ══ 01 LOGO ══ -->
+  <section class="section" id="logo">
+    <div class="sec-eyebrow">01 · Logo Suite</div>
+    <div class="sec-h">The Prosight mark.</div>
+    <div class="sec-sub">A shield — universally understood as protection — with an eye at its centre. Security you can see. Never stretched, recoloured, or placed on low-contrast backgrounds.</div>
+
+    <!-- Primary logo on all backgrounds -->
+    <div class="logo-showcase">
+      <div class="logo-cell logo-cell--fog">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 60" width="200" height="46">
+          <path d="M14 5 L34 5 Q40 5 40 11 L40 31 Q40 45 24 53 Q8 45 8 31 L8 11 Q8 5 14 5 Z" fill="none" stroke="#0A0A0A" stroke-width="2.4" stroke-linejoin="round"/>
+          <path d="M13.5 29 Q24 18 34.5 29 Q24 40 13.5 29 Z" fill="none" stroke="#0A0A0A" stroke-width="1.8" stroke-linejoin="round"/>
+          <circle cx="24" cy="29" r="5.2" fill="none" stroke="#0A0A0A" stroke-width="1.8"/>
+          <circle cx="24" cy="29" r="2.2" fill="#0A0A0A"/>
+          <text x="52" y="37" font-family="'Sora', system-ui, sans-serif" font-weight="600" font-size="26" letter-spacing="-0.7" fill="#0A0A0A">Prosight</text>
+        </svg>
+        <div class="logo-cell__label">On fog — primary usage</div>
+      </div>
+      <div class="logo-cell logo-cell--white">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 60" width="200" height="46">
+          <path d="M14 5 L34 5 Q40 5 40 11 L40 31 Q40 45 24 53 Q8 45 8 31 L8 11 Q8 5 14 5 Z" fill="none" stroke="#0A0A0A" stroke-width="2.4" stroke-linejoin="round"/>
+          <path d="M13.5 29 Q24 18 34.5 29 Q24 40 13.5 29 Z" fill="none" stroke="#0A0A0A" stroke-width="1.8" stroke-linejoin="round"/>
+          <circle cx="24" cy="29" r="5.2" fill="none" stroke="#0A0A0A" stroke-width="1.8"/>
+          <circle cx="24" cy="29" r="2.2" fill="#0A0A0A"/>
+          <text x="52" y="37" font-family="'Sora', system-ui, sans-serif" font-weight="600" font-size="26" letter-spacing="-0.7" fill="#0A0A0A">Prosight</text>
+        </svg>
+        <div class="logo-cell__label">On white — document usage</div>
+      </div>
+      <div class="logo-cell logo-cell--navy">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 60" width="200" height="46">
+          <path d="M14 5 L34 5 Q40 5 40 11 L40 31 Q40 45 24 53 Q8 45 8 31 L8 11 Q8 5 14 5 Z" fill="none" stroke="#FAFAFA" stroke-width="2.4" stroke-linejoin="round"/>
+          <path d="M13.5 29 Q24 18 34.5 29 Q24 40 13.5 29 Z" fill="none" stroke="#FAFAFA" stroke-width="1.8" stroke-linejoin="round"/>
+          <circle cx="24" cy="29" r="5.2" fill="none" stroke="#FAFAFA" stroke-width="1.8"/>
+          <circle cx="24" cy="29" r="2.2" fill="#FAFAFA"/>
+          <text x="52" y="37" font-family="'Sora', system-ui, sans-serif" font-weight="600" font-size="26" letter-spacing="-0.7" fill="#FAFAFA">Prosight</text>
+        </svg>
+        <div class="logo-cell__label">On navy — hero &amp; presentation</div>
+      </div>
+      <div class="logo-cell logo-cell--black">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 60" width="200" height="46">
+          <path d="M14 5 L34 5 Q40 5 40 11 L40 31 Q40 45 24 53 Q8 45 8 31 L8 11 Q8 5 14 5 Z" fill="none" stroke="#FAFAFA" stroke-width="2.4" stroke-linejoin="round"/>
+          <path d="M13.5 29 Q24 18 34.5 29 Q24 40 13.5 29 Z" fill="none" stroke="#FAFAFA" stroke-width="1.8" stroke-linejoin="round"/>
+          <circle cx="24" cy="29" r="5.2" fill="none" stroke="#FAFAFA" stroke-width="1.8"/>
+          <circle cx="24" cy="29" r="2.2" fill="#FAFAFA"/>
+          <text x="52" y="37" font-family="'Sora', system-ui, sans-serif" font-weight="600" font-size="26" letter-spacing="-0.7" fill="#FAFAFA">Prosight</text>
+        </svg>
+        <div class="logo-cell__label">On black — dark-mode surfaces</div>
+      </div>
+    </div>
+
+    <!-- Variants -->
+    <h3 style="font-size:16px;font-weight:600;letter-spacing:-0.02em;margin-bottom:20px">Logo Variants</h3>
+    <div class="logo-variants">
+      <div class="logo-var">
+        <span class="logo-var__badge logo-var__badge--primary">Primary</span>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 56" width="160" height="42">
+          <path d="M12 4 L30 4 Q36 4 36 10 L36 28 Q36 42 21 49 Q6 42 6 28 L6 10 Q6 4 12 4 Z" fill="none" stroke="#0A0A0A" stroke-width="2.2" stroke-linejoin="round"/>
+          <path d="M11.5 26 Q21 17 30.5 26 Q21 35 11.5 26 Z" fill="none" stroke="#0A0A0A" stroke-width="1.6" stroke-linejoin="round"/>
+          <circle cx="21" cy="26" r="4.5" fill="none" stroke="#0A0A0A" stroke-width="1.6"/>
+          <circle cx="21" cy="26" r="1.9" fill="#0A0A0A"/>
+          <text x="46" y="34" font-family="'Sora', system-ui, sans-serif" font-weight="600" font-size="24" letter-spacing="-0.6" fill="#0A0A0A">Prosight</text>
+        </svg>
+        <div>
+          <div class="logo-var__h">Horizontal Lockup</div>
+          <div class="logo-var__note">Default. Use this variant in all standard contexts — nav bars, headers, footers, documents.</div>
+        </div>
+      </div>
+      <div class="logo-var">
+        <span class="logo-var__badge logo-var__badge--secondary">Icon only</span>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 60" width="36" height="45">
+          <path d="M9 4 L39 4 Q45 4 45 10 L45 32 Q45 50 24 58 Q3 50 3 32 L3 10 Q3 4 9 4 Z" fill="none" stroke="#0A0A0A" stroke-width="3" stroke-linejoin="round"/>
+          <path d="M8 30 Q24 16 40 30 Q24 44 8 30 Z" fill="none" stroke="#0A0A0A" stroke-width="2.4" stroke-linejoin="round"/>
+          <circle cx="24" cy="30" r="7" fill="none" stroke="#0A0A0A" stroke-width="2.4"/>
+          <circle cx="24" cy="30" r="3" fill="#0A0A0A"/>
+        </svg>
+        <div>
+          <div class="logo-var__h">Icon Mark</div>
+          <div class="logo-var__note">Use when space is limited — app icons, favicons, social profile photos, embroidery badges.</div>
+        </div>
+      </div>
+      <div class="logo-var">
+        <span class="logo-var__badge logo-var__badge--secondary">Wordmark</span>
+        <text style="font-family:'Sora',system-ui,sans-serif;font-weight:600;font-size:28px;letter-spacing:-1px;color:#0A0A0A;display:block;line-height:1">Prosight</text>
+        <div>
+          <div class="logo-var__h">Wordmark Only</div>
+          <div class="logo-var__note">Use sparingly — only when the icon mark appears elsewhere on the same page or material.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Clear space -->
+    <h3 style="font-size:16px;font-weight:600;letter-spacing:-0.02em;margin-bottom:20px">Clear Space &amp; Minimum Size</h3>
+    <div class="clearspace-wrap">
+      <div class="clearspace-box">
+        <div class="clearspace-frame"></div>
+        <div class="clearspace-inner">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 56" width="160" height="42">
+            <path d="M12 4 L30 4 Q36 4 36 10 L36 28 Q36 42 21 49 Q6 42 6 28 L6 10 Q6 4 12 4 Z" fill="none" stroke="#0A0A0A" stroke-width="2.2" stroke-linejoin="round"/>
+            <path d="M11.5 26 Q21 17 30.5 26 Q21 35 11.5 26 Z" fill="none" stroke="#0A0A0A" stroke-width="1.6" stroke-linejoin="round"/>
+            <circle cx="21" cy="26" r="4.5" fill="none" stroke="#0A0A0A" stroke-width="1.6"/>
+            <circle cx="21" cy="26" r="1.9" fill="#0A0A0A"/>
+            <text x="46" y="34" font-family="'Sora', system-ui, sans-serif" font-weight="600" font-size="24" letter-spacing="-0.6" fill="#0A0A0A">Prosight</text>
+          </svg>
+        </div>
+        <div class="clearspace-arrow top" style="top:-2px;left:50%;transform:translateX(-50%)">← X →</div>
+        <div class="clearspace-arrow left">← X →</div>
+      </div>
+      <div class="clearspace-rules">
+        <h4>Minimum clearance</h4>
+        <div class="rule-row">
+          <div class="rule-icon rule-icon--green">✓</div>
+          <div class="rule-text"><strong>Clear space = X</strong> — where X is the height of the cap-height of the "P" in Prosight. Maintain this zone on all sides.</div>
+        </div>
+        <div class="rule-row">
+          <div class="rule-icon rule-icon--green">✓</div>
+          <div class="rule-text"><strong>Minimum digital size:</strong> 120 px wide (horizontal lockup) · 24 px tall (icon mark).</div>
+        </div>
+        <div class="rule-row">
+          <div class="rule-icon rule-icon--green">✓</div>
+          <div class="rule-text"><strong>Minimum print size:</strong> 32 mm wide (horizontal lockup) · 8 mm tall (icon mark).</div>
+        </div>
+        <div class="rule-row">
+          <div class="rule-icon rule-icon--red">✕</div>
+          <div class="rule-text"><strong>Never crowd the logo</strong> with competing elements — other logos, heavy typography, or busy photography.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Min sizes visual -->
+    <div class="minsize-grid">
+      <div class="minsize-cell">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 56" width="120" height="31">
+          <path d="M12 4 L30 4 Q36 4 36 10 L36 28 Q36 42 21 49 Q6 42 6 28 L6 10 Q6 4 12 4 Z" fill="none" stroke="#0A0A0A" stroke-width="2.2" stroke-linejoin="round"/>
+          <path d="M11.5 26 Q21 17 30.5 26 Q21 35 11.5 26 Z" fill="none" stroke="#0A0A0A" stroke-width="1.6" stroke-linejoin="round"/>
+          <circle cx="21" cy="26" r="4.5" fill="none" stroke="#0A0A0A" stroke-width="1.6"/>
+          <circle cx="21" cy="26" r="1.9" fill="#0A0A0A"/>
+          <text x="46" y="34" font-family="'Sora', system-ui, sans-serif" font-weight="600" font-size="24" letter-spacing="-0.6" fill="#0A0A0A">Prosight</text>
+        </svg>
+        <div class="minsize-label">Min digital</div>
+        <div class="minsize-spec">120 × 31 px</div>
+      </div>
+      <div class="minsize-cell">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 60" width="24" height="30">
+          <path d="M9 4 L39 4 Q45 4 45 10 L45 32 Q45 50 24 58 Q3 50 3 32 L3 10 Q3 4 9 4 Z" fill="none" stroke="#0A0A0A" stroke-width="3" stroke-linejoin="round"/>
+          <path d="M8 30 Q24 16 40 30 Q24 44 8 30 Z" fill="none" stroke="#0A0A0A" stroke-width="2.4" stroke-linejoin="round"/>
+          <circle cx="24" cy="30" r="7" fill="none" stroke="#0A0A0A" stroke-width="2.4"/>
+          <circle cx="24" cy="30" r="3" fill="#0A0A0A"/>
+        </svg>
+        <div class="minsize-label">Icon min digital</div>
+        <div class="minsize-spec">24 × 30 px</div>
+      </div>
+      <div class="minsize-cell">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 56" width="120" height="31" style="opacity:0.3">
+          <path d="M12 4 L30 4 Q36 4 36 10 L36 28 Q36 42 21 49 Q6 42 6 28 L6 10 Q6 4 12 4 Z" fill="none" stroke="#0A0A0A" stroke-width="2.2" stroke-linejoin="round"/>
+          <text x="46" y="34" font-family="'Sora', system-ui, sans-serif" font-weight="600" font-size="24" letter-spacing="-0.6" fill="#0A0A0A">Prosight</text>
+        </svg>
+        <div class="minsize-label">Min print</div>
+        <div class="minsize-spec">32 mm wide</div>
+      </div>
+      <div class="minsize-cell">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 60" width="20" height="25" style="opacity:0.3">
+          <path d="M9 4 L39 4 Q45 4 45 10 L45 32 Q45 50 24 58 Q3 50 3 32 L3 10 Q3 4 9 4 Z" fill="none" stroke="#0A0A0A" stroke-width="3" stroke-linejoin="round"/>
+          <circle cx="24" cy="30" r="7" fill="none" stroke="#0A0A0A" stroke-width="2.4"/>
+          <circle cx="24" cy="30" r="3" fill="#0A0A0A"/>
+        </svg>
+        <div class="minsize-label">Icon min print</div>
+        <div class="minsize-spec">8 mm tall</div>
+      </div>
+    </div>
+
+    <div class="dl-strip">
+      <a class="dl-btn" href="logos/prosight-primary-dark.svg" download>↓ Primary Dark SVG</a>
+      <a class="dl-btn" href="logos/prosight-primary-light.svg" download>↓ Primary Light SVG</a>
+      <a class="dl-btn" href="logos/prosight-icon-dark.svg" download>↓ Icon Dark SVG</a>
+      <a class="dl-btn" href="logos/prosight-icon-light.svg" download>↓ Icon Light SVG</a>
+      <a class="dl-btn" href="logos/prosight-icon-teal.svg" download>↓ Icon Teal SVG</a>
+    </div>
+  </section>
+
+  <!-- ══ 02 COLOUR ══ -->
+  <section class="section section--grey" id="colour">
+    <div class="sec-eyebrow">02 · Colour</div>
+    <div class="sec-h">Five colours. One system.</div>
+    <div class="sec-sub">Every colour has a job. Jet Black carries authority. Teal marks proof and data. Blue is reserved for actions only. Never use Electric Blue for decorative purposes.</div>
+
+    <div class="color-primary-grid">
+      <div class="color-card">
+        <div class="color-swatch" style="background:#0A0A0A" onclick="copyColor('#0A0A0A')">
+          <span class="color-swatch__copy">Click to copy</span>
+        </div>
+        <div class="color-info">
+          <div class="color-name">Jet Black</div>
+          <div class="color-role">Authority · Primary text · Logo on light</div>
+          <div class="color-code">
+            <span>HEX <strong>#0A0A0A</strong></span>
+            <span>RGB 10 · 10 · 10</span>
+          </div>
+          <span class="color-tag ct-primary">Primary</span>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch" style="background:#FAFAFA;border:1px solid #E8E6E1" onclick="copyColor('#FAFAFA')">
+          <span class="color-swatch__copy" style="background:rgba(0,0,0,0.12);color:#333">Click to copy</span>
+        </div>
+        <div class="color-info">
+          <div class="color-name">Off-White</div>
+          <div class="color-role">Clarity · Backgrounds · Logo on dark</div>
+          <div class="color-code">
+            <span>HEX <strong>#FAFAFA</strong></span>
+            <span>RGB 250 · 250 · 250</span>
+          </div>
+          <span class="color-tag ct-primary">Primary</span>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch" style="background:#0B1629" onclick="copyColor('#0B1629')">
+          <span class="color-swatch__copy">Click to copy</span>
+        </div>
+        <div class="color-info">
+          <div class="color-name">Prosight Navy</div>
+          <div class="color-role">Depth · Hero sections · Dark UI</div>
+          <div class="color-code">
+            <span>HEX <strong>#0B1629</strong></span>
+            <span>RGB 11 · 22 · 41</span>
+          </div>
+          <span class="color-tag ct-primary">Primary</span>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch" style="background:#0066FF" onclick="copyColor('#0066FF')">
+          <span class="color-swatch__copy">Click to copy</span>
+        </div>
+        <div class="color-info">
+          <div class="color-name">Electric Blue</div>
+          <div class="color-role">Action · CTAs · Interactive elements only</div>
+          <div class="color-code">
+            <span>HEX <strong>#0066FF</strong></span>
+            <span>RGB 0 · 102 · 255</span>
+          </div>
+          <span class="color-tag ct-accent">Action only</span>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch" style="background:#00C9A7" onclick="copyColor('#00C9A7')">
+          <span class="color-swatch__copy">Click to copy</span>
+        </div>
+        <div class="color-info">
+          <div class="color-name">Prosight Teal</div>
+          <div class="color-role">Proof · Data · Badges · Technical labels</div>
+          <div class="color-code">
+            <span>HEX <strong>#00C9A7</strong></span>
+            <span>RGB 0 · 201 · 167</span>
+          </div>
+          <span class="color-tag ct-accent">Accent</span>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="font-size:15px;font-weight:600;letter-spacing:-0.01em;margin-bottom:16px;color:var(--grey-1)">Supporting Colours</h3>
+    <div class="color-secondary-grid">
+      <div class="color-card">
+        <div class="color-swatch" style="background:#6B6860" onclick="copyColor('#6B6860')"><span class="color-swatch__copy">Click to copy</span></div>
+        <div class="color-info">
+          <div class="color-name">Warm Grey</div>
+          <div class="color-role">Secondary text · Captions</div>
+          <div class="color-code"><span>HEX <strong>#6B6860</strong></span></div>
+          <span class="color-tag ct-neutral">UI</span>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch" style="background:#E8E6E1;border:1px solid #D4D2CD" onclick="copyColor('#E8E6E1')"><span class="color-swatch__copy" style="background:rgba(0,0,0,0.1);color:#333">Click to copy</span></div>
+        <div class="color-info">
+          <div class="color-name">Surface Grey</div>
+          <div class="color-role">Card borders · Dividers</div>
+          <div class="color-code"><span>HEX <strong>#E8E6E1</strong></span></div>
+          <span class="color-tag ct-neutral">UI</span>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch" style="background:#F4F3F0;border:1px solid #E8E6E1" onclick="copyColor('#F4F3F0')"><span class="color-swatch__copy" style="background:rgba(0,0,0,0.08);color:#333">Click to copy</span></div>
+        <div class="color-info">
+          <div class="color-name">Fog</div>
+          <div class="color-role">Section backgrounds · Cards</div>
+          <div class="color-code"><span>HEX <strong>#F4F3F0</strong></span></div>
+          <span class="color-tag ct-neutral">UI</span>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch" style="background:#FF3B30" onclick="copyColor('#FF3B30')"><span class="color-swatch__copy">Click to copy</span></div>
+        <div class="color-info">
+          <div class="color-name">Alert Red</div>
+          <div class="color-role">SOS · Warnings · Errors only</div>
+          <div class="color-code"><span>HEX <strong>#FF3B30</strong></span></div>
+          <span class="color-tag ct-neutral">System only</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="color-usage">
+      <h4>Colour usage rules</h4>
+      <table class="usage-table">
+        <thead>
+          <tr>
+            <th>Colour</th>
+            <th>Use for</th>
+            <th>Never use for</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="color-dot" style="background:#0A0A0A"></span>Jet Black</td>
+            <td>Body text, headlines, logo on light backgrounds</td>
+            <td>Large filled backgrounds (use Navy instead)</td>
+          </tr>
+          <tr>
+            <td><span class="color-dot" style="background:#0B1629"></span>Navy</td>
+            <td>Hero sections, dark presentation backgrounds, sidebar</td>
+            <td>Body text, small labels</td>
+          </tr>
+          <tr>
+            <td><span class="color-dot" style="background:#0066FF"></span>Electric Blue</td>
+            <td>CTAs, primary buttons, active links, hover states</td>
+            <td>Decorative shapes, backgrounds, borders</td>
+          </tr>
+          <tr>
+            <td><span class="color-dot" style="background:#00C9A7"></span>Teal</td>
+            <td>Eyebrow labels, data tags, badge indicators, teal accent</td>
+            <td>Body copy, large text blocks, main CTAs</td>
+          </tr>
+          <tr>
+            <td><span class="color-dot" style="background:#FF3B30"></span>Alert Red</td>
+            <td>SOS indicators, error states, system warnings</td>
+            <td>Any decorative or marketing purpose</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ══ 03 TYPOGRAPHY ══ -->
+  <section class="section" id="typography">
+    <div class="sec-eyebrow">03 · Typography</div>
+    <div class="sec-h">Sora. Always Sora.</div>
+    <div class="sec-sub">One primary typeface across all brand touchpoints. DM Mono is used exclusively for technical data — specs, codes, timestamps, and system labels.</div>
+
+    <!-- Font pairing -->
+    <div class="font-pair">
+      <div class="fp-block">
+        <div class="fp-block__label">Primary — Sora</div>
+        <div class="fp-large">Aa Bb Cc</div>
+        <div class="fp-body">Security, Not Surveillance. The ProSight M530 gives enterprise security the same evidentiary standard as state police, on the same sovereign cloud.</div>
+      </div>
+      <div class="fp-block">
+        <div class="fp-block__label">Technical — DM Mono</div>
+        <div class="fp-mono">2K · 2304×1296px
+4500 mAh · 12h rated
+AES-256 · TLS 1.3
+AWS Mumbai · ap-south-1
+IP67 · MIL-STD-810G</div>
+      </div>
+    </div>
+
+    <!-- Weight grid -->
+    <h3 style="font-size:15px;font-weight:600;letter-spacing:-0.01em;margin-bottom:16px">Sora Weight Scale</h3>
+    <div class="weight-grid">
+      <div class="weight-cell"><div class="weight-label">ExtraLight</div><div class="weight-sample" style="font-weight:200">Ps</div><div class="weight-num">200</div></div>
+      <div class="weight-cell"><div class="weight-label">Light</div><div class="weight-sample" style="font-weight:300">Ps</div><div class="weight-num">300</div></div>
+      <div class="weight-cell"><div class="weight-label">Regular</div><div class="weight-sample" style="font-weight:400">Ps</div><div class="weight-num">400</div></div>
+      <div class="weight-cell"><div class="weight-label">Medium</div><div class="weight-sample" style="font-weight:500">Ps</div><div class="weight-num">500</div></div>
+      <div class="weight-cell"><div class="weight-label">SemiBold</div><div class="weight-sample" style="font-weight:600">Ps</div><div class="weight-num">600</div></div>
+      <div class="weight-cell"><div class="weight-label">Bold</div><div class="weight-sample" style="font-weight:700">Ps</div><div class="weight-num">700</div></div>
+    </div>
+
+    <!-- Type scale -->
+    <h3 style="font-size:15px;font-weight:600;letter-spacing:-0.01em;margin-bottom:16px">Type Scale</h3>
+    <div class="type-scale">
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="type-meta__role">Display</div>
+          <div class="type-meta__spec">Sora 700<br>56–72 px<br>ls −0.04em<br>lh 1.0</div>
+        </div>
+        <div class="type-specimen" style="font-size:52px;font-weight:700;letter-spacing:-0.04em;line-height:1">Prosight</div>
+        <div class="type-usage">Hero headings, landing page H1</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="type-meta__role">H1</div>
+          <div class="type-meta__spec">Sora 700<br>36–48 px<br>ls −0.03em<br>lh 1.08</div>
+        </div>
+        <div class="type-specimen" style="font-size:38px;font-weight:700;letter-spacing:-0.03em;line-height:1.08">Evidence, not assertion.</div>
+        <div class="type-usage">Section headings, page titles</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="type-meta__role">H2</div>
+          <div class="type-meta__spec">Sora 600<br>24–32 px<br>ls −0.02em<br>lh 1.15</div>
+        </div>
+        <div class="type-specimen" style="font-size:26px;font-weight:600;letter-spacing:-0.02em;line-height:1.15">One SKU. One shift. One sovereign cloud.</div>
+        <div class="type-usage">Card headers, feature titles</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="type-meta__role">Body Large</div>
+          <div class="type-meta__spec">Sora 300<br>17–18 px<br>lh 1.65</div>
+        </div>
+        <div class="type-specimen" style="font-size:17px;font-weight:300;line-height:1.65;max-width:480px">India's private security workforce is the world's largest — 9 million guards, governed by PSARA, with zero footage mandate.</div>
+        <div class="type-usage">Lead paragraphs, hero sub-text</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="type-meta__role">Body</div>
+          <div class="type-meta__spec">Sora 400<br>14–15 px<br>lh 1.6</div>
+        </div>
+        <div class="type-specimen" style="font-size:14px;font-weight:400;line-height:1.6;max-width:480px">Client disputes, guard misconduct claims and liability exposures are resolved today by oral testimony — because no footage exists to anchor the timeline.</div>
+        <div class="type-usage">Standard body copy, descriptions</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="type-meta__role">Caption</div>
+          <div class="type-meta__spec">Sora 300<br>11–12 px<br>lh 1.5</div>
+        </div>
+        <div class="type-specimen" style="font-size:12px;font-weight:300;line-height:1.5;color:var(--grey-1)">CAPSI Industry Report 2023 · PSARA 2005 · Ministry of Home Affairs</div>
+        <div class="type-usage">Source citations, image credits, footnotes</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="type-meta__role">Label / Mono</div>
+          <div class="type-meta__spec">DM Mono 400<br>10–12 px<br>ls 0.12em<br>UPPERCASE</div>
+        </div>
+        <div class="type-specimen" style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--teal)">01 · Customs &amp; Border · AWS Mumbai</div>
+        <div class="type-usage">Eyebrows, section numbers, data labels, badges</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 04 VOICE ══ -->
+  <section class="section section--grey" id="voice">
+    <div class="sec-eyebrow">04 · Voice &amp; Tone</div>
+    <div class="sec-h">Direct. Factual. No fluff.</div>
+    <div class="sec-sub">Prosight sells to police commissioners, CISF officers, and enterprise security heads. They respect evidence. They distrust hype. Every word we write should earn their trust, not perform confidence.</div>
+
+    <div class="voice-pillars">
+      <div class="voice-pillar">
+        <div class="voice-pillar__num">Principle 01</div>
+        <div class="voice-pillar__h">Factual before rhetorical</div>
+        <div class="voice-pillar__p">Every claim we make has a source. We cite NHRC, DRI, IMA, CAPSI, BSF Annual Reports. If we don't have data, we say we don't have it. We never fabricate urgency.</div>
+      </div>
+      <div class="voice-pillar">
+        <div class="voice-pillar__num">Principle 02</div>
+        <div class="voice-pillar__h">Evidence, not assertion</div>
+        <div class="voice-pillar__p">We don't claim "the best" or "industry-leading." We state what the M530 does, at what spec, verified by whom. Cambridge 2014. UK Met 2017. NSW Police 2015. The research does the selling.</div>
+      </div>
+      <div class="voice-pillar">
+        <div class="voice-pillar__num">Principle 03</div>
+        <div class="voice-pillar__h">Respect for the professional</div>
+        <div class="voice-pillar__p">Our buyer has 20 years in uniform or enterprise security. We write for their intellect, not past it. We explain, we don't oversell. We acknowledge gaps where they exist.</div>
+      </div>
+    </div>
+
+    <h3 style="font-size:15px;font-weight:600;margin-bottom:16px;letter-spacing:-0.02em">Word pairs — what we say vs. what we don't</h3>
+    <div class="word-pairs">
+      <div class="word-pair">
+        <div class="word-do"><div class="wp-label">Say</div><div class="wp-word">Evidence</div></div>
+        <div class="word-dont"><div class="wp-label">Not</div><div class="wp-word">Proof</div></div>
+      </div>
+      <div class="word-pair">
+        <div class="word-do"><div class="wp-label">Say</div><div class="wp-word">Verified data</div></div>
+        <div class="word-dont"><div class="wp-label">Not</div><div class="wp-word">Industry-leading</div></div>
+      </div>
+      <div class="word-pair">
+        <div class="word-do"><div class="wp-label">Say</div><div class="wp-word">−59.8% use-of-force</div></div>
+        <div class="word-dont"><div class="wp-label">Not</div><div class="wp-word">Dramatically reduces</div></div>
+      </div>
+      <div class="word-pair">
+        <div class="word-do"><div class="wp-label">Say</div><div class="wp-word">≥10h battery</div></div>
+        <div class="word-dont"><div class="wp-label">Not</div><div class="wp-word">All-day battery</div></div>
+      </div>
+      <div class="word-pair">
+        <div class="word-do"><div class="wp-label">Say</div><div class="wp-word">Pilot partner</div></div>
+        <div class="word-dont"><div class="wp-label">Not</div><div class="wp-word">Trusted by</div></div>
+      </div>
+      <div class="word-pair">
+        <div class="word-do"><div class="wp-label">Say</div><div class="wp-word">Security, Not Surveillance</div></div>
+        <div class="word-dont"><div class="wp-label">Not</div><div class="wp-word">AI-powered smart camera</div></div>
+      </div>
+    </div>
+
+    <h3 style="font-size:15px;font-weight:600;margin-bottom:16px;letter-spacing:-0.02em">Copy examples — in practice</h3>
+    <div class="copy-examples">
+      <div class="copy-ex">
+        <span class="copy-ex__badge good">✓ Prosight voice</span>
+        <div class="copy-ex__quote">"DRI and CBIC seize over ₹12,000 crore in contraband each year. Without GPS-stamped field video, seizure chains are reconstructed from memory — and routinely challenged at the first cross-examination."</div>
+        <div class="copy-ex__why">Specific number, named agency, specific consequence. Reads like a briefing document, not a brochure.</div>
+      </div>
+      <div class="copy-ex">
+        <span class="copy-ex__badge good">✓ Prosight voice</span>
+        <div class="copy-ex__quote">"On the honest roadmap: on-device face blur and medical-clip retention policies are Phase-2 capabilities — not live today. We will not ship them until they are right."</div>
+        <div class="copy-ex__why">Acknowledging a gap builds more trust with a professional buyer than hiding it ever would.</div>
+      </div>
+      <div class="copy-ex">
+        <span class="copy-ex__badge bad">✕ Not Prosight</span>
+        <div class="copy-ex__quote bad">"Our revolutionary AI-powered body cameras are transforming law enforcement across India with industry-leading features and cutting-edge technology."</div>
+        <div class="copy-ex__why">No numbers, no citations, no specifics. "Revolutionary" and "industry-leading" are claims without evidence. A police commissioner closes the tab.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 05 SOCIAL ══ -->
+  <section class="section" id="social">
+    <div class="sec-eyebrow">05 · Social Media</div>
+    <div class="sec-h">Consistent across every channel.</div>
+    <div class="sec-sub">Prosight is a B2B brand. Primary social platform is LinkedIn. Twitter/X is secondary. Profile photos use the icon mark on navy — never the horizontal lockup at small sizes.</div>
+
+    <!-- Profile icons -->
+    <div class="social-block">
+      <div class="social-label">Profile Photo / App Icon</div>
+      <div class="social-spec">1:1 ratio · displays as circle · icon mark only · navy background</div>
+      <div class="profile-grid">
+        <div class="profile-item">
+          <div class="profile-icon-wrap" style="width:96px;height:96px;background:#0B1629">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 60" width="44" height="55">
+              <path d="M9 4 L39 4 Q45 4 45 10 L45 32 Q45 50 24 58 Q3 50 3 32 L3 10 Q3 4 9 4 Z" fill="none" stroke="#FAFAFA" stroke-width="3" stroke-linejoin="round"/>
+              <path d="M8 30 Q24 16 40 30 Q24 44 8 30 Z" fill="none" stroke="#FAFAFA" stroke-width="2.4" stroke-linejoin="round"/>
+              <circle cx="24" cy="30" r="7" fill="none" stroke="#FAFAFA" stroke-width="2.4"/>
+              <circle cx="24" cy="30" r="3" fill="#FAFAFA"/>
+            </svg>
+          </div>
+          <div class="profile-item__label">96 px</div>
+        </div>
+        <div class="profile-item">
+          <div class="profile-icon-wrap" style="width:64px;height:64px;background:#0B1629">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 60" width="30" height="37">
+              <path d="M9 4 L39 4 Q45 4 45 10 L45 32 Q45 50 24 58 Q3 50 3 32 L3 10 Q3 4 9 4 Z" fill="none" stroke="#FAFAFA" stroke-width="3" stroke-linejoin="round"/>
+              <path d="M8 30 Q24 16 40 30 Q24 44 8 30 Z" fill="none" stroke="#FAFAFA" stroke-width="2.4" stroke-linejoin="round"/>
+              <circle cx="24" cy="30" r="7" fill="none" stroke="#FAFAFA" stroke-width="2.4"/>
+              <circle cx="24" cy="30" r="3" fill="#FAFAFA"/>
+            </svg>
+          </div>
+          <div class="profile-item__label">64 px</div>
+        </div>
+        <div class="profile-item">
+          <div class="profile-icon-wrap" style="width:40px;height:40px;background:#0B1629">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 60" width="18" height="23">
+              <path d="M9 4 L39 4 Q45 4 45 10 L45 32 Q45 50 24 58 Q3 50 3 32 L3 10 Q3 4 9 4 Z" fill="none" stroke="#FAFAFA" stroke-width="3" stroke-linejoin="round"/>
+              <path d="M8 30 Q24 16 40 30 Q24 44 8 30 Z" fill="none" stroke="#FAFAFA" stroke-width="2.4" stroke-linejoin="round"/>
+              <circle cx="24" cy="30" r="7" fill="none" stroke="#FAFAFA" stroke-width="2.4"/>
+              <circle cx="24" cy="30" r="3" fill="#FAFAFA"/>
+            </svg>
+          </div>
+          <div class="profile-item__label">40 px</div>
+        </div>
+        <div class="profile-item">
+          <div class="profile-icon-wrap" style="width:28px;height:28px;background:#0B1629">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 60" width="13" height="16">
+              <path d="M9 4 L39 4 Q45 4 45 10 L45 32 Q45 50 24 58 Q3 50 3 32 L3 10 Q3 4 9 4 Z" fill="none" stroke="#FAFAFA" stroke-width="3" stroke-linejoin="round"/>
+              <path d="M8 30 Q24 16 40 30 Q24 44 8 30 Z" fill="none" stroke="#FAFAFA" stroke-width="2.4" stroke-linejoin="round"/>
+              <circle cx="24" cy="30" r="7" fill="none" stroke="#FAFAFA" stroke-width="2.4"/>
+              <circle cx="24" cy="30" r="3" fill="#FAFAFA"/>
+            </svg>
+          </div>
+          <div class="profile-item__label">28 px</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LinkedIn cover -->
+    <div class="social-block">
+      <div class="social-label">LinkedIn Cover Photo</div>
+      <div class="social-spec">1584 × 396 px · Navy background · Tagline + wordmark</div>
+      <div class="li-cover-wrap">
+        <div class="li-cover">
+          <div class="li-cover__grid"></div>
+          <div class="li-cover__accent"></div>
+          <div class="li-cover__left">
+            <div class="li-cover__kicker">Security, Not Surveillance</div>
+            <div class="li-cover__headline">ProSight M530<br>Body-Worn Cameras</div>
+            <div class="li-cover__sub">Police-grade evidence · Sovereign cloud · Made for India</div>
+          </div>
+          <div class="li-cover__divider"></div>
+          <div class="li-cover__right">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 60" width="52" height="65">
+              <path d="M9 4 L39 4 Q45 4 45 10 L45 32 Q45 50 24 58 Q3 50 3 32 L3 10 Q3 4 9 4 Z" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2.4" stroke-linejoin="round"/>
+              <path d="M8 30 Q24 16 40 30 Q24 44 8 30 Z" fill="none" stroke="rgba(0,201,167,0.8)" stroke-width="2" stroke-linejoin="round"/>
+              <circle cx="24" cy="30" r="7" fill="none" stroke="rgba(0,201,167,0.8)" stroke-width="2"/>
+              <circle cx="24" cy="30" r="3" fill="#00C9A7"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:12px">
+        <a class="dl-btn" href="social/linkedin-cover.html" target="_blank">↗ Open full-size LinkedIn cover</a>
+      </div>
+    </div>
+
+    <!-- Twitter cover -->
+    <div class="social-block">
+      <div class="social-label">Twitter / X Cover</div>
+      <div class="social-spec">1500 × 500 px · 3:1 ratio · Dark gradient</div>
+      <div class="tw-cover">
+        <div class="tw-cover__grid"></div>
+        <div class="tw-cover__left">
+          <div class="tw-cover__headline">Prosight.</div>
+          <div class="tw-cover__sub">Security, Not Surveillance · prosight360.in</div>
+        </div>
+        <div class="tw-cover__right">
+          <div class="tw-cover__dot">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 60" width="36" height="45">
+              <path d="M9 4 L39 4 Q45 4 45 10 L45 32 Q45 50 24 58 Q3 50 3 32 L3 10 Q3 4 9 4 Z" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2.6" stroke-linejoin="round"/>
+              <path d="M8 30 Q24 16 40 30 Q24 44 8 30 Z" fill="none" stroke="#00C9A7" stroke-width="2.2" stroke-linejoin="round"/>
+              <circle cx="24" cy="30" r="7" fill="none" stroke="#00C9A7" stroke-width="2.2"/>
+              <circle cx="24" cy="30" r="3" fill="#00C9A7"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:12px">
+        <a class="dl-btn" href="social/twitter-cover.html" target="_blank">↗ Open full-size Twitter cover</a>
+      </div>
+    </div>
+
+    <!-- Post guidelines -->
+    <div style="padding:28px;background:var(--grey-3);border-radius:8px;margin-top:32px">
+      <h4 style="font-size:15px;font-weight:600;margin-bottom:16px;letter-spacing:-0.02em">Post content guidelines</h4>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;font-size:13px;line-height:1.7;color:var(--grey-1)">
+        <div>
+          <div style="font-weight:600;color:var(--black);margin-bottom:6px">✓ Share</div>
+          <ul style="padding-left:16px">
+            <li>Research findings with citation (Cambridge 2014, UK Met 2017)</li>
+            <li>Sector statistics with source (NHRC, CAPSI, IMA)</li>
+            <li>Deployment context — problem → ProSight solution</li>
+            <li>Regulatory updates (DPDP Act, PSARA amendments)</li>
+            <li>Honest product updates with real specs</li>
+          </ul>
+        </div>
+        <div>
+          <div style="font-weight:600;color:var(--black);margin-bottom:6px">✕ Never post</div>
+          <ul style="padding-left:16px">
+            <li>Unverified claims ("our cameras are used by 50+ forces")</li>
+            <li>Competitor comparisons without data</li>
+            <li>Stock photography presented as ProSight deployments</li>
+            <li>Marketing jargon: "revolutionary", "next-gen", "AI-powered"</li>
+            <li>Testimonials without written client permission</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 06 EMAIL SIGNATURE ══ -->
+  <section class="section section--grey" id="email">
+    <div class="sec-eyebrow">06 · Email Signature</div>
+    <div class="sec-h">Every email is a brand touchpoint.</div>
+    <div class="sec-sub">Copy the HTML below and paste it into your email client's signature settings. Works in Gmail, Outlook, and Apple Mail. Replace NAME and TITLE with your details.</div>
+
+    <div class="sig-wrap">
+      <div class="sig-header">
+        <div class="sig-header__dots">
+          <div class="sig-header__dot" style="background:#FF5F57"></div>
+          <div class="sig-header__dot" style="background:#FEBC2E"></div>
+          <div class="sig-header__dot" style="background:#28C840"></div>
+        </div>
+        <div class="sig-header__label">Preview — sales@prosight360.in</div>
+      </div>
+      <div class="sig-preview">
+        <div class="sig">
+          <div class="sig__top">
+            <div class="sig__mark">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 60" width="32" height="40">
+                <path d="M9 4 L39 4 Q45 4 45 10 L45 32 Q45 50 24 58 Q3 50 3 32 L3 10 Q3 4 9 4 Z" fill="none" stroke="#0A0A0A" stroke-width="3" stroke-linejoin="round"/>
+                <path d="M8 30 Q24 16 40 30 Q24 44 8 30 Z" fill="none" stroke="#0A0A0A" stroke-width="2.4" stroke-linejoin="round"/>
+                <circle cx="24" cy="30" r="7" fill="none" stroke="#0A0A0A" stroke-width="2.4"/>
+                <circle cx="24" cy="30" r="3" fill="#0A0A0A"/>
+              </svg>
+            </div>
+            <div class="sig__divider-v"></div>
+            <div class="sig__info">
+              <div class="sig__name">Your Name</div>
+              <div class="sig__title">Title · Prosight Technologies</div>
+              <div class="sig__contacts">
+                <div class="sig__c">✉ <a href="mailto:sales@prosight360.in">sales@prosight360.in</a></div>
+                <div class="sig__c">🌐 <a href="https://prosight360.in">prosight360.in</a></div>
+                <div class="sig__c">📍 Pune, Maharashtra · India</div>
+              </div>
+              <div class="sig__tagline">Security, Not Surveillance — ProSight M530 · Body-worn cameras for Indian law enforcement.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="sig-code-wrap">
+        <div class="sig-code-header">
+          <span>HTML · paste into email client signature settings</span>
+          <button class="copy-code-btn" onclick="copySignatureCode()">Copy HTML</button>
+        </div>
+        <pre class="sig-code" id="sig-code-block"><!-- Prosight Email Signature -->
+&lt;table cellpadding="0" cellspacing="0" border="0" style="font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:1.5;color:#333"&gt;
+&lt;tr&gt;
+  &lt;td style="padding-right:14px;vertical-align:top;padding-top:4px"&gt;
+    &lt;!-- Shield icon --&gt;
+    &lt;svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 60" width="28" height="35"&gt;
+      &lt;path d="M9 4 L39 4 Q45 4 45 10 L45 32 Q45 50 24 58 Q3 50 3 32 L3 10 Q3 4 9 4 Z" fill="none" stroke="#0A0A0A" stroke-width="3" stroke-linejoin="round"/&gt;
+      &lt;path d="M8 30 Q24 16 40 30 Q24 44 8 30 Z" fill="none" stroke="#0A0A0A" stroke-width="2.4" stroke-linejoin="round"/&gt;
+      &lt;circle cx="24" cy="30" r="7" fill="none" stroke="#0A0A0A" stroke-width="2.4"/&gt;
+      &lt;circle cx="24" cy="30" r="3" fill="#0A0A0A"/&gt;
+    &lt;/svg&gt;
+  &lt;/td&gt;
+  &lt;td style="border-left:2px solid #00C9A7;padding-left:14px"&gt;
+    &lt;div style="font-weight:700;font-size:15px;color:#0A0A0A"&gt;YOUR NAME&lt;/div&gt;
+    &lt;div style="color:#888;font-size:12px;margin-bottom:8px"&gt;YOUR TITLE · Prosight Technologies&lt;/div&gt;
+    &lt;div style="color:#888;font-size:12px"&gt;✉ &lt;a href="mailto:sales@prosight360.in" style="color:#0066FF;text-decoration:none"&gt;sales@prosight360.in&lt;/a&gt;&lt;/div&gt;
+    &lt;div style="color:#888;font-size:12px"&gt;🌐 &lt;a href="https://prosight360.in" style="color:#0066FF;text-decoration:none"&gt;prosight360.in&lt;/a&gt;&lt;/div&gt;
+    &lt;div style="color:#888;font-size:12px"&gt;📍 Pune, Maharashtra · India&lt;/div&gt;
+    &lt;div style="margin-top:10px;padding-top:8px;border-top:1px solid #EEE;font-size:11px;color:#999;font-style:italic"&gt;Security, Not Surveillance — ProSight M530 · Body-worn cameras for Indian law enforcement.&lt;/div&gt;
+  &lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;</pre>
+      </div>
+    </div>
+
+    <div style="margin-top:24px;padding:20px 24px;background:rgba(0,102,255,0.04);border:1px solid rgba(0,102,255,0.12);border-radius:8px;font-size:13px;color:var(--grey-1);line-height:1.6">
+      <strong style="color:var(--black)">Gmail users:</strong> Settings → See all settings → General → Signature → Create new → paste HTML in source view (Ctrl+Shift+X / Cmd+Shift+X).<br>
+      <strong style="color:var(--black)">Outlook users:</strong> File → Options → Mail → Signatures → paste into the editor HTML source.
+    </div>
+  </section>
+
+  <!-- ══ 07 DON'TS ══ -->
+  <section class="section" id="donts">
+    <div class="sec-eyebrow">07 · Usage Rules</div>
+    <div class="sec-h">What the logo is never allowed to do.</div>
+    <div class="sec-sub">Six rules. No exceptions. The logo is a legal and brand asset — treat it like one.</div>
+
+    <div class="donts-grid">
+      <div class="dont-card">
+        <div class="dont-visual">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 60" width="180" height="42" style="transform:scaleX(1.4);transform-origin:center">
+            <path d="M14 5 L34 5 Q40 5 40 11 L40 31 Q40 45 24 53 Q8 45 8 31 L8 11 Q8 5 14 5 Z" fill="none" stroke="#0A0A0A" stroke-width="2.4" stroke-linejoin="round"/>
+            <path d="M13.5 29 Q24 18 34.5 29 Q24 40 13.5 29 Z" fill="none" stroke="#0A0A0A" stroke-width="1.8" stroke-linejoin="round"/>
+            <circle cx="24" cy="29" r="5.2" fill="none" stroke="#0A0A0A" stroke-width="1.8"/>
+            <circle cx="24" cy="29" r="2.2" fill="#0A0A0A"/>
+            <text x="52" y="37" font-family="'Sora', system-ui, sans-serif" font-weight="600" font-size="26" letter-spacing="-0.7" fill="#0A0A0A">Prosight</text>
+          </svg>
+        </div>
+        <div class="dont-body"><div class="dont-h">Don't stretch or distort</div><div class="dont-p">Never scale non-proportionally. Always hold shift when resizing.</div></div>
+      </div>
+
+      <div class="dont-card">
+        <div class="dont-visual">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 60" width="180" height="42">
+            <path d="M14 5 L34 5 Q40 5 40 11 L40 31 Q40 45 24 53 Q8 45 8 31 L8 11 Q8 5 14 5 Z" fill="none" stroke="#FF6B35" stroke-width="2.4" stroke-linejoin="round"/>
+            <path d="M13.5 29 Q24 18 34.5 29 Q24 40 13.5 29 Z" fill="none" stroke="#FF6B35" stroke-width="1.8" stroke-linejoin="round"/>
+            <circle cx="24" cy="29" r="5.2" fill="none" stroke="#FF6B35" stroke-width="1.8"/>
+            <circle cx="24" cy="29" r="2.2" fill="#FF6B35"/>
+            <text x="52" y="37" font-family="'Sora', system-ui, sans-serif" font-weight="600" font-size="26" letter-spacing="-0.7" fill="#FF6B35">Prosight</text>
+          </svg>
+        </div>
+        <div class="dont-body"><div class="dont-h">Don't recolour</div><div class="dont-p">Use only Jet Black (#0A0A0A) or Off-White (#FAFAFA). No other colours.</div></div>
+      </div>
+
+      <div class="dont-card">
+        <div class="dont-visual">
+          <div style="filter:drop-shadow(4px 6px 10px rgba(0,0,0,0.4))">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 60" width="160" height="37">
+              <path d="M14 5 L34 5 Q40 5 40 11 L40 31 Q40 45 24 53 Q8 45 8 31 L8 11 Q8 5 14 5 Z" fill="none" stroke="#0A0A0A" stroke-width="2.4" stroke-linejoin="round"/>
+              <path d="M13.5 29 Q24 18 34.5 29 Q24 40 13.5 29 Z" fill="none" stroke="#0A0A0A" stroke-width="1.8" stroke-linejoin="round"/>
+              <circle cx="24" cy="29" r="5.2" fill="none" stroke="#0A0A0A" stroke-width="1.8"/>
+              <circle cx="24" cy="29" r="2.2" fill="#0A0A0A"/>
+              <text x="52" y="37" font-family="'Sora', system-ui, sans-serif" font-weight="600" font-size="26" letter-spacing="-0.7" fill="#0A0A0A">Prosight</text>
+            </svg>
+          </div>
+        </div>
+        <div class="dont-body"><div class="dont-h">Don't add drop shadows</div><div class="dont-p">The logo is a flat mark. No shadows, glows, or 3D effects of any kind.</div></div>
+      </div>
+
+      <div class="dont-card">
+        <div class="dont-visual" style="background:linear-gradient(135deg,#FF6B35,#FF3B30)">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 60" width="160" height="37">
+            <path d="M14 5 L34 5 Q40 5 40 11 L40 31 Q40 45 24 53 Q8 45 8 31 L8 11 Q8 5 14 5 Z" fill="none" stroke="#FAFAFA" stroke-width="2.4" stroke-linejoin="round"/>
+            <path d="M13.5 29 Q24 18 34.5 29 Q24 40 13.5 29 Z" fill="none" stroke="#FAFAFA" stroke-width="1.8" stroke-linejoin="round"/>
+            <circle cx="24" cy="29" r="5.2" fill="none" stroke="#FAFAFA" stroke-width="1.8"/>
+            <circle cx="24" cy="29" r="2.2" fill="#FAFAFA"/>
+            <text x="52" y="37" font-family="'Sora', system-ui, sans-serif" font-weight="600" font-size="26" letter-spacing="-0.7" fill="#FAFAFA">Prosight</text>
+          </svg>
+        </div>
+        <div class="dont-body"><div class="dont-h">Don't place on coloured backgrounds</div><div class="dont-p">Logo lives on: off-white, white, navy (#0B1629), or black (#0A0A0A) only.</div></div>
+      </div>
+
+      <div class="dont-card">
+        <div class="dont-visual">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 60" width="160" height="37" style="transform:rotate(15deg)">
+            <path d="M14 5 L34 5 Q40 5 40 11 L40 31 Q40 45 24 53 Q8 45 8 31 L8 11 Q8 5 14 5 Z" fill="none" stroke="#0A0A0A" stroke-width="2.4" stroke-linejoin="round"/>
+            <path d="M13.5 29 Q24 18 34.5 29 Q24 40 13.5 29 Z" fill="none" stroke="#0A0A0A" stroke-width="1.8" stroke-linejoin="round"/>
+            <circle cx="24" cy="29" r="5.2" fill="none" stroke="#0A0A0A" stroke-width="1.8"/>
+            <circle cx="24" cy="29" r="2.2" fill="#0A0A0A"/>
+            <text x="52" y="37" font-family="'Sora', system-ui, sans-serif" font-weight="600" font-size="26" letter-spacing="-0.7" fill="#0A0A0A">Prosight</text>
+          </svg>
+        </div>
+        <div class="dont-body"><div class="dont-h">Don't rotate or skew</div><div class="dont-p">The logo is always horizontal and upright. No angles, tilts, or perspective transforms.</div></div>
+      </div>
+
+      <div class="dont-card">
+        <div class="dont-visual">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 60" width="56" height="13">
+              <path d="M14 5 L34 5 Q40 5 40 11 L40 31 Q40 45 24 53 Q8 45 8 31 L8 11 Q8 5 14 5 Z" fill="none" stroke="#0A0A0A" stroke-width="2.4" stroke-linejoin="round"/>
+              <path d="M13.5 29 Q24 18 34.5 29 Q24 40 13.5 29 Z" fill="none" stroke="#0A0A0A" stroke-width="1.8" stroke-linejoin="round"/>
+              <circle cx="24" cy="29" r="5.2" fill="none" stroke="#0A0A0A" stroke-width="1.8"/>
+              <circle cx="24" cy="29" r="2.2" fill="#0A0A0A"/>
+              <text x="52" y="37" font-family="'Sora', system-ui, sans-serif" font-weight="600" font-size="26" letter-spacing="-0.7" fill="#0A0A0A">Prosight</text>
+            </svg>
+            <div style="font-size:9px;color:var(--grey-1);font-family:var(--f-mono)">← too small →</div>
+          </div>
+        </div>
+        <div class="dont-body"><div class="dont-h">Don't use below minimum size</div><div class="dont-p">Minimum 120 px wide (digital) or 32 mm wide (print). Below this the mark is illegible.</div></div>
+      </div>
+    </div>
+
+    <!-- Final note -->
+    <div style="margin-top:56px;padding:36px;background:var(--navy);border-radius:10px;color:white">
+      <div style="font-family:var(--f-mono);font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--teal);margin-bottom:14px">One final rule</div>
+      <div style="font-size:26px;font-weight:700;letter-spacing:-0.03em;margin-bottom:12px">"Security, Not Surveillance."</div>
+      <div style="font-size:15px;color:rgba(255,255,255,0.5);font-weight:300;max-width:560px;line-height:1.7">This tagline is a commitment, not a slogan. Every product decision, every marketing message, and every sales conversation should be consistent with this principle. If in doubt, ask: does this make our users feel watched, or protected?</div>
+    </div>
+  </section>
+
+</main>
+</div>
+
+<!-- Toast -->
+<div class="copied-toast" id="toast">Copied to clipboard</div>
+
+<script>
+// Active nav on scroll
+const sections = document.querySelectorAll('section[id], .section[id]');
+const navItems = document.querySelectorAll('.nav__item');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if(e.isIntersecting) {
+      navItems.forEach(n => n.classList.remove('active'));
+      const active = document.querySelector(`.nav__item[href="#${e.target.id}"]`);
+      if(active) active.classList.add('active');
+    }
+  });
+}, {threshold:0.3});
+sections.forEach(s => observer.observe(s));
+
+// Copy colour hex
+function copyColor(hex) {
+  navigator.clipboard.writeText(hex).then(() => showToast('Copied ' + hex));
+}
+
+// Copy signature HTML
+function copySignatureCode() {
+  const raw = `<!-- Prosight Email Signature -->
+<table cellpadding="0" cellspacing="0" border="0" style="font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:1.5;color:#333">
+<tr>
+  <td style="padding-right:14px;vertical-align:top;padding-top:4px">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 60" width="28" height="35">
+      <path d="M9 4 L39 4 Q45 4 45 10 L45 32 Q45 50 24 58 Q3 50 3 32 L3 10 Q3 4 9 4 Z" fill="none" stroke="#0A0A0A" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M8 30 Q24 16 40 30 Q24 44 8 30 Z" fill="none" stroke="#0A0A0A" stroke-width="2.4" stroke-linejoin="round"/>
+      <circle cx="24" cy="30" r="7" fill="none" stroke="#0A0A0A" stroke-width="2.4"/>
+      <circle cx="24" cy="30" r="3" fill="#0A0A0A"/>
+    </svg>
+  </td>
+  <td style="border-left:2px solid #00C9A7;padding-left:14px">
+    <div style="font-weight:700;font-size:15px;color:#0A0A0A">YOUR NAME</div>
+    <div style="color:#888;font-size:12px;margin-bottom:8px">YOUR TITLE · Prosight Technologies</div>
+    <div style="color:#888;font-size:12px">✉ <a href="mailto:sales@prosight360.in" style="color:#0066FF;text-decoration:none">sales@prosight360.in</a></div>
+    <div style="color:#888;font-size:12px">🌐 <a href="https://prosight360.in" style="color:#0066FF;text-decoration:none">prosight360.in</a></div>
+    <div style="color:#888;font-size:12px">📍 Pune, Maharashtra · India</div>
+    <div style="margin-top:10px;padding-top:8px;border-top:1px solid #EEE;font-size:11px;color:#999;font-style:italic">Security, Not Surveillance — ProSight M530 · Body-worn cameras for Indian law enforcement.</div>
+  </td>
+</tr>
+</table>`;
+  navigator.clipboard.writeText(raw).then(() => showToast('HTML copied — paste into email client'));
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+</script>
+</body>
+</html>

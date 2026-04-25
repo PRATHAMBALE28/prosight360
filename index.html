@@ -28,7 +28,7 @@
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@200;300;400;500;600;700;800&family=DM+Mono:wght@300;400&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@200;300;400;500;600;700;800&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
     <style>
         * { font-family: 'Sora', system-ui, sans-serif; }
         body { background: #FAFAFA; color: #0A0A0A; }
@@ -174,7 +174,7 @@
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="flex items-center justify-between h-16 lg:h-20">
                 <!-- Logo (from brand kit SVG) -->
-                <a href="#" class="flex items-center gap-0">
+                <a href="#hero" class="flex items-center gap-0">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 80" width="140" height="35">
                         <path d="M18 8 L42 8 Q50 8 50 16 L50 40 Q50 58 30 68 Q10 58 10 40 L10 16 Q10 8 18 8 Z" fill="none" stroke="#0A0A0A" stroke-width="2.8" stroke-linejoin="round"/>
                         <path d="M17 38 Q30 24 43 38 Q30 52 17 38 Z" fill="none" stroke="#0A0A0A" stroke-width="2.2" stroke-linejoin="round"/>
@@ -263,7 +263,7 @@
                     </p>
 
                     <div class="flex flex-col sm:flex-row gap-4 anim-fade-up anim-d3">
-                        <a href="#demo" class="bg-blue hover:bg-blue/90 text-white font-medium px-8 py-4 rounded-xl text-center transition-all hover:shadow-lg hover:shadow-blue/20">
+                        <a href="#demo" data-ps="demo" class="bg-blue hover:bg-blue/90 text-white font-medium px-8 py-4 rounded-xl text-center transition-all hover:shadow-lg hover:shadow-blue/20">
                             Book a Demo
                         </a>
                         <a href="#dashboard" class="bg-primary/5 hover:bg-primary/10 text-primary font-medium px-8 py-4 rounded-xl text-center transition-all border border-grey-200">
@@ -273,13 +273,13 @@
 
                     <!-- Trust bar -->
                     <div class="mt-14 pt-8 border-t border-grey-200 anim-fade-up anim-d4">
-                        <p class="text-xs text-grey-400 uppercase tracking-widest mb-4">Trusted by agencies across India</p>
+                        <p class="text-xs text-grey-400 uppercase tracking-widest mb-4">Built for India's security ecosystem</p>
                         <div class="flex items-center gap-8">
-                            <div class="text-grey-400 text-sm font-medium">State Police Depts</div>
+                            <div class="text-grey-400 text-sm font-medium">State Police</div>
                             <div class="w-px h-4 bg-grey-200"></div>
                             <div class="text-grey-400 text-sm font-medium">Enterprise Security</div>
                             <div class="w-px h-4 bg-grey-200 hidden sm:block"></div>
-                            <div class="text-grey-400 text-sm font-medium hidden sm:block">Border Control</div>
+                            <div class="text-grey-400 text-sm font-medium hidden sm:block">Border Forces</div>
                         </div>
                     </div>
                 </div>
@@ -1046,7 +1046,7 @@
                     </div>
                     <div>
                         <div style="font-family:'Fraunces',serif;font-size:16px;font-weight:600;">BWC Command Center</div>
-                        <div style="font-size:11px;color:rgba(255,255,255,0.5);">command.prosight.in</div>
+                        <div style="font-size:11px;color:rgba(255,255,255,0.5);">prosight360.in/dashboard</div>
                     </div>
                 </div>
                 <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;">
@@ -1089,7 +1089,7 @@
                             <div class="w-3 h-3 rounded-full" style="background:#BBF7D0;"></div>
                         </div>
                         <div class="flex-1 flex justify-center">
-                            <div class="px-3 py-1 text-[11px] rounded-md border" style="background:#FFFFFF;border-color:#E5E2DC;color:#6B6860;font-family:'DM Sans',sans-serif;">command.prosight.in/devices</div>
+                            <div class="px-3 py-1 text-[11px] rounded-md border" style="background:#FFFFFF;border-color:#E5E2DC;color:#6B6860;font-family:'DM Sans',sans-serif;">prosight360.in/dashboard/devices</div>
                         </div>
                         <div class="w-14"></div>
                     </div>
@@ -1537,7 +1537,7 @@
                     <div id="ps-toast" class="ps-toast">Ready</div>
                 </div>
                 <!-- Caption -->
-                <p class="text-center text-xs mt-5" style="color:#A8A49E;font-family:'DM Sans',sans-serif;">Interactive demo · click the sidebar, filter chips, or any row. Mirrors the real Prosight dashboard at <span style="color:#2563EB;">command.prosight.in</span> — sample data shown.</p>
+                <p class="text-center text-xs mt-5" style="color:#A8A49E;font-family:'Sora',sans-serif;">Interactive prototype · click the sidebar, filter chips, or any row. All data is illustrative — the live Command Center is provisioned during deployment.</p>
             </div>
         </div>
         <script>
@@ -1780,8 +1780,8 @@
             <h2 class="text-4xl lg:text-6xl font-bold tracking-tight mb-6 text-white">See Prosight in Action</h2>
             <p class="text-lg text-grey-400 max-w-2xl mx-auto mb-10 leading-relaxed">Schedule a live walkthrough of the Prosight platform. See the dashboard, test the Prosight One, and understand how real-time visibility transforms operations.</p>
             <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href="#" class="bg-blue hover:bg-blue/90 text-white font-medium px-10 py-4 rounded-xl transition-all hover:shadow-lg hover:shadow-blue/25 text-lg">Book a Demo</a>
-                <a href="#" id="contact" class="bg-white/5 hover:bg-white/10 text-white font-medium px-10 py-4 rounded-xl transition-all border border-white/10 text-lg">Contact Sales</a>
+                <a href="#demo" data-ps="demo" class="bg-blue hover:bg-blue/90 text-white font-medium px-10 py-4 rounded-xl transition-all hover:shadow-lg hover:shadow-blue/25 text-lg">Book a Demo</a>
+                <a href="#contact" data-ps="contact" class="bg-white/5 hover:bg-white/10 text-white font-medium px-10 py-4 rounded-xl transition-all border border-white/10 text-lg">Contact Sales</a>
             </div>
             <p class="text-xs text-grey-400 mt-8">No commitment required. See it before you decide.</p>
         </div>
@@ -1793,7 +1793,7 @@
         <div class="max-w-7xl mx-auto px-6 lg:px-8 py-12 lg:py-16">
             <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
                 <div class="sm:col-span-2 lg:col-span-1">
-                    <a href="#" class="flex items-center gap-0 mb-4">
+                    <a href="#hero" class="flex items-center gap-0 mb-4">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 80" width="120" height="30">
                             <path d="M18 8 L42 8 Q50 8 50 16 L50 40 Q50 58 30 68 Q10 58 10 40 L10 16 Q10 8 18 8 Z" fill="none" stroke="white" stroke-width="2.8" stroke-linejoin="round"/>
                             <path d="M17 38 Q30 24 43 38 Q30 52 17 38 Z" fill="none" stroke="white" stroke-width="2.2" stroke-linejoin="round"/>

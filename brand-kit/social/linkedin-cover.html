@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Prosight · LinkedIn Cover · 1584×396</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{width:1584px;height:396px;overflow:hidden;background:#0B1629}
+.cover{
+  width:1584px;height:396px;
+  background:#0B1629;
+  display:flex;align-items:center;
+  padding:0 96px;position:relative;overflow:hidden;
+  font-family:'Sora',system-ui,sans-serif;
+}
+.grid-bg{
+  position:absolute;inset:0;opacity:0.03;
+  background-image:
+    repeating-linear-gradient(0deg,transparent,transparent 49px,white 50px),
+    repeating-linear-gradient(90deg,transparent,transparent 49px,white 50px);
+}
+.glow-right{
+  position:absolute;right:-100px;top:50%;transform:translateY(-50%);
+  width:500px;height:500px;border-radius:50%;
+  background:radial-gradient(circle,rgba(0,201,167,0.06) 0%,transparent 70%);
+}
+.glow-left{
+  position:absolute;left:-60px;bottom:-100px;
+  width:300px;height:300px;border-radius:50%;
+  background:radial-gradient(circle,rgba(0,102,255,0.04) 0%,transparent 70%);
+}
+.left{position:relative;z-index:1;flex:1}
+.kicker{
+  font-family:'DM Mono',monospace;font-size:13px;
+  letter-spacing:0.2em;text-transform:uppercase;
+  color:#00C9A7;margin-bottom:18px;
+}
+.headline{
+  font-size:42px;font-weight:700;color:white;
+  letter-spacing:-0.03em;line-height:1.1;margin-bottom:14px;
+}
+.sub{font-size:16px;color:rgba(255,255,255,0.4);font-weight:300;line-height:1.5}
+.divider{width:1px;height:120px;background:rgba(255,255,255,0.1);margin:0 80px;flex-shrink:0}
+.right{position:relative;z-index:1;flex-shrink:0;display:flex;flex-direction:column;gap:20px;align-items:flex-start}
+.stat{display:flex;flex-direction:column;gap:4px}
+.stat__num{font-size:30px;font-weight:700;color:white;letter-spacing:-0.04em;line-height:1}
+.stat__num.teal{color:#00C9A7}
+.stat__label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.3)}
+.mark{display:flex;align-items:center;gap:12px;margin-top:8px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.07)}
+.mark-name{font-size:15px;font-weight:600;color:rgba(255,255,255,0.5);letter-spacing:-0.01em}
+.mark-url{font-family:'DM Mono',monospace;font-size:11px;color:rgba(0,201,167,0.5);margin-top:2px}
+</style>
+</head>
+<body>
+<div class="cover">
+  <div class="grid-bg"></div>
+  <div class="glow-right"></div>
+  <div class="glow-left"></div>
+
+  <div class="left">
+    <div class="kicker">Security, Not Surveillance</div>
+    <div class="headline">ProSight M530<br>Body-Worn Cameras</div>
+    <div class="sub">Police-grade evidence · Sovereign cloud<br>Purpose-built for India</div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="right">
+    <div class="stat">
+      <div class="stat__num">2K</div>
+      <div class="stat__label">Video · 2304×1296</div>
+    </div>
+    <div class="stat">
+      <div class="stat__num">12h</div>
+      <div class="stat__label">Battery · 4500 mAh</div>
+    </div>
+    <div class="stat">
+      <div class="stat__num teal">AES-256</div>
+      <div class="stat__label">Encryption · On-device</div>
+    </div>
+    <div class="mark">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 60" width="22" height="27">
+        <path d="M9 4 L39 4 Q45 4 45 10 L45 32 Q45 50 24 58 Q3 50 3 32 L3 10 Q3 4 9 4 Z" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2.8" stroke-linejoin="round"/>
+        <path d="M8 30 Q24 16 40 30 Q24 44 8 30 Z" fill="none" stroke="#00C9A7" stroke-width="2.2" stroke-linejoin="round"/>
+        <circle cx="24" cy="30" r="7" fill="none" stroke="#00C9A7" stroke-width="2.2"/>
+        <circle cx="24" cy="30" r="3" fill="#00C9A7"/>
+      </svg>
+      <div>
+        <div class="mark-name">Prosight</div>
+        <div class="mark-url">prosight360.in</div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
