@@ -116,7 +116,7 @@
       <div class="ps-modal ps-modal--demo" role="dialog" aria-label="Book a demo">
         <button class="ps-modal__close" aria-label="Close">&times;</button>
         <div class="ps-modal__eyebrow">Book a demo</div>
-        <h3 class="ps-modal__h">See the M530 in action.</h3>
+        <h3 class="ps-modal__h">See Prosight One in action.</h3>
         <p class="ps-modal__sub">30 minutes, live, with an engineer from our Pune team. Your officers, your questions, your compliance.</p>
         <form class="ps-form" novalidate>
           <div class="ps-form__row">

@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <style>@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;600;700&amp;display=swap');</style>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0B1629"/>
+      <stop offset="100%" style="stop-color:#0D2240"/>
+    </linearGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <!-- Grid lines -->
+  <line x1="0" y1="315" x2="1200" y2="315" stroke="white" stroke-width="0.5" opacity="0.04"/>
+  <line x1="600" y1="0" x2="600" y2="630" stroke="white" stroke-width="0.5" opacity="0.04"/>
+  <!-- Shield mark (large, right-aligned) -->
+  <g transform="translate(780, 95) scale(4.2)">
+    <path d="M9 4 L39 4 Q45 4 45 10 L45 32 Q45 50 24 58 Q3 50 3 32 L3 10 Q3 4 9 4 Z" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="2.5" stroke-linejoin="round"/>
+    <path d="M8 30 Q24 16 40 30 Q24 44 8 30 Z" fill="none" stroke="#00C9A7" stroke-width="2" stroke-linejoin="round" opacity="0.7"/>
+    <circle cx="24" cy="30" r="7" fill="none" stroke="#00C9A7" stroke-width="2" opacity="0.7"/>
+    <circle cx="24" cy="30" r="3" fill="#00C9A7" opacity="0.9"/>
+  </g>
+  <!-- Left content -->
+  <text x="80" y="218" font-family="'Sora', system-ui, sans-serif" font-weight="300" font-size="16" fill="#00C9A7" letter-spacing="3" opacity="0.9">SECURITY, NOT SURVEILLANCE</text>
+  <text x="80" y="310" font-family="'Sora', system-ui, sans-serif" font-weight="700" font-size="72" fill="#FAFAFA" letter-spacing="-2">ProSight</text>
+  <text x="80" y="386" font-family="'Sora', system-ui, sans-serif" font-weight="700" font-size="72" fill="#FAFAFA" letter-spacing="-2">M530.</text>
+  <!-- Sub line -->
+  <text x="80" y="452" font-family="'Sora', system-ui, sans-serif" font-weight="300" font-size="20" fill="rgba(255,255,255,0.5)">Body-worn cameras for Indian law enforcement &amp; security.</text>
+  <!-- Divider -->
+  <rect x="80" y="490" width="560" height="1" fill="rgba(255,255,255,0.1)"/>
+  <!-- Spec pills -->
+  <rect x="80" y="510" width="76" height="28" rx="14" fill="rgba(0,201,167,0.12)" stroke="rgba(0,201,167,0.3)" stroke-width="1"/>
+  <text x="118" y="529" font-family="'Sora', system-ui, sans-serif" font-size="12" fill="#00C9A7" text-anchor="middle" font-weight="500">2K Video</text>
+  <rect x="166" y="510" width="68" height="28" rx="14" fill="rgba(0,201,167,0.12)" stroke="rgba(0,201,167,0.3)" stroke-width="1"/>
+  <text x="200" y="529" font-family="'Sora', system-ui, sans-serif" font-size="12" fill="#00C9A7" text-anchor="middle" font-weight="500">12h BWC</text>
+  <rect x="244" y="510" width="68" height="28" rx="14" fill="rgba(0,201,167,0.12)" stroke="rgba(0,201,167,0.3)" stroke-width="1"/>
+  <text x="278" y="529" font-family="'Sora', system-ui, sans-serif" font-size="12" fill="#00C9A7" text-anchor="middle" font-weight="500">AES-256</text>
+  <rect x="322" y="510" width="88" height="28" rx="14" fill="rgba(0,201,167,0.12)" stroke="rgba(0,201,167,0.3)" stroke-width="1"/>
+  <text x="366" y="529" font-family="'Sora', system-ui, sans-serif" font-size="12" fill="#00C9A7" text-anchor="middle" font-weight="500">AWS Mumbai</text>
+  <!-- Domain -->
+  <text x="80" y="600" font-family="'Sora', system-ui, sans-serif" font-weight="400" font-size="15" fill="rgba(255,255,255,0.3)" letter-spacing="1">prosight360.in</text>
+</svg>

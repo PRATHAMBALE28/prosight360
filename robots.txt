@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://prosight360.in/sitemap.xml
+
+# Disallow internal / utility paths
+Disallow: /contact-sheet.html
+Disallow: /brand-kit/
+Disallow: /industries/
+
+# Crawl delay (optional, be polite to crawlers)
+Crawl-delay: 5
