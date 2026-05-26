@@ -33,7 +33,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@prosight360">
     <meta name="twitter:title" content="Prosight One — Body Worn Camera for Indian Law Enforcement">
-    <meta name="twitter:description" content="2K body-worn cameras for Indian police, CISF, BSF and enterprise security. 12h battery, AES-256, AWS Mumbai. DPDP Act 2023 compliant.">
+    <meta name="twitter:description" content="2K body-worn cameras for Indian police, CISF, BSF and enterprise security. Dual 3200 mAh hot-swappable batteries · IP68 · AES-256 · AWS Mumbai. DPDP Act 2023 compliant.">
     <meta name="twitter:image" content="https://prosight360.in/og-image.svg">
 
     <!-- Favicon (inline SVG) -->
@@ -88,7 +88,7 @@
           "@id": "https://prosight360.in/#m530",
           "name": "Prosight One",
           "brand": {"@type": "Brand", "name": "Prosight"},
-          "description": "Enterprise-grade 4G body-worn camera with 2K HD recording (2560×1440), 32–512 GB internal storage, AES-256 encryption, 12-hour battery (3200 mAh × 2 (hot-swappable)), IP68 waterproof, MIL-STD-810G, 4G LTE + Wi-Fi + GPS, real-time live streaming, 30-second pre-record buffer. Data stored on AWS Mumbai (ap-south-1). DPDP Act 2023 compliant.",
+          "description": "Enterprise-grade 4G body-worn camera with 2K HD recording (2560×1440), 32–512 GB internal storage, AES-256 encryption, dual 3200 mAh hot-swappable batteries (4–5h per battery at full load · 8–10h combined), IP68 waterproof, MIL-STD-810G, 4G LTE + Wi-Fi + GPS, real-time live streaming, 30-second pre-record buffer. Data stored on AWS Mumbai (ap-south-1). DPDP Act 2023 compliant.",
           "category": "Body Worn Camera",
           "manufacturer": {"@id": "https://prosight360.in/#organization"},
           "offers": {
@@ -301,17 +301,16 @@
           #product .flex.flex-wrap.gap-2 span { font-size: 10.5px !important; padding: 5px 9px !important; }
           #product #product-main-img { max-height: 180px !important; }
 
-          /* Spec table — always scroll horizontally, never crush */
-          #product table, .spec-row, table.spec-table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; white-space: nowrap; width: 100%; }
-          #product table tbody, #product table tr { display: table; width: max-content; min-width: 100%; }
+          /* Spec table — spec-panel wrapper scrolls, table keeps normal display */
+          .spec-panel { overflow-x: auto !important; -webkit-overflow-scrolling: touch; }
+          .spec-panel table { display: table !important; width: auto !important; min-width: 360px; }
+          .spec-panel td, .spec-panel th { font-size: 12.5px !important; padding: 10px 12px !important; white-space: nowrap; }
+          .spec-panel td:first-child { min-width: 120px; }
 
           /* =======  DASHBOARD — hide desktop mock, show simple card ======= */
           #dashboard .ps-app { display: none !important; }
           #dashboard .reveal:has(.ps-app) { display: none !important; }
           .ps-mobile-card { display: block !important; }
-
-          /* Any table-styled element gets a scroll wrapper treatment */
-          table { display: block !important; overflow-x: auto; white-space: nowrap; max-width: 100%; }
 
           /* Footer: stack columns cleanly */
           footer .grid.sm\:grid-cols-2.lg\:grid-cols-4 { grid-template-columns: 1fr !important; gap: 28px !important; }
@@ -497,11 +496,6 @@
           #product .prod-thumb { width: 48px !important; height: 48px !important; }
           /* Spec tabs strip — always scrollable, don't wrap */
           #product .spec-tab { padding: 7px 12px !important; font-size: 12px !important; white-space: nowrap; }
-          /* Spec table — use scrollable block display */
-          .spec-panel { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-          .spec-panel table { min-width: 480px; }
-          .spec-panel td { font-size: 12.5px !important; padding: 10px 12px !important; }
-          .spec-panel td:first-child { min-width: 130px; }
           /* Controls panel — button grid 1-col */
           #spec-controls .grid.sm\:grid-cols-2 { grid-template-columns: 1fr !important; }
 
