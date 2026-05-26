@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prosight One Body Worn Camera India — Police-Grade BWC for Law Enforcement &amp; Security</title>
-    <meta name="description" content="Prosight One — 2K body-worn camera for Indian police, CISF, BSF and enterprise security. 12h battery · AES-256 encryption · 4G LTE + GPS · AWS Mumbai. DPDP Act 2023 compliant.">
+    <meta name="description" content="Prosight One — 2K body-worn camera for Indian police, CISF, BSF and enterprise security. Dual 3200 mAh hot-swappable batteries · AES-256 encryption · IP68 · 4G LTE + GPS · AWS Mumbai. DPDP Act 2023 compliant.">
     <meta name="keywords" content="body worn camera India, BWC India, police body camera India, CISF body camera, BSF body camera, enterprise security camera India, Prosight One, body camera law enforcement India, DPDP compliant body camera, body worn camera system">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <meta name="author" content="Prosight Technologies">
@@ -24,7 +24,7 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://prosight360.in/">
     <meta property="og:title" content="Prosight One — Body Worn Camera for Indian Law Enforcement">
-    <meta property="og:description" content="2K body-worn cameras for Indian police, CISF, BSF and enterprise security. 12h battery, AES-256 encryption, AWS Mumbai data residency. DPDP Act 2023 compliant.">
+    <meta property="og:description" content="2K body-worn cameras for Indian police, CISF, BSF and enterprise security. Dual 3200 mAh batteries · IP68 · AES-256 encryption · AWS Mumbai data residency. DPDP Act 2023 compliant.">
     <meta property="og:image" content="https://prosight360.in/og-image.svg">
     <meta property="og:site_name" content="Prosight">
     <meta property="og:locale" content="en_IN">
@@ -427,147 +427,150 @@
 
         /* ---- GLOBAL OVERFLOW GUARD ---- */
         html, body { overflow-x: hidden; max-width: 100vw; }
-        * { box-sizing: border-box; }
+        *, *::before, *::after { box-sizing: border-box; }
 
         @media (max-width: 767px) {
 
           /* == 1. DASHBOARD — robust hide (avoid :has() compat issues) == */
           #dashboard .reveal { display: none !important; }
           .ps-mobile-card { display: block !important; }
-          /* Re-state for safety */
           #dashboard .ps-app { display: none !important; }
 
           /* == 2. HERO SECTION == */
-          /* Stack the two-column grid */
-          #hero .grid.lg\:grid-cols-2 { grid-template-columns: 1fr !important; gap: 36px !important; }
-          /* Product card — fit viewport, reduce float animation breathing room */
-          #hero .relative.max-w-md { max-width: 100% !important; width: 100%; }
-          #hero .rounded-3xl.bg-gradient-to-b { padding: 20px 16px 0 !important; }
+          #hero .grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+          /* Product card float-wrapper */
+          #hero .relative.max-w-md { max-width: 100% !important; }
+          /* Product card inner container */
+          #hero .rounded-3xl { padding: 20px 16px 0 !important; }
+          /* Product image inside card */
           #hero .rounded-3xl img { max-width: 200px !important; }
-          /* Hero text */
+          /* Hero headline */
           #hero h1 { font-size: clamp(28px, 8.5vw, 42px) !important; line-height: 1.1 !important; }
+          /* Hero subtext */
           #hero p.text-lg { font-size: 15px !important; }
-          /* Hide scroll indicator — wastes space on mobile */
+          /* CTA buttons — stack + full width */
+          #hero .flex.flex-col.sm\:flex-row { flex-direction: column !important; gap: 10px !important; }
+          #hero .flex.flex-col.sm\:flex-row a { text-align: center; }
+          /* Hide scroll indicator */
           #hero .absolute.bottom-8 { display: none !important; }
-          /* Hero CTA buttons */
-          #hero .flex.flex-col.sm\:flex-row a { font-size: 14px; padding: 14px 20px; }
-          /* Trust bar */
-          #hero .mt-14 { margin-top: 32px; }
+          /* Trust bar spacing */
+          #hero .mt-14 { margin-top: 28px !important; }
 
           /* == 3. FEATURES SECTION == */
-          /* 1-col on phones (sm: breakpoint is 640px — phones 375-639 get 1 col, fine) */
-          #features .rounded-2xl.p-8 { padding: 24px 20px !important; }
-          #features .rounded-2xl.p-8.lg\:p-10 { padding: 24px 20px !important; }
-          /* Section heading */
-          #features h2 { font-size: clamp(24px, 7vw, 32px) !important; }
+          #features h2 { font-size: clamp(22px, 7vw, 30px) !important; }
+          /* Card padding reduction (applies to all 4 feature cards) */
+          #features .card-hover { padding: 22px 18px !important; }
 
-          /* == 4. IN-THE-FIELD SECTION 1 == */
-          #in-the-field .max-w-2xl { max-width: 100%; }
-          #in-the-field h2 { font-size: clamp(26px, 7.5vw, 38px) !important; }
-          #in-the-field p { font-size: 15px !important; max-width: 100%; }
+          /* == 4. IN-THE-FIELD SECTION 1 (hero full-bleed) == */
+          #in-the-field h2 { font-size: clamp(24px, 7.5vw, 36px) !important; }
           #in-the-field .flex.flex-wrap.gap-4 { flex-direction: column; gap: 10px !important; }
-          #in-the-field .flex.flex-wrap.gap-4 a { text-align: center; width: 100%; }
+          #in-the-field .flex.flex-wrap.gap-4 a { text-align: center; width: 100%; justify-content: center; }
 
-          /* == 5. IN-THE-FIELD SECTION 2 (enterprise/border) == */
-          section.relative.bg-offwhite.py-20 .grid.lg\:grid-cols-2 { grid-template-columns: 1fr !important; gap: 28px !important; }
-          section.relative.bg-offwhite.py-20 .order-2.lg\:order-1 { order: 2 !important; }
-          section.relative.bg-offwhite.py-20 .order-1.lg\:order-2 { order: 1 !important; }
-          section.relative.bg-offwhite.py-20 h2 { font-size: clamp(24px, 7vw, 34px) !important; }
-          /* Keep image aspect ratio reasonable on mobile */
-          section.relative.bg-offwhite.py-20 .aspect-\[4\/5\] { aspect-ratio: 16/10 !important; }
+          /* == 5. IN-THE-FIELD SECTION 2 (enterprise/border grid) == */
+          #in-the-field ~ section .grid.lg\:grid-cols-2 { grid-template-columns: 1fr !important; gap: 24px !important; }
+          /* Fix image aspect-ratio — 4:5 portrait is too tall on mobile */
+          #in-the-field ~ section [class*="aspect-[4"] { aspect-ratio: 16 / 9 !important; }
+          #in-the-field ~ section h2 { font-size: clamp(22px, 7vw, 30px) !important; }
 
           /* == 6. IN-THE-FIELD SECTION 3 (court-admissible) — FIX RIGHT-ALIGN == */
-          .h-\[70vh\] .flex.items-center.justify-end { justify-content: flex-start !important; }
-          .h-\[70vh\] .max-w-xl.text-right { text-align: left !important; max-width: 100%; padding: 0 4px; }
-          .h-\[70vh\] .flex.flex-wrap.gap-3.justify-end { justify-content: flex-start !important; }
-          .h-\[70vh\] h2 { font-size: clamp(24px, 7vw, 34px) !important; }
+          .h-\[70vh\] .flex.items-center.justify-end { justify-content: flex-start !important; padding-right: 0 !important; }
+          .h-\[70vh\] .text-right { text-align: left !important; }
+          .h-\[70vh\] .max-w-xl { max-width: 100% !important; padding: 0 !important; }
+          .h-\[70vh\] .flex.flex-wrap.justify-end { justify-content: flex-start !important; }
+          .h-\[70vh\] h2 { font-size: clamp(22px, 7vw, 30px) !important; }
 
           /* == 7. STAT STRIP == */
-          .grid.grid-cols-2.lg\:grid-cols-4 .text-3xl { font-size: 26px !important; }
+          .grid.grid-cols-2.lg\:grid-cols-4 .text-3xl,
+          .grid.grid-cols-2.lg\:grid-cols-4 .text-4xl { font-size: 24px !important; }
 
-          /* == 8. PRODUCT SECTION == */
-          /* Inner hero card — reduce heavy padding */
-          #product .bg-grey-100.rounded-2xl { padding: 20px 16px !important; }
-          /* Heading size */
-          #product h3.text-3xl, #product h3.text-4xl { font-size: 24px !important; }
-          /* Product spec tab bar always scrollable */
-          #product .flex.gap-2.mb-6 { padding-bottom: 8px; -webkit-overflow-scrolling: touch; }
-          /* Table cells wrap on mobile */
-          #product table { white-space: nowrap; }
-          #product table td { font-size: 12.5px !important; padding: 10px 12px !important; }
+          /* == 8. PRODUCT SECTION — hero card, image, spec tables == */
+          /* Sidebar sidebar stacks already via existing rules */
+          /* Hero card — reduce padding (the card has classes: bg-grey-100 rounded-2xl p-8 lg:p-12 mb-8) */
+          #product-m530 .bg-grey-100.rounded-2xl { padding: 20px 16px !important; }
+          /* Heading inside product card */
+          #product h3 { font-size: 22px !important; }
+          /* Mini-stats row (grid-cols-4 → 2×2 already handled, reduce gap) */
+          #product .grid.grid-cols-4 { gap: 8px !important; }
+          /* Tag badges */
+          #product .flex.flex-wrap.gap-2 span { font-size: 10px !important; padding: 4px 8px !important; }
+          /* Image gallery — reduce thumbnail size on mobile */
+          #product .prod-thumb { width: 48px !important; height: 48px !important; }
+          /* Spec tabs strip — always scrollable, don't wrap */
+          #product .spec-tab { padding: 7px 12px !important; font-size: 12px !important; white-space: nowrap; }
+          /* Spec table — use scrollable block display */
+          .spec-panel { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+          .spec-panel table { min-width: 480px; }
+          .spec-panel td { font-size: 12.5px !important; padding: 10px 12px !important; }
+          .spec-panel td:first-child { min-width: 130px; }
+          /* Controls panel — button grid 1-col */
+          #spec-controls .grid.sm\:grid-cols-2 { grid-template-columns: 1fr !important; }
 
-          /* == 9. WHY PROSIGHT — dark card stats FIX OVERFLOW == */
-          /* The 3-stat flex row: wrap onto 2 lines */
+          /* == 9. WHY PROSIGHT DARK CARD — fix stat overflow == */
+          #why-prosight [style*="padding: 48px"] { padding: 28px 20px !important; }
           #why-prosight .flex.gap-8.flex-shrink-0 {
-            flex-wrap: wrap !important;
-            gap: 12px 20px !important;
-            flex-shrink: unset !important;
-            justify-content: flex-start !important;
+            flex-wrap: wrap !important; flex-shrink: unset !important;
+            gap: 12px 24px !important; justify-content: flex-start !important;
           }
-          #why-prosight .flex.gap-8.flex-shrink-0 .text-center {
-            flex: 1 1 calc(33% - 20px);
-            min-width: 80px;
-          }
-          /* Dark card padding */
-          #why-prosight [style*="padding: 48px 40px"] { padding: 28px 20px !important; }
+          #why-prosight .flex.gap-8.flex-shrink-0 > div { min-width: 80px; flex: 0 0 auto; }
+          #why-prosight .card-hover { padding: 20px 16px !important; }
+          #why-prosight .text-2xl { font-size: 20px !important; }
 
-          /* Why prosight 4 feature cards — 2 cols already handled, reduce padding */
-          #why-prosight .rounded-2xl.p-7 { padding: 20px 16px !important; }
+          /* == 10. INDIA CONTEXT == */
+          #india-context .grid.lg\:grid-cols-2,
+          section.bg-white .grid.lg\:grid-cols-2 { grid-template-columns: 1fr !important; gap: 24px !important; }
+          /* Stat boxes inside india context */
+          section.bg-white .grid.grid-cols-2 .rounded-2xl.p-6 { padding: 14px !important; }
+          section.bg-white .grid.grid-cols-2 .text-4xl { font-size: 22px !important; }
 
-          /* == 10. INDIA CONTEXT SECTION == */
-          section.py-24.bg-white .grid.lg\:grid-cols-2 { grid-template-columns: 1fr !important; gap: 28px !important; }
-          section.py-24.bg-white h2 { font-size: clamp(24px, 7vw, 34px) !important; }
-          /* India stat boxes — already 2×2 grid, just tighten padding */
-          section.py-24.bg-white .grid.grid-cols-2 .rounded-2xl { padding: 16px !important; }
-          section.py-24.bg-white .grid.grid-cols-2 .text-3xl { font-size: 22px !important; }
+          /* == 11. ANALYTICS == */
+          #analytics h2 { font-size: clamp(22px, 7vw, 30px) !important; }
+          #analytics .card-hover.p-8 { padding: 20px 16px !important; }
 
-          /* == 11. ANALYTICS SECTION == */
-          #analytics h2 { font-size: clamp(24px, 7vw, 34px) !important; }
-          #analytics .rounded-2xl.p-8 { padding: 20px 16px !important; }
-
-          /* == 12. CTA SECTION == */
-          #demo .flex.flex-col.sm\:flex-row { gap: 12px !important; }
-          #demo a { font-size: 15px !important; padding: 14px 24px !important; }
+          /* == 12. DEMO CTA SECTION == */
+          #demo h2 { font-size: clamp(26px, 9vw, 40px) !important; }
+          #demo p.text-lg { font-size: 15px !important; max-width: 100% !important; }
+          #demo .flex.flex-col.sm\:flex-row { flex-direction: column !important; gap: 10px !important; }
+          #demo .flex.flex-col.sm\:flex-row a { width: 100% !important; text-align: center !important; padding: 14px 20px !important; font-size: 15px !important; }
 
           /* == 13. FOOTER == */
-          footer .grid.sm\:grid-cols-2 { grid-template-columns: 1fr !important; gap: 24px !important; }
-          footer .mt-12 { margin-top: 32px; }
+          footer .grid.sm\:grid-cols-2.lg\:grid-cols-4 { grid-template-columns: 1fr !important; gap: 24px !important; }
+          footer .sm\:col-span-2.lg\:col-span-1 { grid-column: 1 !important; }
+          footer .mt-12 { margin-top: 28px !important; }
+          footer .flex.flex-col.sm\:flex-row { flex-direction: column !important; gap: 8px !important; text-align: center !important; }
 
-          /* == 14. GENERAL HEADING SIZE CLAMP == */
-          section h2.text-3xl { font-size: clamp(22px, 6.5vw, 30px) !important; }
-          section h2.text-4xl { font-size: clamp(24px, 7.5vw, 36px) !important; }
+          /* == 14. SECTION HEADING CLAMP (catch-all) == */
+          section h2 { word-break: break-word; hyphens: auto; }
 
         }
 
         /* ---- TABLET (768px — 1023px) ---- */
         @media (min-width: 768px) and (max-width: 1023px) {
 
-          /* == FEATURES: 2-col on tablet (sm:grid-cols-2 already covers this) == */
+          /* Features: 2-col */
           #features .grid { grid-template-columns: repeat(2, 1fr) !important; }
 
-          /* == IN-THE-FIELD SEC 3 — slight text-right fix on narrow tablet == */
-          .h-\[70vh\] .max-w-xl { max-width: 65%; }
+          /* Section 3 — right-align OK on tablet, just reduce text */
+          .h-\[70vh\] h2 { font-size: clamp(24px, 4vw, 38px) !important; }
 
-          /* == PRODUCT SECTION == */
-          #product .bg-grey-100.rounded-2xl { padding: 28px 24px !important; }
+          /* Product section — tighten inner card padding */
+          #product-m530 .bg-grey-100.rounded-2xl { padding: 28px 24px !important; }
 
-          /* == WHY PROSIGHT DARK CARD STATS — prevent overflow on tablet too == */
+          /* Why Prosight dark card stat row */
           #why-prosight .flex.gap-8.flex-shrink-0 {
-            flex-wrap: wrap !important;
-            gap: 16px 28px !important;
+            flex-wrap: wrap !important; gap: 16px 28px !important;
           }
 
-          /* == INDIA CONTEXT 2-col == */
-          section.py-24.bg-white .grid.lg\:grid-cols-2 { grid-template-columns: 1fr !important; gap: 36px !important; }
+          /* India context — stack on tablet too */
+          section.bg-white .grid.lg\:grid-cols-2 { grid-template-columns: 1fr !important; gap: 32px !important; }
 
-          /* == ANALYTICS — 2-col on tablet (already handled, restate) == */
+          /* Analytics — 2-col */
           #analytics .grid.lg\:grid-cols-3 { grid-template-columns: repeat(2, 1fr) !important; }
-          #analytics .grid.lg\:grid-cols-3 > :last-child { grid-column: 1 / -1; max-width: 480px; margin: 0 auto; width: 100%; }
+          #analytics .grid.lg\:grid-cols-3 > :last-child { grid-column: 1 / -1; max-width: 480px; margin: 0 auto; }
 
-          /* == WHY PROSIGHT 4-cards: 2-col on tablet == */
-          #why-prosight .grid.sm\:grid-cols-2.lg\:grid-cols-4 { grid-template-columns: repeat(2, 1fr) !important; }
+          /* Why Prosight 4-cards: 2-col */
+          #why-prosight .grid { grid-template-columns: repeat(2, 1fr) !important; }
 
-          /* == CTA == */
+          /* Demo CTA heading */
           #demo h2 { font-size: clamp(32px, 5vw, 52px) !important; }
         }
     </style>

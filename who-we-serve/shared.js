@@ -8,7 +8,7 @@
 
   // Inject modal CSS once — ensures modals work on pages that don't load shared.css (e.g. homepage)
   const MODAL_CSS = `
-    .ps-modal-backdrop { position: fixed; inset: 0; z-index: 200; background: rgba(10,14,20,0.55); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); display: none; align-items: flex-start; justify-content: center; padding: 60px 20px 40px; overflow-y: auto; font-family: 'Sora', system-ui, -apple-system, sans-serif; }
+    .ps-modal-backdrop { position: fixed; inset: 0; z-index: 200; background: rgba(10,14,20,0.55); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); display: none; align-items: flex-start; justify-content: center; padding: 60px 20px 40px; overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; font-family: 'Sora', system-ui, -apple-system, sans-serif; }
     .ps-modal-backdrop.is-open { display: flex; animation: psModalFade .18s ease-out; }
     @keyframes psModalFade { from { opacity: 0; } to { opacity: 1; } }
     .ps-modal { position: relative; background: #fff; border-radius: 16px; width: 100%; max-width: 560px; padding: 36px 36px 32px; box-shadow: 0 30px 80px rgba(0,0,0,0.24); animation: psModalRise .22s cubic-bezier(.2,.9,.3,1.2); color: #0A0A0A; }
@@ -46,13 +46,20 @@
     .ps-form__thanks p { font-size: 14px; color: #5A5A5A; line-height: 1.55; }
     .ps-form__thanks a { color: #0066FF; font-weight: 500; text-decoration: none; }
     @media (max-width: 640px) {
-      .ps-modal-backdrop { padding: 0; align-items: stretch; }
-      .ps-modal { max-width: none !important; border-radius: 0; padding: 28px 22px 40px; min-height: 100%; }
-      .ps-modal__h { font-size: 22px; }
+      .ps-modal-backdrop { padding: 0; align-items: stretch; -webkit-overflow-scrolling: touch; }
+      .ps-modal { max-width: none !important; border-radius: 0; padding: 28px 22px 40px; min-height: 100%; min-height: 100dvh; }
+      .ps-modal__close { top: 12px; right: 12px; width: 36px; height: 36px; font-size: 20px; }
+      .ps-modal__h { font-size: 21px; }
+      .ps-modal__sub { font-size: 13px; margin-bottom: 16px; }
       .ps-form__row { grid-template-columns: 1fr; }
+      .ps-field input, .ps-field select, .ps-field textarea { font-size: 16px; } /* prevent iOS zoom */
       .ps-form__foot { flex-direction: column; align-items: stretch; }
-      .ps-form__foot .ps-btn { width: 100%; }
-      .ps-form__tiny { max-width: none; }
+      .ps-form__foot .ps-btn { width: 100%; padding: 13px 20px; font-size: 14px; }
+      .ps-form__tiny { max-width: none; font-size: 11px; }
+      .ps-btn { touch-action: manipulation; }
+      .ps-contact-row { padding: 12px 14px; }
+      .ps-modal__foot { text-align: center; }
+      .ps-modal__foot .ps-btn { width: 100%; }
     }`;
   if (!document.getElementById('ps-modal-css')) {
     const st = document.createElement('style');
