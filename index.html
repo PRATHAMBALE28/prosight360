@@ -292,7 +292,7 @@
           .grid.grid-cols-2.sm\:grid-cols-4 .text-3xl { font-size: 22px !important; }
 
           /* Product section — sidebar stacks above product panel, both full width */
-          #product .grid.lg\:grid-cols-12 { gap: 18px !important; }
+          #product .grid.lg\:grid-cols-12 { grid-template-columns: minmax(0, 1fr) !important; gap: 18px !important; }
           #product .product-sidebar { width: 100% !important; }
           #product .product-sidebar .lg\:sticky { position: static !important; display: grid; grid-template-columns: 1fr; gap: 6px; }
           #product .product-nav-btn { padding: 12px 14px !important; }
@@ -336,7 +336,7 @@
           section.h-\[70vh\] { height: 55vh !important; min-height: 380px; }
 
           /* Product section — sidebar stacks on top at tablet */
-          #product .grid.lg\:grid-cols-12 { grid-template-columns: 1fr !important; gap: 24px; }
+          #product .grid.lg\:grid-cols-12 { grid-template-columns: minmax(0, 1fr) !important; gap: 24px; }
           #product .product-sidebar { width: 100% !important; }
           #product .product-sidebar .lg\:sticky { position: static !important; display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
           #product .product-nav-btn { padding: 12px 14px !important; }
@@ -416,8 +416,8 @@
           /* Product mini-stats grid — 2 cols */
           #product .grid.grid-cols-4 { grid-template-columns: repeat(2, 1fr) !important; gap: 12px !important; }
 
-          /* Why prosight 4-card grid — 2 cols */
-          .grid.sm\:grid-cols-2.lg\:grid-cols-4 { grid-template-columns: repeat(2, 1fr) !important; }
+          /* Why Prosight 4-card grid — 2 cols on mobile */
+          #why-prosight .grid.sm\:grid-cols-2.lg\:grid-cols-4 { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
         }
 
         /* ============================================================
@@ -455,9 +455,9 @@
           /* Trust bar spacing */
           #hero .mt-14 { margin-top: 28px !important; }
 
-          /* == 3. FEATURES SECTION == */
+          /* == 3. FEATURES SECTION — single column on mobile (cards too rich for 2-col at 152px) == */
           #features h2 { font-size: clamp(22px, 7vw, 30px) !important; }
-          /* Card padding reduction (applies to all 4 feature cards) */
+          #features .grid { grid-template-columns: 1fr !important; }
           #features .card-hover { padding: 22px 18px !important; }
 
           /* == 4. IN-THE-FIELD SECTION 1 (hero full-bleed) == */
